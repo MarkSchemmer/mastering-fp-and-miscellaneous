@@ -47,3 +47,11 @@ export const myRFilter = (arr1, fn) => {
 
     return myInnerRFilter([], 0);
 };
+
+export const myRecReduce = (arr1, fn, source) => {
+    const myInnerRecReduce = (arr, idx, sc) => {
+        return idx === arr1.length ? sc : (sc = fn(sc, arr[idx], idx, arr1), myInnerRecReduce(arr, idx + 1, sc));
+    };
+
+    return myInnerRecReduce(arr1, 0, source);
+};

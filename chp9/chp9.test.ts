@@ -1,6 +1,6 @@
 
 import { range } from "../chp5/chp5-questions.test";
-import { contains, powerN, functionalQuickSort, myRMap, myRFilter } from "./chp9";
+import { contains, powerN, functionalQuickSort, myRMap, myRFilter, myRecReduce } from "./chp9";
 
 
 describe("chp9 testing contains ", () => {
@@ -64,11 +64,14 @@ describe("Testing custom higher order functions: ", () => {
         expect(res).toStrictEqual([1, 3]);
     });
 
-//     it("Testing myRecReduce: ", () => {
-//         const dummySet = [1, 2, 3];
-//         const res = myRecReduce(dummySet, (acc, cur) => acc + cur, 0);
-//         expect(res).toBe(6);
-//     });
+    it("Testing myRecReduce: ", () => {
+        const dummySet = [1, 2, 3];
+        const res = myRecReduce(dummySet, (acc, cur) => acc + cur, 0);
+        expect(res).toBe(6);
+
+        const res2 = myRecReduce(dummySet, (acc, cur) => acc.concat(cur), []);
+        expect(res2).toStrictEqual(dummySet);
+    });
 
 //     it("Testing myRFind: ", () => {
 //         const dummySet = [1, 2, 4, 5, 1000];
