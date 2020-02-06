@@ -1,6 +1,6 @@
 
 import { range } from "../chp5/chp5-questions.test";
-import { contains, powerN, functionalQuickSort, myRMap, myRFilter, myRecReduce } from "./chp9";
+import { contains, powerN, functionalQuickSort, myRMap, myRFilter, myRecReduce, myRFind, myRPipeLine, myRSome, myREvery } from "./chp9";
 
 
 describe("chp9 testing contains ", () => {
@@ -73,26 +73,31 @@ describe("Testing custom higher order functions: ", () => {
         expect(res2).toStrictEqual(dummySet);
     });
 
-//     it("Testing myRFind: ", () => {
-//         const dummySet = [1, 2, 4, 5, 1000];
-//         const res = myRFind(dummySet, 1000);
-//         expect(res).toBe(1000);
-//         expect(myRFind(dummySet, -1)).toBe(undefined);
-//     });
+    it("Testing myRFind: ", () => {
+        const dummySet = [1, 2, 4, 5, 1000];
+        const res = myRFind(dummySet, 1000);
+        expect(res).toBe(1000);
+        expect(myRFind(dummySet, -1)).toBe(undefined);
+    });
 
-//     it("Testing myRPipeLine: ", () => {
-//         const plusTen = n => n + 10;
-//         const double = n => n * 2;
+    it("Testing myRPipeLine: ", () => {
+        const plusTen = n => n + 10;
+        const double = n => n * 2;
 
-//         const res = myRPipeLine(
-//             plusTen,
-//             plusTen,
-//             double,
-//             double,
-//             n => n - 5,
-//             plusTen
-//         )(10);
-//         eightQueensPuzzle();
-//         expect(res).toBe(125);
-//     });
+        const res = myRPipeLine(
+            plusTen,
+            plusTen,
+            double,
+            double,
+            n => n - 5,
+            plusTen
+        )(10);
+        expect(res).toBe(125);
+    });
+
+    it("Testing some and every: ", () => {
+        const dummySet = [2, 4, 6];
+        expect(myRSome(dummySet.concat(7), n => n % 2 !== 0)).toBe(true);
+        expect(myREvery(dummySet, n => n % 2 === 0)).toBe(true);
+    });
 });

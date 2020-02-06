@@ -55,3 +55,31 @@ export const myRecReduce = (arr1, fn, source) => {
 
     return myInnerRecReduce(arr1, 0, source);
 };
+
+export const myRFind = (arr1, key) => {
+    const myInnerRFind = (arr) => {
+        return arr.length === 0 ? undefined : arr[0] === key ? arr[0] : myInnerRFind(arr.slice(1));
+    };
+
+    return myInnerRFind(arr1);
+};
+
+export const myRPipeLine = (first?, ...rest) => {
+    return rest.length === 0 ? first : (...args) => myRPipeLine(...rest)(first(...args));
+};
+
+export const myRSome = (arr1, fn) => {
+    const myInnerRSome = (arr, idx = 0) => {
+        return arr.length === 0 ? false : fn(arr[0], idx) ? true : myInnerRSome(arr.slice(1), idx + 1);
+    };
+
+    return myInnerRSome(arr1);
+};
+
+export const myREvery = (arr1, fn) => {
+    const myInnerREvery = (arr, idx = 0) => {
+        return arr.length === 0 ? true : fn(arr[0], idx) ? myInnerREvery(arr.slice(1), idx + 1) : false;
+    };
+
+    return myInnerREvery(arr1);
+}
