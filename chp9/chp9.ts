@@ -1,6 +1,9 @@
+import { range } from "../chp5/chp5-questions.test";
+import { isNullOrUndefined } from "../utils";
+
 // Have to redo everything
 // a: redo the recursive hanoi disks 
-// b: Implement -> map, contains, filter, reduce, find, every, some, powerN, myRPipeLine
+// b: Implement -> map, contains, filter, reduce, find, every, some, powerN, myRPipeLine -> done
 // c: Implement html dom
 // d: Implement searching file structure 
 // e: Implement -> hanoi disks iterative version
@@ -82,4 +85,66 @@ export const myREvery = (arr1, fn) => {
     };
 
     return myInnerREvery(arr1);
+};
+
+// Towers of hanoi iterative version
+
+export class Hanoi {
+    public source = [];
+    public auxillary = [];
+    public destination = [];
+    public numberOfDisks = null;
+    public totalMoves = null;
+
+    private board = [
+        this.source,
+        this.auxillary,
+        this.destination
+    ];
+
+    constructor(n) {
+        this.board[0] = range(1, n);
+        this.numberOfDisks = n;
+        this.totalMoves = Math.pow(2, n) - 1;
+    }
+
+    private validMove = (diskPole1, diskPole2) => {
+        const diskOnPole1 = diskPole1[0], diskOnPole2 = diskPole2[0];
+
+        if (isNullOrUndefined(diskOnPole1)) {
+            diskPole1.unshift(diskPole2.shift());
+        } else if (isNullOrUndefined(diskOnPole2)) {
+            diskPole2.unshift(diskPole1.shift());
+        } else if (diskOnPole1 < diskOnPole2) {
+            diskPole2.unshift(diskPole1.shift());
+        } else {
+            diskPole1.unshift(diskPole2.shift());
+        }
+    }
+
+    public makeAllMoves = () => {
+
+        const isDiskEven = isEven(this.numberOfDisks);
+        for (let i = 1; i <= this.totalMoves; i++) {
+            const [ source, auxillary, destination ] = this.board;
+            if (!isDiskEven) {
+                if (i % 3 === 1) { this.validMove(source, destination); }
+
+                if (i % 3 === 2) { this.validMove(source, auxillary); }
+
+                if (i % 3 === 0) { this.validMove(auxillary, destination); }
+
+            } else {
+                if (i % 3 === 1) { this.validMove(source, auxillary); }
+
+                if (i % 3 === 2) { this.validMove(source, destination); }
+
+                if (i % 3 === 0) { this.validMove(destination, auxillary); }
+            }
+        }
+
+
+        return this.board;
+    }
 }
+

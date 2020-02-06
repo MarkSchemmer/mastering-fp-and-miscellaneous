@@ -1,6 +1,6 @@
 
 import { range } from "../chp5/chp5-questions.test";
-import { contains, powerN, functionalQuickSort, myRMap, myRFilter, myRecReduce, myRFind, myRPipeLine, myRSome, myREvery } from "./chp9";
+import { contains, powerN, functionalQuickSort, myRMap, myRFilter, myRecReduce, myRFind, myRPipeLine, myRSome, myREvery, Hanoi } from "./chp9";
 
 
 describe("chp9 testing contains ", () => {
@@ -26,20 +26,21 @@ describe("chp9 testing contains ", () => {
     });
 });
 
-// describe("Testing Tower of hanoi... ", () => {
+ describe("Testing Tower of hanoi... ", () => {
 
-//     it("Testing completeSolve: ", () => {
-//         const hanoi = new Hanoi(7);
-//         hanoi.makeAllMoves();
-//         expect(hanoi.board).toStrictEqual([ [], [], [1, 2, 3, 4, 5, 6, 7]]);
-//     });
+    it("Testing completeSolve: ", () => {
+        const hanoi = new Hanoi(3);
+        const res = hanoi.makeAllMoves()
+        console.log(res);
+        expect(res).toStrictEqual([ [], [], [1, 2, 3]]);
+    });
 
-//     it("cna it work for 64 disks?: ", () => {
-//         const hanoi = new Hanoi(8);
-//         hanoi.makeAllMoves();
-//         expect(hanoi.board).toStrictEqual([ [], [], range(1, 8) ]);
-//     })
-// });
+    it("cna it work for 64 disks?: ", () => {
+        const hanoi = new Hanoi(8);
+        const res = hanoi.makeAllMoves();
+        expect(res).toStrictEqual([ [], [], range(1, 8) ]);
+    })
+ });
 
 describe("Testing custom higher order functions: ", () => {
 //     it("Testing paybills ", () => {
