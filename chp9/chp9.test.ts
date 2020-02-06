@@ -1,6 +1,7 @@
 
 import { range } from "../chp5/chp5-questions.test";
-import { contains, powerN, functionalQuickSort, myRMap, myRFilter, myRecReduce, myRFind, myRPipeLine, myRSome, myREvery, Hanoi } from "./chp9";
+import { contains, powerN, functionalQuickSort, myRMap, myRFilter,
+     myRecReduce, myRFind, myRPipeLine, myRSome, myREvery, Hanoi } from "./chp9";
 
 
 describe("chp9 testing contains ", () => {
@@ -43,12 +44,6 @@ describe("chp9 testing contains ", () => {
  });
 
 describe("Testing custom higher order functions: ", () => {
-//     it("Testing paybills ", () => {
-//         const dummySet = [100, 50, 20, 10, 5, 2, 1];
-//         const res = howManyWaysToPayABill(64, dummySet);
-//         expect(res).toBe(969);
-//     });
-
     it("Testing myRMap: ", () => {
         const dummySet = [1, 2, 3];
         const res = myRMap(dummySet, a => a * 2);

@@ -6,7 +6,7 @@ import { isNullOrUndefined } from "../utils";
 // b: Implement -> map, contains, filter, reduce, find, every, some, powerN, myRPipeLine -> done
 // c: Implement html dom
 // d: Implement searching file structure 
-// e: Implement -> hanoi disks iterative version
+// e: Implement -> hanoi disks iterative version -> done
 // f: Implement -> thunk and trampoline
 // g: Then finally do all questions at the end of this chapter
 // h: 
@@ -125,6 +125,7 @@ export class Hanoi {
     public makeAllMoves = () => {
 
         const isDiskEven = isEven(this.numberOfDisks);
+
         for (let i = 1; i <= this.totalMoves; i++) {
             const [ source, auxillary, destination ] = this.board;
             if (!isDiskEven) {
@@ -143,8 +144,6 @@ export class Hanoi {
             }
         }
 
-
         return this.board;
     }
 }
-
