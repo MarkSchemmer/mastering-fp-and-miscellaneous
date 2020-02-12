@@ -1,7 +1,7 @@
 
 import { range } from "../chp5/chp5-questions.test";
 import { contains, powerN, functionalQuickSort, myRMap, myRFilter,
-     myRecReduce, myRFind, myRPipeLine, myRSome, myREvery, Hanoi } from "./chp9";
+     myRecReduce, myRFind, myRPipeLine, myRSome, myREvery, Hanoi, readFiles } from "./chp9";
 
 
 describe("chp9 testing contains ", () => {
@@ -32,7 +32,7 @@ describe("chp9 testing contains ", () => {
     it("Testing completeSolve: ", () => {
         const hanoi = new Hanoi(3);
         const res = hanoi.makeAllMoves()
-        console.log(res);
+        // console.log(res);
         expect(res).toStrictEqual([ [], [], [1, 2, 3]]);
     });
 
@@ -95,5 +95,10 @@ describe("Testing custom higher order functions: ", () => {
         const dummySet = [2, 4, 6];
         expect(myRSome(dummySet.concat(7), n => n % 2 !== 0)).toBe(true);
         expect(myREvery(dummySet, n => n % 2 === 0)).toBe(true);
+    });
+
+    it("Test file search: ", () => {
+        const res = readFiles();
+        expect(res).toBe(31);
     });
 });

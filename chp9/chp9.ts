@@ -147,3 +147,26 @@ export class Hanoi {
         return this.board;
     }
 }
+
+// Iterating file structure
+const defaultPath = "D:\\My_Files\\courses\\mastering-fp"
+
+export const readFiles = (path: string = defaultPath, history = []) => {
+    const fs = require("fs");
+    const files = fs.readdirSync(path);
+    files.forEach(file => {
+        const newPath = path + "\\" + file;
+        if (file.startsWith(".")) {
+            history.push(file);
+        } else if (fs.lstatSync(newPath).isDirectory() && file !== "node_modules") {
+            readFiles(newPath, history);
+        } else {
+            history.push(file);
+        }
+    });
+    console.log(history);
+    return history.length;
+};
+
+// Iterating dom
+// Then onto question of end of chapter
