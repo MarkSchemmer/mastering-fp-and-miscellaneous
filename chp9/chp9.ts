@@ -149,7 +149,7 @@ export class Hanoi {
 }
 
 // Iterating file structure
-const defaultPath = "D:\\My_Files\\courses\\mastering-fp"
+export const defaultPath = "D:\\My_Files\\courses\\mastering-fp"
 
 export const readFiles = (path: string = defaultPath, history = []) => {
     const fs = require("fs");
@@ -169,4 +169,13 @@ export const readFiles = (path: string = defaultPath, history = []) => {
 };
 
 // Iterating dom
+export const iteratingTheDOM = (node, depth = 0) => {
+    console.log("| ".repeat(depth) + "<" + node.nodeName + ">");
+    [ ...node.children ].forEach(node => {
+        iteratingTheDOM(node, depth + 1);
+    });
+};
+
 // Then onto question of end of chapter
+// Need to solve soduku puzzle
+// 
