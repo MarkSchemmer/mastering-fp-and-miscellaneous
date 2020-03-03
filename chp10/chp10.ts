@@ -23,10 +23,16 @@ export const deepClone = obj => {
     let aux = obj;
     if (obj && typeof obj === "object") {
         aux = { ...obj };
-        Object.getOwnPropertyNames(prop => {
+        Object.getOwnPropertyNames(aux).forEach(prop => {
             aux[prop] = deepClone(aux[prop]);
         });
     } 
 
     return aux;
+};
+
+export const getAttr = (path, obj) => {
+    return path.length === 1 && path[0] in obj 
+           ? obj[path[0]] : path[0] in obj 
+           ?  getAttr(path.slice(1), obj[path[0]]) : undefined;
 };
