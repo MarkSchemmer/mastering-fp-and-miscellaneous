@@ -33,6 +33,24 @@ export const deepClone = obj => {
 
 export const getAttr = (path, obj) => {
     return path.length === 1 && path[0] in obj 
-           ? obj[path[0]] : path[0] in obj 
+           ? deepClone(obj[path[0]]) : path[0] in obj 
            ?  getAttr(path.slice(1), obj[path[0]]) : undefined;
+};
+
+export const setPropByPath = (path, item, obj) => {
+    const findAttrAndSetVal = (p, i, o) => {
+        return p.length === 1 && path[0] in o
+               ? (o[path[0]] = i, true) 
+               : path[0] in o
+               ? findAttrAndSetVal(p.slice(1), i, o[path[0]])
+               : false; 
+    };
+
+    return findAttrAndSetVal(path, item, obj);
+};
+
+export const updateObject = (path, obj, value) => {
+    const clone = deepClone(obj);
+    const val = setPropByPath(path, clone, value);
+    return deepFreeze(clone);
 };
