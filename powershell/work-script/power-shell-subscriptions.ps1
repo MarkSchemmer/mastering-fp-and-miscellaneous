@@ -57,6 +57,15 @@ param (
     [string]$filePathWithName, [string]$fileDestinationOutPut
 )
 
+
+function filterRoleDefinitionName ($roleDefinitionName) {
+    $roleDefinitions = @(
+        "", "", "", ""
+    )
+
+    return @($roleDefinitions | Where-Object { $roleDefinitionName -like $_ }).Count -eq 0
+}
+
 $isLoggedIn = Get-AzureRmSubscription
 
 if (-not $isLoggedIn) { Add-AzureRmAccount } 
@@ -69,16 +78,16 @@ foreach ($item in $source) {
 
     Write-Verbose -Message "Changing to Subscription $($item.Name)" -Verbose 
 
-    Select-AzureRmSubscription -TenantId $item.TenantId -Name $item.Id -Force 
-    
-    $Name     = $item.Name
-    $TenantId = $item.TenantId 
+    # why do we need line 73
+    Select-AzureRmSubscription -TenantId $item.TenantId -Name $item.Id -Force  
+    $Name     = $_.Name 
+    $TenantId = $_.TenantId 
 
     Get-AzureRmRoleAssignment -IncludeClassicAdministrators `
-    | Select-Object RoleDefinitionName, DisplayName, SignInName, ObjectType, Scope, ` 
-    @{ name='TenantId'; expression = {$TenantId} } ,@{ name='SubscriptionName'; expression = {$Name} } -OutVariable ra 
+    | Select-Object RoleDefinitionName, DisplayName, SignInName, ObjectType, Scope, `
+    @{name='TenantId';expression = {$TenantId}},@{name='SubscriptionName';expression = {$Name}} -OutVariable ra
 
     $ra | ForEach-Object { $accumulator += $_ }
 }
 
-$accumulator | Export-Csv -Path $fileDestinationOutPut
+$accumulator | Where-Object { filterRoleDefinitionName $_.RoleDefinitionName } | Export-Csv -Path $fileDestinationOutPut
