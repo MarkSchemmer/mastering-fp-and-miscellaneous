@@ -59,7 +59,7 @@ foreach ($item in $source) {
 
     Get-AzureRmRoleAssignment -IncludeClassicAdministrators `
     | Select-Object RoleDefinitionName, DisplayName, SignInName, ObjectType, Scope, `
-        @{name='TenantId'; expression = {$TenantId}}, @{name='SubscriptionName'; expression = {$Name}} `
+        @{name = 'TenantId'; expression = {$TenantId}}, @{name = 'SubscriptionName'; expression = {$Name}} `
     | ForEach-Object { $accumulator += $_ }
 }
 
