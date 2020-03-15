@@ -7,9 +7,7 @@ function Get-SumOfPositive($NumberArray) {
     | ForEach-Object -Begin { $total = 0 } -Process { $total += $_ } -End { $total }
 }
 
-
 Get-SumOfPositive $test
-
 
 function ExpressionMatter([int] $a, [int] $b, [int] $c) {
     return (
@@ -20,4 +18,15 @@ function ExpressionMatter([int] $a, [int] $b, [int] $c) {
               (($a + $b) * $c)) `
               | Measure-Object -Maximum
             ).Maximum
+}
+
+# d === divisor, b === bound
+function MaxMultiple([int] $d, [int] $b) {
+    $originalDivisor = $d 
+    while ($d -lt $b) {
+      if ($d + $originalDivisor -gt $b) { return $d }
+      $d = $d + $originalDivisor
+    }
+
+    return $d
 }
