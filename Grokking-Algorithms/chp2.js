@@ -20,6 +20,11 @@
 
     In this selection sort I'm just using a pointer instead of poping 
 
+    So I take one list and then go through list each time add one index... 
+    Also don't repeat on any of the values that have been added to the new list 
+
+    Run time is about O(n * n)
+
 */
 
 const swap = (arr, i, j) => {
@@ -51,4 +56,75 @@ const sortedDummy = selectionSort(
     dummyArray
 );
 
-console.log(sortedDummy);
+// For the moment I'm just 
+// console.log(sortedDummy);
+
+
+class LinkedList {
+    constructor () {
+        this.head = null;
+        this.tail = null;
+        this.count = 0;
+    }
+
+    addToFront = val => {
+        const node = new Node(val);
+        if (this.count === 0) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            const temp = this.head;
+            this.head = node;
+            node.next = temp;
+        }
+
+
+        this.count++; // increment count for each 
+
+        return this;
+    }
+
+    addToBack = () => {
+
+    }
+
+    removeFront = () => {
+
+    }
+
+    removeBack = () => {
+
+    }
+
+    delete = () => {
+
+    }
+
+    contains = () => {
+
+    }
+
+    interateAndLogEachValue = () => {
+        let runner = this.head;
+        while (runner !== null) {
+            console.log(runner.value);
+            runner = runner.next;
+        }
+    }
+}
+
+class Node {
+    constructor (value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+const list = new LinkedList();
+
+list
+.addToFront(1)
+.addToFront(2)
+.addToFront(3)
+.addToFront(4)
+.interateAndLogEachValue();
