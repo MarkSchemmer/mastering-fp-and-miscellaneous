@@ -108,15 +108,48 @@ class LinkedList {
     }
 
     removeFront = () => {
+        if (this.count === 1) {
+            this.emptyList();
+        } else {
+            this.head = this.head.next;
+            this.count--;
+        }
 
+        return this;
     }
 
     removeBack = () => {
+        if (this.count === 1) {
+            this.emptyList();
+        } else {
+            // Need to iterate to last item in list
+            let runner = this.head;
+
+            while (runner.next.next !== null)
+                runner = runner.next;
+            
+            this.tail = runner;
+            this.tail.next = null;
+            this.count--;
+        }
+
+        return this;
+    }
+
+    emptyList = () => {
+        this.head = null;
+        this.tail = null;
+        this.count = 0;
+    }
+
+    // have a delete for any position!
+    // Head, Tail, and in the middle
+    delete = () => {
 
     }
 
-    delete = () => {
-
+    getCount = () => {
+        return this.count;
     }
 
     contains = item => {
@@ -170,8 +203,12 @@ list2
 .addToBack(2)
 .addToBack(3)
 .addToBack(4)
+.removeBack()
+.removeFront()
 .interateAndLogEachValue();
 
-const hasFour = list2.contains(4);
+console.log(
+    "The count is: " + list2.getCount()
+);
 
-console.log(hasFour);
+const hasFour = list2.contains(4);
