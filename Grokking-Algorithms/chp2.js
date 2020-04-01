@@ -144,8 +144,42 @@ class LinkedList {
 
     // have a delete for any position!
     // Head, Tail, and in the middle
-    delete = () => {
+    delete = item => {
 
+        if (this.count === 1) {
+            this.emptyList();
+        } else {
+            if (this.head.value === item) {
+                this.removeFront();
+            } else if (this.tail.value === item) {
+                this.removeBack();
+            } else {
+                let runner = this.head;
+                let prev;
+
+                /*
+                
+
+                n1 -> n2 -> n3
+
+                Need to remove n2 and connect n1 to n3
+
+                n1 -> n3
+
+                */
+                while (runner.next !== null) {
+
+                    if (runner.value === item) {
+                        prev.next = runner.next;
+                        this.count--;
+                        return;
+                    }
+
+                    prev = runner;
+                    runner = runner.next;
+                }
+            }
+        }
     }
 
     getCount = () => {
@@ -203,9 +237,12 @@ list2
 .addToBack(2)
 .addToBack(3)
 .addToBack(4)
-.removeBack()
-.removeFront()
-.interateAndLogEachValue();
+// .interateAndLogEachValue();
+
+list2.delete(3);
+list2.delete(2);
+
+list2.interateAndLogEachValue();
 
 console.log(
     "The count is: " + list2.getCount()
