@@ -84,8 +84,27 @@ class LinkedList {
         return this;
     }
 
-    addToBack = () => {
+    addToBack = val => {
 
+        const node = new Node(val);
+
+        if (this.count === 0) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            this.tail = node;
+
+            // run through the list until the last and connect 
+            // The last with the new tail
+            let runner = this.head;
+            while(runner.next !== null)
+                runner = runner.next;
+
+            runner.next = this.tail;
+        }
+
+        this.count++;
+        return this;
     }
 
     removeFront = () => {
@@ -100,8 +119,18 @@ class LinkedList {
 
     }
 
-    contains = () => {
+    contains = item => {
+        let runner = this.head;
 
+        while (runner !== null) {
+            if (item === runner.value) {
+                return true;
+            }
+
+            runner = runner.next;
+        }
+
+        return false;
     }
 
     interateAndLogEachValue = () => {
@@ -120,11 +149,29 @@ class Node {
     }
 }
 
-const list = new LinkedList();
 
-list
-.addToFront(1)
-.addToFront(2)
-.addToFront(3)
-.addToFront(4)
+// testing addToFront
+// const list = new LinkedList();
+
+// list
+// .addToFront(1)
+// .addToFront(2)
+// .addToFront(3)
+// .addToFront(4)
+// .addToBack(10)
+// .interateAndLogEachValue();
+
+
+// Testing addToBack
+const list2 = new LinkedList();
+
+list2
+.addToBack(1)
+.addToBack(2)
+.addToBack(3)
+.addToBack(4)
 .interateAndLogEachValue();
+
+const hasFour = list2.contains(4);
+
+console.log(hasFour);
