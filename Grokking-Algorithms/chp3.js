@@ -26,17 +26,23 @@ const recursiveFunctionLogsUntilZero = n => {
     return n === 0 ? n : recursiveFunctionLogsUntilZero(n - 1);
 };
 
-recursiveFunctionLogsUntilZero(20); // should log until 
+// recursiveFunctionLogsUntilZero(20); // should log until 
 
 
 // factorial recursive function
-
 const factorialRecursive = n => {
     return n === 1 ? n : n * factorialRecursive(n - 1);
 };
 
 console.log(
-    
-)
+    factorialRecursive(3)
+);
 
 // non-recursive factorial solution 
+
+// A quick example of: 
+
+/*
+
+
+*/

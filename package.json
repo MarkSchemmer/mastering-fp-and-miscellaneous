@@ -10,6 +10,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "chai": "^4.2.0",
     "fs": "0.0.1-security"
   }
 }

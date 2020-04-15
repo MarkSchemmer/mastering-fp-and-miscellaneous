@@ -97,8 +97,8 @@ describe("Testing custom higher order functions: ", () => {
         expect(myREvery(dummySet, n => n % 2 === 0)).toBe(true);
     });
 
-    it("Test file search: ", () => {
-        const res = readFiles();
-        expect(res).toBe(31);
-    });
+    // it("Test file search: ", () => {
+    //     const res = readFiles();
+    //     expect(res).toBe(31);
+    // });
 });
