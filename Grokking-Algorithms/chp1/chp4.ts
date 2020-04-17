@@ -47,4 +47,59 @@ export const recCountItemsInList = (arr, count = 0) => {
     // other wise incremaent count and re-call function
     // Make sure when function is call that you decrease size of arr
     return arr.length === 0 ? count : recCountItemsInList(arr.slice(1), count + 1);
-}
+};
+
+export const findMaxInSetRec = (arr, max = null) => {
+    if (arr.length === 0) return max;
+
+    if (max === null) {
+        max = arr[0];
+        return findMaxInSetRec(arr.slice(1), max);
+    }
+
+    max = arr[0] > max ?  arr[0] : max;
+
+    return findMaxInSetRec(arr.slice(1), max);
+};
+
+/*
+
+export const binarySearch = (arr, item) => {
+    let low = 0; 
+    let high = arr.length;
+    let mid = Math.floor((low + high) / 2);
+
+    while (arr[mid]) {
+        mid = Math.floor((low + high) / 2);
+        if (arr[mid] === item) return mid;
+
+        if (arr[mid] > item) high = mid - 1;
+        else if (arr[mid] < item) low = mid + 1;
+    }
+
+    return null;
+};
+
+*/
+
+export const binarySearchRecursive = (arr, item) => {
+    let low = 0; 
+    let high = arr.length;
+    let mid = Math.floor((low + high) / 2);
+
+    const binarysearchHelper = (a, m, h, l) => {
+        if (a[m]) {
+            m = Math.floor((l + h) / 2);
+            if (a[m] === item) return m;
+    
+            if (a[m] > item) h = m - 1;
+            else if (arr[m] < item) l = m + 1;
+
+            return binarysearchHelper(a, m, h, l);
+        } else {
+            return null;
+        }
+    }
+
+    return binarysearchHelper(arr, mid, high, low);
+};
