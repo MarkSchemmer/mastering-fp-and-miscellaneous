@@ -1,4 +1,7 @@
-import { recursiveSum, recCountItemsInList, findMaxInSetRec, binarySearchRecursive, functionalRecQuickSort } from "./chp4";
+import { recursiveSum, 
+    recCountItemsInList, findMaxInSetRec, 
+    binarySearchRecursive, 
+    functionalRecQuickSort, biggestSquareInFarmLand } from "./chp4";
 
 describe("chp 4 function tests", () => {
     it("recursive sum", () => {
@@ -20,5 +23,9 @@ describe("chp 4 function tests", () => {
     it("Testing quicksort functional and recursive style", () => {
         const arr = [ 2, 4, 2, 1, 6, 5, 0, 9, 3];
         expect(functionalRecQuickSort(arr)).toStrictEqual([...arr].sort())
+    });
+
+    it("Farmland smallest square: ", () => {
+        expect(biggestSquareInFarmLand(1680, 640)).toBe(80);
     });
 });

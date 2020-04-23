@@ -113,3 +113,20 @@ export const functionalRecQuickSort = arr => {
         [...functionalRecQuickSort(smallerThanPivot), pivot, ...functionalRecQuickSort(biggerEqualThanPivot)]
     );
 };
+
+const farmLandHelper = (side, bigSide) => {
+    return side * 2 > bigSide ? side : farmLandHelper(side * 2, bigSide);
+} 
+
+export const biggestSquareInFarmLand = (x, y) => {
+    if (x === y) return x;
+    let bigTemp = x > y ? x : y;
+    let smallTemp = x > y ? y : x;
+    
+    // find if smaller is divisble by bigger if so 
+    if (bigTemp % smallTemp === 0) return smallTemp;
+
+    // do calculation and then recall new dimensions... 
+    const howManyToSubstract = farmLandHelper(smallTemp, bigTemp);
+    return biggestSquareInFarmLand(smallTemp, bigTemp - howManyToSubstract);
+}
