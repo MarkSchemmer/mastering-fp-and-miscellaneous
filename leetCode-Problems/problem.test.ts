@@ -1,4 +1,4 @@
-import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, dynamicFib, plusOne } from "./problems";
+import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, dynamicFib, plusOne, addBinary } from "./problems";
 
 
 describe("leetCode # 14", () => {
@@ -41,5 +41,13 @@ describe("Testing # 53 maxium subArray: ", () => {
         expect(plusOne([9])).toStrictEqual([1, 0]);
         expect(plusOne([9, 9])).toStrictEqual([1, 0, 0]);
         expect(plusOne([9, 9, 9])).toStrictEqual([1, 0, 0, 0]);
+    });
+});
+
+
+describe("Testing Add Binary. 67 ", () => {
+    it("11 + 1 = '100'", () => {
+        expect(addBinary("11", "1")).toBe("100");
+        expect(addBinary("1010", "1011")).toBe("10101");
     });
 });

@@ -420,3 +420,65 @@ const plusOneHelper = (digits, index) => {
 
     return tp;
 };
+
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+
+// Define base cases for adding binary numbers
+
+/*
+    Adding binary 
+
+    1 + 0 = 1 bin
+
+    1 + 1 = 2 dec = 10 bin
+
+    1 + 1 + 1 = 3 dec = 11 bin
+
+    1 + 0 + 1 = 2 = 10 bin
+
+    11 + 1
+
+    1 + 1 = 10
+*/
+
+
+const makeNumber = n => +n;
+
+const addToFrontOfSet = (n, arr) => {
+    return [ n, ...arr ];
+}
+
+export const addBinary = (a, b) => {
+    const setA = a.split("").reverse().map(i => +i);
+    const setB = b.split("").reverse().map(i => +i);
+    let carryOver = null;
+    let result = [];
+
+    const which = setA.length > setB.length ? setA.length : setB.length;
+
+    for (let i = 0; i < which; i++) {
+        const res = ((setA[i] || 0) + (setB[i] || 0)) + (carryOver === null ? 0 : carryOver);
+        carryOver = null;
+
+        if (res === 0) {
+            result = addToFrontOfSet(0, result);
+        } else if (res === 1) {
+            result = addToFrontOfSet(1, result);
+        } else if (res === 2) {
+            result = addToFrontOfSet(0, result);
+            carryOver = 1;
+        } else if (res === 3) {
+            result = addToFrontOfSet(1, result);
+            carryOver = 1;
+        }
+    }
+
+    if (carryOver !== null) 
+        result = addToFrontOfSet(carryOver, result);
+
+    return result.reduce((a, c) => a + c, "");
+};

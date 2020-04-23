@@ -103,3 +103,13 @@ export const binarySearchRecursive = (arr, item) => {
 
     return binarysearchHelper(arr, mid, high, low);
 };
+
+export const functionalRecQuickSort = arr => {
+    let pivot, smallerThanPivot, biggerEqualThanPivot;
+    return arr.length < 2 ? arr : (
+        pivot = arr[0],
+        smallerThanPivot = arr.slice(1).filter(x => x < pivot), 
+        biggerEqualThanPivot = arr.slice(1).filter(x => x >= pivot),
+        [...functionalRecQuickSort(smallerThanPivot), pivot, ...functionalRecQuickSort(biggerEqualThanPivot)]
+    );
+};

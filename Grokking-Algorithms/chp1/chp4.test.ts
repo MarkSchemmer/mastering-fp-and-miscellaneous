@@ -1,4 +1,4 @@
-import { recursiveSum, recCountItemsInList, findMaxInSetRec, binarySearchRecursive } from "./chp4";
+import { recursiveSum, recCountItemsInList, findMaxInSetRec, binarySearchRecursive, functionalRecQuickSort } from "./chp4";
 
 describe("chp 4 function tests", () => {
     it("recursive sum", () => {
@@ -15,5 +15,10 @@ describe("chp 4 function tests", () => {
 
     it("Binary search recursive version: ", () => {
         expect(binarySearchRecursive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 9)).toEqual(9 - 1);
+    });
+
+    it("Testing quicksort functional and recursive style", () => {
+        const arr = [ 2, 4, 2, 1, 6, 5, 0, 9, 3];
+        expect(functionalRecQuickSort(arr)).toStrictEqual([...arr].sort())
     });
 });
