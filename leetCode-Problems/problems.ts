@@ -379,10 +379,7 @@ export const dynamicFib = () => {
     there is a simple recursive way...
 
     and a iterative way... 
-
-
 */
-
 
 /**
  * @param {number[]} digits
@@ -391,7 +388,9 @@ export const dynamicFib = () => {
 
 // recursive solution... 
 export const plusOne = digits =>  {
-    return digits[digits.length - 1] < 9 ? (digits[digits.length - 1] += 1, digits) : plusOneHelper(digits, digits.length - 1);
+    return digits[digits.length - 1] < 9 
+            ? (digits[digits.length - 1] += 1, digits) 
+            : plusOneHelper(digits, digits.length - 1);
 };
 
 const plusOneHelper = (digits, index) => {
@@ -445,9 +444,6 @@ const plusOneHelper = (digits, index) => {
     1 + 1 = 10
 */
 
-
-const makeNumber = n => +n;
-
 const addToFrontOfSet = (n, arr) => {
     return [ n, ...arr ];
 }
@@ -492,27 +488,23 @@ export const addBinary = (a, b) => {
  * 
  * Implement int sqrt(int x).
 
-Compute and return the square root of x, 
-where x is guaranteed to be a non-negative integer.
+        Compute and return the square root of x, 
+        where x is guaranteed to be a non-negative integer.
 
-Since the return type is an integer, the decimal digits are 
-truncated and only the integer part of the result is returned.
+        Since the return type is an integer, the decimal digits are 
+        truncated and only the integer part of the result is returned.
 
-Example 1:
+        Example 1:
 
-Input: 4
-Output: 2
-Example 2:
+        Input: 4
+        Output: 2
+        Example 2:
 
-Input: 8
-Output: 2
-Explanation: The square root of 8 is 2.82842..., and since 
-             the decimal part is truncated, 2 is returned.
-
-Need to make a 
+        Input: 8
+        Output: 2
+        Explanation: The square root of 8 is 2.82842..., and since 
+                    the decimal part is truncated, 2 is returned.
  */
-
-
 
 const genSquareRoot = (x) => {
     if (x === 0) return 0;
@@ -530,6 +522,294 @@ export const mySqrt = () => {
     const cache = {};
     let res;
     return x => {
-        return x in cache ? cache[x] : (res = genSquareRoot(x), cache[x] = res, res);
+        return x in cache 
+                ? cache[x] 
+                : (res = genSquareRoot(x), cache[x] = res, res);
     };
+};
+
+/**
+ * @param {number} n
+ * @return {number}
+ * 
+ 
+
+    To reach nth step, what could have been your previous steps? (Think about the step sizes)
+
+
+ */
+
+const thunk = (fn, ...args) => {
+    return () => fn(...args);
+}
+
+
+const possibilities = [ 1, 2 ];
+
+const sumStairSteps = arr => arr.reduce((acc, cur) => acc + cur, 0);
+
+const climbStairsHelper = (newStairSequence, ladderCount, cache) => {
+    const sum = sumStairSteps(newStairSequence);
+    if (sum === ladderCount && !(JSON.stringify(newStairSequence) in cache)) {  cache[JSON.stringify(newStairSequence)] = newStairSequence; }
+
+    for (let i = 0; i < possibilities.length; i++) {
+
+        if (possibilities[i] + sum <= ladderCount) {
+            climbStairsHelper([...newStairSequence, possibilities[i]], ladderCount, cache);
+        }
+
+    }
+
+    return cache;
+};
+
+
+export const climbStairs = n => {
+
+    if (n === 0) return 0;
+    if (n === 1) return 1;
+    if (n === 2) return 2;
+    if (n === 3) return 3;
+
+    let cache = climbStairsHelper([], n, {});
+
+    console.log(cache);
+
+    return Object.keys(cache).length;
+};
+
+
+
+
+/*
+
+
+
+const climbStairsHelper = (newStairSequence, ladderCount, cache) => {
+    const sum = sumStairSteps(newStairSequence);
+    const currentSequence = JSON.stringify(newStairSequence);
+    if (sum === ladderCount && !(currentSequence in cache)) {  cache[currentSequence] = newStairSequence; }
+
+    for (let i = 0; i < possibilities.length; i++) {
+
+        if (possibilities[i] + sum <= ladderCount) {
+
+            if (possibilities[i] + sum === ladderCount) {
+                const nextSequence = JSON.stringify([...newStairSequence, possibilities[i] ]);
+                if (!(nextSequence in cache)) climbStairsHelper([...newStairSequence, possibilities[i]], ladderCount, cache);
+            } else {
+                climbStairsHelper([...newStairSequence, possibilities[i]], ladderCount, cache);
+            }
+        }
+
+    }
+
+    return cache;
+};
+
+
+
+*/
+
+// let cacheHelper = {};
+
+// const climbStairsHelper2 = fn => {
+
+//     let thunk = fn();
+
+//     while (typeof thunk === "function") {
+//         thunk = thunk();
+//     }
+
+//     return thunk;
+// };
+
+
+// export const climbStairs2 = (newStairSequence, ladderCount) => {
+
+//     const sum = sumStairSteps(newStairSequence);
+//     const currentSequence = JSON.stringify(newStairSequence);
+
+//     if (sum === ladderCount && !(currentSequence in cacheHelper)) {  cacheHelper[currentSequence] = newStairSequence; }
+
+//     for (let i = 0; i < possibilities.length; i++) {
+
+//         if (possibilities[i] + sum <= ladderCount) {
+//             if (possibilities[i] + sum === ladderCount) {
+//                 const nextSequence = JSON.stringify([ ...newStairSequence, possibilities[i] ]);
+//             if (!(nextSequence in cacheHelper)) cacheHelper[nextSequence] = [ ...newStairSequence, possibilities[i] ];
+
+//             } else {
+//                 climbStairsHelper2(thunk(climbStairs2, [ ...newStairSequence, possibilities[i] ], ladderCount, cacheHelper));
+//             }
+//         }
+
+//     }
+
+//     return Object.keys(cacheHelper).length;
+// };
+
+// export const climbStair2Shell = n => {
+//     if (n === 0) return 0;
+//     if (n === 1) return 1;
+//     if (n === 2) return 2;
+//     if (n === 3) return 3;
+//     cacheHelper = {};
+//     return climbStairs2([], n);  
+// };
+
+
+/*
+
+        -------------------------------------------------------------------------------------------------------------------
+
+
+                                                70. Climbing stairs 3rd attempt
+
+
+        -------------------------------------------------------------------------------------------------------------------
+
+*/
+
+let cache = {};
+
+const climbStairsHelper2 = fn => {
+
+    let thunk = fn();
+
+    while (typeof thunk === "function") {
+        thunk = thunk();
+    }
+
+    return thunk;
+};
+
+
+export const climbStairs2 = (newStairSequence, ladderCount) => {
+    const sum = sumStairSteps(newStairSequence);
+
+    if (sum === ladderCount) {  cache[ladderCount] = cache[ladderCount] + 1; }
+
+
+    if (1 + sum <= ladderCount) {
+        climbStairsHelper2(thunk(climbStairs2, [ ...newStairSequence, 1 ], ladderCount));
+    }
+    
+    if (2 + sum <= ladderCount) {
+         climbStairsHelper2(thunk(climbStairs2, [ ...newStairSequence, 2 ], ladderCount));
+    }
+};
+
+
+export const climbStair2Shell = n => {
+    if (n in cache) return cache[n];
+    cache[n] = 0;
+    climbStairs2([], n);
+    console.log(cache[n]);
+    return cache[n];
+};
+
+
+/*
+
+        -------------------------------------------------------------------------------------------------------------------
+
+
+                                                70. Climbing stairs 4rd attempt
+
+                                                Using the fibonaci solution...
+
+
+        -------------------------------------------------------------------------------------------------------------------
+
+*/
+
+
+
+
+export const climbStairsFibCurried = () => {
+    let cache = {};
+    const climbStairsTailRecursionHelper = n => {
+        if (n === 1) return 1;
+
+        let first = 1, seconded = 2, third;
+
+        for (let i = 3; i <= n; i++) {
+            third = first + seconded;
+            first = seconded;
+            seconded = third;
+        }
+
+        return seconded;
+    };
+
+    return n => {
+        if (n in cache) return cache[n];
+
+        const res = climbStairsTailRecursionHelper(n);
+
+        cache[n] = res;
+
+        return res;
+    } 
+};
+
+
+/*
+        -------------------------------------------------------------------------------------------------------
+
+                                    88. Merge Sorted Array
+
+        -------------------------------------------------------------------------------------------------------
+
+
+        Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+
+        Note:
+
+        The number of elements initialized in nums1 and nums2 are m and n respectively.
+        You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.
+
+
+        Hint 1:
+
+        You can easily solve this problem if you simply think about two elements at a time rather
+        than two arrays. We know that each of the individual arrays is sorted. What we don't know is how 
+        they will intertwine. Can we take a local decision and arrive at an optimal solution?
+
+        Hint 2:
+
+        If you simply consider one element each at a time from the 
+        two arrays and make a decision and proceed accordingly, 
+        you will arrive at the optimal solution.
+*/
+
+
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+
+export const merge = (nums1, m, nums2, n) => {
+    let n1 = 0, n2 = 0, i = 0, tarr = nums1.slice();
+
+    while (i < m + n) {
+        if (tarr[n1] <= nums2[n2] && n1 < m) {
+            nums1[i] = tarr[n1];
+            n1++;
+        } else if (n2 < n) {
+                nums1[i] = nums2[n2];
+                n2++;
+        } else {
+            nums1[i] = tarr[n1];
+            n1++;
+        }
+
+        i = i + 1;
+    }
+
+    console.log(nums1);
 };

@@ -1,4 +1,5 @@
-import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, dynamicFib, plusOne, addBinary, mySqrt } from "./problems";
+import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
+    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge } from "./problems";
 
 
 describe("leetCode # 14", () => {
@@ -64,5 +65,57 @@ describe("Testing Sqrt(x) 69: ", () => {
 
     it("Input 8, output 2", () => {
         expect(mysqrt(8)).toEqual(2);
+    });
+});
+
+describe("Climbing Stairs 70: ", () => {
+    it("dummby test", () => {
+        expect(climbStairs(2)).toBe(2);
+        expect(climbStairs(3)).toBe(3);
+    });
+
+    it("dummby test 2", () => {
+        expect(climbStair2Shell(2)).toBe(2);
+        expect(climbStair2Shell(3)).toBe(3);
+    });
+
+    it("Merge Sorted Array: ", () => {
+        let nums1 = [ 1, 2, 3, 0, 0, 0 ];
+        let nums2 = [ 2, 5, 6 ];
+
+        merge(nums1, 3, nums2, 3);
+
+        expect(nums1).toStrictEqual([ 1, 2, 2, 3, 5, 6]);
+    });
+
+    it("Merge sort array uneven sets: ", () => {
+        let nums1 = [ 2, 0 ];
+        let nums2 = [ 1 ];
+
+        merge(nums1, 1, nums2, 1);
+
+        expect(nums1).toStrictEqual([ 1, 2 ]);
+    });
+
+    it("Last failing test in LeetCode: ", () => {
+        let nums1 = [-12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+        let nums2 = [-49,-45,-42,-41,-40,-39,-39,-39,-38,-36,-34,-34,-33,-33,-32,-31,-29,-28,-26,-26,
+            -24,-21,-20,-20,-18,-16,-16,-14,-11,-7,-6,-5,-4,-4,-3,-3,-2,-2,-1,0,0,0,2,2,6,7,7,8,10,
+            10,13,13,15,15,16,17,17,19,19,20,20,20,21,21,22,22,24,24,25,26,27,
+            29,30,30,30,35,36,36,36,37,39,40,41,42,45,46,46,46,47,48];
+
+        let result = [ -49,-45,-42,-41,-40,-39,-39,-39,-38,-36,-34,-34,-33,-33,-32,-31,-29,
+            -28,-26,-26,-24,-21,-20,-20,-18,-16,-16,-14,-12,
+            -11,-7,-6,-5,-4,-4,-3,-3,-2,-2,-1,0,0,0,2,2,6,7,7,8,10,10,13,13,15,15,16,17,
+            17,19,19,20,20,20,21,21,22,22,24,24,25,26,27,
+            29,30,30,30,35,36,36,36,37,39,40,41,42,45,46,46,46,47,48 ];
+
+        merge(nums1, 1, nums2, 90);
+
+        expect(nums1).toStrictEqual(result);
+
     });
 });
