@@ -1,5 +1,5 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
-    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge } from "./problems";
+    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, Tree, isSameTree } from "./problems";
 
 
 describe("leetCode # 14", () => {
@@ -117,5 +117,42 @@ describe("Climbing Stairs 70: ", () => {
 
         expect(nums1).toStrictEqual(result);
 
+    });
+});
+
+
+describe("LeetCode: 100. Same Tree", () => {
+    const nodesToAdd = [ 1, 2, 3, 4, 5, 6, 7 ];
+    it("Test Tree iterate everything and add method", () => {
+        const tree = new Tree();
+
+        nodesToAdd.forEach(n => tree.Add(n));
+
+        tree.iterateThroughTreeLeftToRight();
+
+        expect(true).toBe(true);
+    });
+
+    it("Testing two same trees: ", () => {
+        const tree1 = new Tree();
+        const tree2 = new Tree();
+
+        nodesToAdd.forEach(n => {
+            tree1.Add(n);
+            tree2.Add(n);
+        });
+
+        expect(isSameTree(tree1.head, tree2.head)).toBe(true);
+    });
+
+    it("Testing two different trees: ", () => {
+        const tree1 = new Tree();
+        const tree2 = new Tree();
+
+        nodesToAdd.forEach(n => tree1.Add(n));
+
+        [ 1, 2, 3, 4, 5 ].forEach(n => tree2.Add(n));
+
+        expect(isSameTree(tree1.head, tree2.head)).toBe(false);
     });
 });

@@ -573,7 +573,7 @@ export const climbStairs = n => {
 
     let cache = climbStairsHelper([], n, {});
 
-    console.log(cache);
+    // console.log(cache);
 
     return Object.keys(cache).length;
 };
@@ -705,7 +705,7 @@ export const climbStair2Shell = n => {
     if (n in cache) return cache[n];
     cache[n] = 0;
     climbStairs2([], n);
-    console.log(cache[n]);
+    // console.log(cache[n]);
     return cache[n];
 };
 
@@ -811,5 +811,113 @@ export const merge = (nums1, m, nums2, n) => {
         i = i + 1;
     }
 
-    console.log(nums1);
+    // console.log(nums1);
+};
+
+/*
+
+--------------------------------------------------------------------------
+
+                            100. Same Tree
+
+--------------------------------------------------------------------------
+
+
+1. If both trees are empty then return 1.
+2. Else If both trees are non -empty
+     (a) Check data of the root nodes (tree1->data ==  tree2->data)
+     (b) Check left subtrees recursively  i.e., call sameTree( 
+          tree1->left_subtree, tree2->left_subtree)
+     (c) Check right subtrees recursively  i.e., call sameTree( 
+          tree1->right_subtree, tree2->right_subtree)
+     (d) If a,b and c are true then return 1.
+3  Else return 0 (one is empty and other is not)
+
+
+To complete this problem what is needed?
+
+- Create Tree object
+
+- Create Add method to add values
+
+- Create is tree identical
+
+*/
+
+class Leef {
+
+    constructor(val) {
+        this.val = val;
+    }
+
+    public val = null;
+    public left = null;
+    public right = null;
+}
+
+export class Tree {
+    public head = null;
+
+
+    public subAddLeaf = (leaf: Leef, leafToAdd: Leef) => {
+        if (leaf.val >= leafToAdd.val) {
+            if (leaf.right === null) {
+                leaf.right = leafToAdd;
+            } else {
+                this.subAddLeaf(leaf.right, leafToAdd);
+            }
+        } else {
+            if (leaf.left === null) {
+                leaf.left = leafToAdd;
+            } else {
+                this.subAddLeaf(leaf.left, leafToAdd);
+            }
+        }
+    }
+
+    public Add = (node) => {
+        let newLeaf = new Leef(node);
+
+        if (this.head === null) {
+            this.head = newLeaf;
+        } else {
+            this.subAddLeaf(this.head, newLeaf);
+        }
+    }
+
+    public iterateThroughTreeLeftToRight = (node: Leef = this.head) => {
+        if (node === null) { return; }
+        console.log(node.val);
+        this.iterateThroughTreeLeftToRight(node.left);
+        this.iterateThroughTreeLeftToRight(node.right);
+    }
+
+}
+
+// Is Tree the same #100
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+export const isSameTree = (p, q) => {
+    if (p === null && q === null) { return true; }
+
+    if (p !== null && q !== null && p.val === q.val) {
+        const res = isSameTree(p.left, q.left);
+        const res2 = isSameTree(p.right, q.right);
+        console.log("res: ", res);
+        console.log("res2: ", res2);
+        return res && res2;
+    }
+
+    return false;
 };
