@@ -860,7 +860,21 @@ export class Tree {
 
 
     public subAddLeaf = (leaf: Leef, leafToAdd: Leef) => {
-        if (leaf.val >= leafToAdd.val) {
+        // if (leaf.val >= leafToAdd.val) {
+        //     if (leaf.right === null) {
+        //         leaf.right = leafToAdd;
+        //     } else {
+        //         this.subAddLeaf(leaf.right, leafToAdd);
+        //     }
+        // } else {
+        //     if (leaf.left === null) {
+        //         leaf.left = leafToAdd;
+        //     } else {
+        //         this.subAddLeaf(leaf.left, leafToAdd);
+        //     }
+        // }
+
+        if (leaf.val <= leafToAdd.val) {
             if (leaf.right === null) {
                 leaf.right = leafToAdd;
             } else {
@@ -885,47 +899,13 @@ export class Tree {
         }
     }
 
-    public subSymmetricAdd = (leaf: Leef, leafToAdd: Leef, side: boolean) => {
-        if (leaf === null) {
-            leaf = leafToAdd;
-            return;
-        } else {
-            if (side) {
-                if (leaf.left === null) {
-                    leaf.left = leafToAdd;
-                } else if (leaf.right === null) {
-                    leaf.right = leafToAdd;
-                }
-            } else {
-                if  (leaf.right === null) {
-                    leaf.right = leafToAdd;
-                } else if (leaf.left === null) {
-                    leaf.left = leafToAdd;
-                }
-            }
-
-            this.subSymmetricAdd(leaf.left, leafToAdd, true);
-            this.subSymmetricAdd(leaf.right, leafToAdd, false);
-        } 
-    }
-
-    public SymmetricAdd = node => {
-        let newLeafLeft = new Leef(node);
-        let newLeafRight = new Leef(node);
-
-        if (this.head === null) {
-            this.head = new Leef(node);
-        } else {
-            this.subSymmetricAdd(this.head.left, newLeafLeft, true);
-            this.subSymmetricAdd(this.head.right, newLeafRight, false);
+    public iterateThroughTreeLeftToRight = (node: Leef = this.head, level = 0) => {
+        if (node === null) return 0;
+        else {
+            let leftDepth = this.iterateThroughTreeLeftToRight(node.left, level + 1);
+            let rightDepth = this.iterateThroughTreeLeftToRight(node.right, level + 1);
+            if (leftDepth > rightDepth) return leftDepth + 1; else return rightDepth + 1;
         }
-    }
-
-    public iterateThroughTreeLeftToRight = (node: Leef = this.head) => {
-        if (node === null) { return; }
-        // console.log(node.val);
-        this.iterateThroughTreeLeftToRight(node.left);
-        this.iterateThroughTreeLeftToRight(node.right);
     }
 
 }
@@ -993,3 +973,75 @@ const isMirror = (leftLeaf, rightLeaf) => {
     && isMirror(leftLeaf.left, rightLeaf.right) 
     && isMirror(leftLeaf.right, rightLeaf.left);
 }
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const getDepth = (node, level = 0) => {
+    if (node === null) return 0;
+    else {
+            let leftDepth = getDepth(node.left, level + 1);
+            let rightDepth = getDepth(node.right, level + 1);
+            if (leftDepth > rightDepth) return leftDepth + 1; else return rightDepth + 1;
+    }
+}
+
+const maxDepth = root => {
+    
+    if (root === null) return 0;
+    
+    if (root.left === null && root.right === null) return 1;
+    
+    return getDepth(root, 0);
+};
+
+/**
+ * LeetCode #107. 
+ * 
+ * 
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+
+export const levelOrderBottom = function(root) {
+    if (root === null) return [];
+    if (root.left === null && root.right === null) return [ [ root.val ] ];
+
+    const floors = [];
+
+    const innnerLevelHelper = (node, level = 0) => {
+        if (node !== null) {
+            if (floors[level] === undefined) {
+                floors[level] = [ node.val ];
+            } else {
+                floors[level].push(node.val);
+            }
+
+            innnerLevelHelper(node.left, level + 1);
+            innnerLevelHelper(node.right, level + 1);
+
+        }
+    };
+
+    innnerLevelHelper(root, 0); // make calculations
+    const revFloors = floors.reverse();
+    console.log(revFloors);
+    return revFloors;
+};

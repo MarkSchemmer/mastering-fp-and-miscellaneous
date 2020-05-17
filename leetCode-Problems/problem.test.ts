@@ -1,5 +1,5 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
-    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, Tree, isSameTree, isSymmetric } from "./problems";
+    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, Tree, isSameTree, isSymmetric, levelOrderBottom } from "./problems";
 
 
 describe("leetCode # 14", () => {
@@ -128,7 +128,7 @@ describe("LeetCode: 100. Same Tree, and LeetCode problem 101.", () => {
 
         nodesToAdd.forEach(n => tree.Add(n));
 
-        tree.iterateThroughTreeLeftToRight();
+        // tree.iterateThroughTreeLeftToRight();
 
         expect(true).toBe(true);
     });
@@ -154,5 +154,22 @@ describe("LeetCode: 100. Same Tree, and LeetCode problem 101.", () => {
         [ 1, 2, 3, 4, 5 ].forEach(n => tree2.Add(n));
 
         expect(isSameTree(tree1.head, tree2.head)).toBe(false);
+    });
+
+    it("104. Maxium depth tree: ", () => {
+        const inputs = [ 3, 9, 20, 15, 7 ];
+        const tree = new Tree();
+        inputs.forEach(n => tree.Add(n));
+        const res = tree.iterateThroughTreeLeftToRight();
+        console.log("Max Level: ", res);
+        expect(true).toBe(true);
+    });
+
+    it("107. Binary Tree Level Order Traversal II", () => {
+        const inputs = [ 3, 9, 20, 15, 7 ];
+        const tree = new Tree();
+        inputs.forEach(n => tree.Add(n));
+        levelOrderBottom(tree.head);
+        expect(true).toBe(true);
     });
 });
