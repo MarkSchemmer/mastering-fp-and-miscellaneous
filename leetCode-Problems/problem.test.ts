@@ -1,5 +1,5 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
-    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, Tree, isSameTree } from "./problems";
+    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, Tree, isSameTree, isSymmetric } from "./problems";
 
 
 describe("leetCode # 14", () => {
@@ -121,7 +121,7 @@ describe("Climbing Stairs 70: ", () => {
 });
 
 
-describe("LeetCode: 100. Same Tree", () => {
+describe("LeetCode: 100. Same Tree, and LeetCode problem 101.", () => {
     const nodesToAdd = [ 1, 2, 3, 4, 5, 6, 7 ];
     it("Test Tree iterate everything and add method", () => {
         const tree = new Tree();

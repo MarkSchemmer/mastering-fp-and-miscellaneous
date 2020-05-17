@@ -875,7 +875,7 @@ export class Tree {
         }
     }
 
-    public Add = (node) => {
+    public Add = node => {
         let newLeaf = new Leef(node);
 
         if (this.head === null) {
@@ -885,9 +885,45 @@ export class Tree {
         }
     }
 
+    public subSymmetricAdd = (leaf: Leef, leafToAdd: Leef, side: boolean) => {
+        if (leaf === null) {
+            leaf = leafToAdd;
+            return;
+        } else {
+            if (side) {
+                if (leaf.left === null) {
+                    leaf.left = leafToAdd;
+                } else if (leaf.right === null) {
+                    leaf.right = leafToAdd;
+                }
+            } else {
+                if  (leaf.right === null) {
+                    leaf.right = leafToAdd;
+                } else if (leaf.left === null) {
+                    leaf.left = leafToAdd;
+                }
+            }
+
+            this.subSymmetricAdd(leaf.left, leafToAdd, true);
+            this.subSymmetricAdd(leaf.right, leafToAdd, false);
+        } 
+    }
+
+    public SymmetricAdd = node => {
+        let newLeafLeft = new Leef(node);
+        let newLeafRight = new Leef(node);
+
+        if (this.head === null) {
+            this.head = new Leef(node);
+        } else {
+            this.subSymmetricAdd(this.head.left, newLeafLeft, true);
+            this.subSymmetricAdd(this.head.right, newLeafRight, false);
+        }
+    }
+
     public iterateThroughTreeLeftToRight = (node: Leef = this.head) => {
         if (node === null) { return; }
-        console.log(node.val);
+        // console.log(node.val);
         this.iterateThroughTreeLeftToRight(node.left);
         this.iterateThroughTreeLeftToRight(node.right);
     }
@@ -914,10 +950,46 @@ export const isSameTree = (p, q) => {
     if (p !== null && q !== null && p.val === q.val) {
         const res = isSameTree(p.left, q.left);
         const res2 = isSameTree(p.right, q.right);
-        console.log("res: ", res);
-        console.log("res2: ", res2);
+        // console.log("res: ", res);
+        // console.log("res2: ", res2);
         return res && res2;
     }
 
     return false;
 };
+
+/*
+
+--------------------------------------------------------------------------
+
+                            100. Same Tree
+
+--------------------------------------------------------------------------
+
+
+[1,2,2,3,4,4,3] -> sequence to be outputted... and added... 
+
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+export const isSymmetric = function(root) {
+    if (root === null) return true;
+    return isMirror(root.left, root.right);
+};
+
+const isMirror = (leftLeaf, rightLeaf) => {
+    if (leftLeaf === null && rightLeaf === null) return true;
+    if (leftLeaf === null || rightLeaf === null) return false;
+    
+    return (leftLeaf.val === rightLeaf.val) 
+    && isMirror(leftLeaf.left, rightLeaf.right) 
+    && isMirror(leftLeaf.right, rightLeaf.left);
+}
