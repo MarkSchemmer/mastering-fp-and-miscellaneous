@@ -14,7 +14,6 @@ export const isPalindrome = x => {
     return x < 0 ? false : palindroneHelper(x.toString().split(""));
 };
 
-
 /**
  * @param {number} x
  * @return {number}
@@ -35,7 +34,6 @@ export const twoSum = (nums, target) => nums.reduce((acc, cur, idx, ar) => {
     const next = ar.filter((i, id) => id !== idx).findIndex(i => cur + i === target);
     return cur + ar[next] === target ? [ idx, next ] : acc;
 }, []);
-
 
 /**
  * @param {string} s
@@ -67,7 +65,6 @@ export const romanToInt = s => s
                                .reverse()
                                .reduce(romanToIntegerBuilder, 0);
 
-
 const sortStrArr = strs => [ ...strs ].sort((a, b) => a.length - b.length);
 
 /**
@@ -92,7 +89,6 @@ export const longestCommonPrefix = strs => {
            }) ? biggestSubSet : ""; 
 };
 
-
 /**
  * @param {string} s
  * @return {boolean}
@@ -107,7 +103,6 @@ export const isValid = s => {
 
     return s.length > 0 ? false : true;
 };
-
 
 /**
  * Definition for singly-linked list.
@@ -298,9 +293,6 @@ export const countAndSay = ((fn) => {
 
     
     This algorithm is O(n) -> which is the fastest solution
-
-    
-
  */
 // Kedanes method... 
 export const maxSubArray = nums => {
@@ -582,9 +574,6 @@ export const climbStairs = n => {
 
 
 /*
-
-
-
 const climbStairsHelper = (newStairSequence, ladderCount, cache) => {
     const sum = sumStairSteps(newStairSequence);
     const currentSequence = JSON.stringify(newStairSequence);
@@ -606,9 +595,6 @@ const climbStairsHelper = (newStairSequence, ladderCount, cache) => {
 
     return cache;
 };
-
-
-
 */
 
 // let cacheHelper = {};
@@ -660,15 +646,9 @@ const climbStairsHelper = (newStairSequence, ladderCount, cache) => {
 
 
 /*
-
         -------------------------------------------------------------------------------------------------------------------
-
-
                                                 70. Climbing stairs 3rd attempt
-
-
         -------------------------------------------------------------------------------------------------------------------
-
 */
 
 let cache = {};
@@ -723,10 +703,6 @@ export const climbStair2Shell = n => {
         -------------------------------------------------------------------------------------------------------------------
 
 */
-
-
-
-
 export const climbStairsFibCurried = () => {
     let cache = {};
     const climbStairsTailRecursionHelper = n => {
@@ -753,7 +729,6 @@ export const climbStairsFibCurried = () => {
         return res;
     } 
 };
-
 
 /*
         -------------------------------------------------------------------------------------------------------
@@ -783,7 +758,6 @@ export const climbStairsFibCurried = () => {
         two arrays and make a decision and proceed accordingly, 
         you will arrive at the optimal solution.
 */
-
 
 /**
  * @param {number[]} nums1
@@ -939,7 +913,6 @@ export const isSameTree = (p, q) => {
 };
 
 /*
-
 --------------------------------------------------------------------------
 
                             100. Same Tree
@@ -1045,3 +1018,59 @@ export const levelOrderBottom = function(root) {
     console.log(revFloors);
     return revFloors;
 };
+
+/**
+ * 
+ * LeetCode #108. Convert Sorted Array to Binary Search Tree
+ * 
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+
+
+function TreeNode(val, left, right) {
+    this.val = (val===undefined ? null : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+}
+
+function AddTreeNode (leaf, leafToAdd) {
+    if (leaf.val <= leafToAdd.val) {
+        if (leaf.right === null) {
+            leaf.right = leafToAdd;
+        } else {
+            AddTreeNode(leaf.right, leafToAdd);
+        }
+    } else {
+        if (leaf.left === null) {
+            leaf.left = leafToAdd;
+        } else {
+            AddTreeNode(leaf.left, leafToAdd);
+        }
+    }
+}
+
+// this version is wrong
+
+const sortedArrayToBST = nums => {
+    const half = Math.floor(nums.length / 2);
+    const root = new TreeNode(nums[half], undefined, undefined);
+
+    root.left = sortedArrayToBST(nums.slice(0, half));
+
+    root.right = sortedArrayToBST(nums.slice(half + 1, nums.length));
+
+    console.log(root);
+
+    return root;
+};
+
+// Version two... 
