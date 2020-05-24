@@ -1285,3 +1285,23 @@ export const maxProfit = prices => {
 
     return maxSum;
 };
+
+/** 125. Valid Palindrome version 2... 
+ * @param {string} s
+ * @return {boolean}
+ */
+
+
+const onlyAlphaNumeric = str => {
+    const letters = "abcdefghijklmnopqrstuvwxyz0123456789";
+    return str.toLowerCase().split("").filter(c => letters.includes(c));
+} 
+
+const isPalindrome2 = str => {
+    if (str.length === 0) return true;
+    const strSet = onlyAlphaNumeric(str);
+    for (let i = 0, j = strSet.length - 1; i < Math.floor(strSet.length / 2); i++, j--) {
+        if (strSet[i] !== strSet[j]) return false;
+    } 
+    return true;
+};
