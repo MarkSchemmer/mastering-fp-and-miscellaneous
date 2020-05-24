@@ -1,5 +1,6 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
-    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, Tree, isSameTree, isSymmetric, levelOrderBottom } from "./problems";
+    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, isSameTree, isSymmetric, levelOrderBottom, generate, maxProfit } from "./problems";
+import { Tree } from "./LeetCodeDataStructures";
 
 
 describe("leetCode # 14", () => {
@@ -161,7 +162,7 @@ describe("LeetCode: 100. Same Tree, and LeetCode problem 101.", () => {
         const tree = new Tree();
         inputs.forEach(n => tree.Add(n));
         const res = tree.iterateThroughTreeLeftToRight();
-        console.log("Max Level: ", res);
+        // console.log("Max Level: ", res);
         expect(true).toBe(true);
     });
 
@@ -171,5 +172,24 @@ describe("LeetCode: 100. Same Tree, and LeetCode problem 101.", () => {
         inputs.forEach(n => tree.Add(n));
         levelOrderBottom(tree.head);
         expect(true).toBe(true);
+    });
+});
+
+describe("118. Pascal's Triangle: ", () => {
+    it("returning 5th row test should not run or calc: ", () => {
+        expect(generate(5)).toStrictEqual( [1,4,6,4,1]);
+    });
+
+    it("returning 6th row test should calc this row and then memoize it: ", () => {
+        expect(generate(6)).toStrictEqual(
+            [1, 5, 10, 10, 5, 1]
+        );
+    });
+});
+
+describe("121. Best Time to Buy and Sell Stock: ", () => {
+    it("Input: [7,1,5,3,6,4] -> output should be 5", () => {
+        expect(maxProfit([7,1,5,3,6,4])).toBe(5);
+        expect(maxProfit([1,2])).toBe(1);
     });
 });

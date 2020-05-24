@@ -818,71 +818,7 @@ To complete this problem what is needed?
 
 */
 
-class Leef {
 
-    constructor(val) {
-        this.val = val;
-    }
-
-    public val = null;
-    public left = null;
-    public right = null;
-}
-
-export class Tree {
-    public head = null;
-
-
-    public subAddLeaf = (leaf: Leef, leafToAdd: Leef) => {
-        // if (leaf.val >= leafToAdd.val) {
-        //     if (leaf.right === null) {
-        //         leaf.right = leafToAdd;
-        //     } else {
-        //         this.subAddLeaf(leaf.right, leafToAdd);
-        //     }
-        // } else {
-        //     if (leaf.left === null) {
-        //         leaf.left = leafToAdd;
-        //     } else {
-        //         this.subAddLeaf(leaf.left, leafToAdd);
-        //     }
-        // }
-
-        if (leaf.val <= leafToAdd.val) {
-            if (leaf.right === null) {
-                leaf.right = leafToAdd;
-            } else {
-                this.subAddLeaf(leaf.right, leafToAdd);
-            }
-        } else {
-            if (leaf.left === null) {
-                leaf.left = leafToAdd;
-            } else {
-                this.subAddLeaf(leaf.left, leafToAdd);
-            }
-        }
-    }
-
-    public Add = node => {
-        let newLeaf = new Leef(node);
-
-        if (this.head === null) {
-            this.head = newLeaf;
-        } else {
-            this.subAddLeaf(this.head, newLeaf);
-        }
-    }
-
-    public iterateThroughTreeLeftToRight = (node: Leef = this.head, level = 0) => {
-        if (node === null) return 0;
-        else {
-            let leftDepth = this.iterateThroughTreeLeftToRight(node.left, level + 1);
-            let rightDepth = this.iterateThroughTreeLeftToRight(node.right, level + 1);
-            if (leftDepth > rightDepth) return leftDepth + 1; else return rightDepth + 1;
-        }
-    }
-
-}
 
 // Is Tree the same #100
 /**
@@ -968,7 +904,7 @@ const getDepth = (node, level = 0) => {
     }
 }
 
-const maxDepth = root => {
+export const maxDepth = root => {
     
     if (root === null) return 0;
     
@@ -1015,7 +951,7 @@ export const levelOrderBottom = function(root) {
 
     innnerLevelHelper(root, 0); // make calculations
     const revFloors = floors.reverse();
-    console.log(revFloors);
+    // console.log(revFloors);
     return revFloors;
 };
 
@@ -1068,9 +1004,284 @@ const sortedArrayToBST = nums => {
 
     root.right = sortedArrayToBST(nums.slice(half + 1, nums.length));
 
-    console.log(root);
+    // console.log(root);
 
     return root;
 };
 
-// Version two... 
+/**
+ * LeetCode #110. Balanced 
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+
+const max = (a, b) => {
+    return a >= b ? a : b;
+}
+
+const height = node => {
+    if (node === null) return 0;
+    return 1 + max(height(node.left), height(node.right));
+}
+
+const isBalancedHelper = (node) => {
+    let leftTree;
+    let rightTree;
+    
+    if (node === null) return true;
+
+    leftTree = height(node.left);
+    rightTree = height(node.right);
+
+    if (Math.abs(leftTree - rightTree) <= 1 
+    && isBalancedHelper(node.left) 
+    && isBalancedHelper(node.right))
+        return true;
+
+    return false;
+
+};
+
+const isBalanced = root => {
+    if (root === null) return true;
+    if (root.left === null && root.right === null) return true;
+
+    return isBalancedHelper(root);
+};
+
+/** #111. Minimum Depth of Binary Tree
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const min = (a, b) => {
+    return a <= b ? a : b;
+}
+
+const minDepth = root => {
+    if (root === null) return 0;
+    
+    if (root.left === null && root.right === null) return 1;
+    
+    if (root.left === null) return minDepth(root.right) + 1;
+    
+    if (root.right === null) return minDepth(root.left) + 1;
+    
+    return min(minDepth(root.left), minDepth(root.right)) + 1;
+};
+
+/** #112 Path Sum... 
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {boolean}
+ */
+
+const sumHelper = (node, currentSum, sumToReach) => {
+    if (node) {
+        if (node.left === null && node.right === null && node.val + currentSum === sumToReach) return node.val + currentSum;
+        let sum = sumHelper(node.left, currentSum + node.val, sumToReach);
+        let sum2 = sumHelper(node.right, currentSum + node.val, sumToReach);
+        if (sum === sumToReach) return sum;
+        if (sum2 === sumToReach) return sum2;
+        return null;   
+    } else return null;
+}
+
+const hasPathSum = (root, sum) => {
+    if (root === null) return false;
+    if (root.left === null && root.right === null) return root.val === sum;
+    const res = sumHelper(root, 0, sum);
+    return res === sum;
+};
+
+/**
+ * 
+ * Name of function -> generate
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+const memoGenerate = fn => {
+
+    const cache = [
+        [1],
+       [1,1],
+      [1,2,1],
+     [1,3,3,1],
+    [1,4,6,4,1]
+   ];
+
+    return numRows => {
+        let res;
+        return numRows <= cache.length ? cache[numRows - 1] : (
+            res = fn(cache, numRows),
+            res
+        );
+    };
+};
+
+
+const genRow = prevRow => {
+    let newRow = [];
+    for (let i = 0, j = 1; j < prevRow.length; j++, i++) {
+        newRow.push(prevRow[i] + prevRow[j]);
+    }
+
+    return [1, ...newRow, 1];
+};
+
+const generateHelper = (cache, numRows) => {
+    let currentRow = cache.length;
+
+    while (currentRow < numRows) {
+        cache.push(
+            genRow(cache[currentRow - 1])
+        );
+        currentRow += 1;
+    }
+
+    return cache[numRows - 1];
+};
+
+export const generate = memoGenerate(generateHelper);
+
+/** #119 Pascals's Triange II was easy to solve 
+ * I solved it but I just had to edit small parts of my previous solution
+ * So I will give a small commented out version of it as an example just for 
+ * documentation's sake
+ * @param {number} rowIndex
+ * @return {number[]}
+ * 
+ * 
+ * const memoGenerate = fn => {
+
+    const cache = [
+        [1],
+       [1,1],
+      [1,2,1],
+     [1,3,3,1],
+    [1,4,6,4,1]
+   ];
+
+    return numRows => {
+        let res;
+        return cache[numRows] ? cache[numRows] : (
+            res = fn(cache, numRows),
+            res
+        );
+    };
+};
+
+
+const genRow = prevRow => {
+    let newRow = [];
+    for (let i = 0, j = 1; j < prevRow.length; j++, i++) {
+        newRow.push(prevRow[i] + prevRow[j]);
+    }
+
+    return [1, ...newRow, 1];
+};
+
+const generateHelper = (cache, numRows) => {
+    let currentRow = cache.length;
+
+    while (currentRow <= numRows) {
+        cache.push(
+            genRow(cache[currentRow - 1])
+        );
+        currentRow += 1;
+    }
+
+    return cache[numRows];
+};
+
+const getRow = memoGenerate(generateHelper);
+ */
+
+ /**
+ * @param {number[]} prices
+ * @return {number}
+ */
+
+// export const maxProfit = prices => {
+//     // find lowest index 
+//     let [min, minIndex] = prices.reduce(([min, i], cur, idx) => {
+//         return cur < min ? [cur, idx] : [min, i]
+//     }, [prices[0], 0]);
+
+
+//     minIndex = minIndex + 1 === prices.length ? (min = prices[0], 0) : minIndex;
+
+//     console.log("min index: ", minIndex);
+
+    
+
+//     console.log("min value: ", min);
+
+//     // Need to iterate forward and find the highest range
+//     let sellBuyCases = [
+        
+//     ];
+//     while (minIndex < prices.length) {
+//         let nextBiggerVal = prices[minIndex + 1] || null;
+
+//         if (nextBiggerVal && min < nextBiggerVal) {
+//             sellBuyCases.push(
+//                 nextBiggerVal - min, // value to filter on
+//             );
+//         }
+
+//         minIndex = minIndex + 1;
+//     }
+
+//     console.log(sellBuyCases);
+
+//     return sellBuyCases.length === 0 ? 0 : Math.max(...sellBuyCases);
+// };
+
+// iteration two... going to use some aspects of the 
+// Kedane algorithm to get this done... 
+
+// My last solution does not pass every test... 
+
+// Will create a pointer for the min and for the maxSum... and track both... 
+
+export const maxProfit = prices => {
+    let maxSum = 0, min = prices[0], i = 0;
+
+    while (i < prices.length) {
+        let nextDayPrice = prices[i + 1] || null;
+
+        if (nextDayPrice && min < nextDayPrice && nextDayPrice - min > maxSum) 
+            maxSum = nextDayPrice - min;
+
+        if (prices[i] < min) min = prices[i]; 
+        else if (nextDayPrice < min) min = nextDayPrice;
+
+        i = i + 1;
+    }
+
+    return maxSum;
+};
