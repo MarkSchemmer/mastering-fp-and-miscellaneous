@@ -4,6 +4,9 @@
  * @return {boolean}
  */
 
+import { quickSort } from "./quickSort";
+import { isObject } from "util";
+
 const palindroneHelper = arr => arr.length === 1 || arr.length === 0
                         ? true 
                         : arr.slice(0, 1)[0] === arr.slice(-1)[0] 
@@ -1297,11 +1300,38 @@ const onlyAlphaNumeric = str => {
     return str.toLowerCase().split("").filter(c => letters.includes(c));
 } 
 
-const isPalindrome2 = str => {
+export const isPalindrome2 = str => {
     if (str.length === 0) return true;
     const strSet = onlyAlphaNumeric(str);
     for (let i = 0, j = strSet.length - 1; i < Math.floor(strSet.length / 2); i++, j--) {
         if (strSet[i] !== strSet[j]) return false;
     } 
     return true;
+};
+
+/** #136. Single Number
+ * @param {number[]} nums
+ * @return {number}
+ */
+export const singleNumber = nums => {
+    const sortedNums = quickSort(nums);
+    
+    // console.log("sorted Nums", sortedNums);
+
+    for (let j = 0; j < sortedNums.length; j++) {
+        let current = sortedNums[j];
+        let nextJ = sortedNums[j + 1]; // hitting boundry... 
+        let prevJ = sortedNums[j - 1];
+
+        if (nextJ !== undefined && prevJ !== undefined && current !== nextJ && current !== prevJ) 
+            return current; 
+        
+        if (nextJ === undefined && current !== prevJ)
+            return current;
+        
+        if (prevJ === undefined && current !== nextJ)
+            return current;
+    }
+
+    return null;
 };
