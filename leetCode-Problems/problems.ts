@@ -1335,3 +1335,45 @@ export const singleNumber = nums => {
 
     return null;
 };
+
+/** 141. LinkedList List Cycle... 
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+
+
+ /*
+ 
+  I utilized the tortoise and the hair type strategy... 
+
+  I have two pointers, one slow and one fast... I iterate through until they overlap
+
+  When they overlap I know that where the cycle will be
+
+  Also I know if one of the values is null then there is no cylce in this linkedList 
+ 
+ */
+var hasCycle = function(head) {
+    
+    if (head === null) return false;
+    
+    let tortoise = head;
+    let hair = head.next;
+    
+    while (tortoise.next !== null && hair.next && hair.next.next) {
+        if (tortoise.val === hair.val) return true;
+        
+        tortoise = tortoise.next;
+        hair = hair.next.next;
+    }
+    
+    return false;
+};
