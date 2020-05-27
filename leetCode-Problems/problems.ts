@@ -1392,3 +1392,276 @@ const maxProfit2 = prices => {
 
     return maxProfit;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/*
+
+
+
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+For example, the following two linked lists:
+
+
+begin to intersect at node c1.
+
+ 
+
+Example 1:
+
+
+Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
+Output: Reference of the node with value = 8
+Input Explanation: The intersected node's value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads 
+as [4,1,8,4,5]. From the head of B, it reads as [5,0,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.
+ 
+
+Example 2:
+
+
+Input: intersectVal = 2, listA = [0,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1
+Output: Reference of the node with value = 2
+Input Explanation: The intersected node's value is 2 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as 
+[0,9,1,2,4]. From the head of B, it reads as [3,2,4]. There are 3 nodes before the intersected node in A; There are 1 node before the intersected node in B.
+ 
+
+Example 3:
+
+
+Input: intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
+Output: null
+Input Explanation: From the head of A, it reads as [2,6,4]. From the head of B, it reads as [1,5]. Since the two lists do not intersect, intersectVal must be 0, while skipA and skipB can be arbitrary values.
+Explanation: The two lists do not intersect, so return null.
+ 
+
+Notes:
+
+If the two linked lists have no intersection at all, return null.
+The linked lists must retain their original structure after the function returns.
+You may assume there are no cycles anywhere in the entire linked structure.
+Your code should preferably run in O(n) time and use only O(1) memory.
+
+
+
+
+    I can brute force this solution where I compare every node of A to every node of b to see if any of the nodes
+    Have the same reference
+
+    I could take the object reference of every node and compare that to b to see if any have the same if so I return that value
+    In that case...
+
+
+    Or I could use pointers which is kinda related to what I'm thinking about tortoise and the hair... or similar in a way...
+
+    So I iterate through and keep track of the last item before I hit the end, if list a and list b have different ends then break out and return null
+
+    If they don't then keep exchaning runner a and runner b until they hit the same node then return that first node that they intersect... 
+
+*/
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+
+const iterHeadUp = (node, count) => {
+    let iter = 0;
+
+    while (iter < count) {
+        node = node.next;
+        iter = iter + 1;
+    }
+
+    return node;
+}
+
+var getIntersectionNode = function(headA, headB) { 
+    let lastNodeRunnerA = null;
+    let lastNodeRunnerB = null;
+
+    let runnerA = headA;
+    let runnerB = headB;
+
+    let counterA = 0;
+    let counterB = 0;
+
+    // getLastNode for A
+
+    while (runnerA !== null) {
+        if (runnerA.next === null) lastNodeRunnerA = runnerA.val;
+        runnerA = runnerA.next;
+        counterA++;
+    }
+    runnerA = headA;
+
+    while (runnerB !== null) {
+        if (runnerB.next === null) lastNodeRunnerB = runnerB.val;
+        runnerB = runnerB.next;
+        counterB++;
+    }
+    runnerB = headB;
+
+    if (lastNodeRunnerA !== lastNodeRunnerB) return null;
+
+    if (lastNodeRunnerA === null || lastNodeRunnerB === null) return null;
+
+
+    if (counterA > counterB) {
+        runnerA = iterHeadUp(headA, counterA - counterB);
+    } else {
+        runnerB = iterHeadUp(headB, counterB - counterA);
+    }
+    
+    while (true) {
+        if (Object.is(runnerA, runnerB)) return runnerA;
+        runnerA = runnerA.next;
+        runnerB = runnerB.next;
+    }
+};
+
+/**
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+const twoSum2 = (numbers, target) => {
+    for (let i = 0; i < numbers.length; i++) {
+        let index1 = i + 1;
+        for (let j = i + 1; j < numbers.length; j++) {
+            let index2 = j + 1;
+            if (numbers[i] + numbers[j] === target) return [index1, index2];
+        }  
+    }
+};
+
+/**
+ * @param {number} n
+ * @return {string}
+ */
+
+
+const upperCaseLetters = [...new Array(26)]
+    .map((item, idx) => idx)
+    .reduce((acc, cur) => {
+    acc[cur] = String.fromCharCode(cur + 65);
+    return acc;
+}, {});
+
+const convertToTitleHelper = (n, str) => {
+    while (n > 0) {
+        str += upperCaseLetters[(n - 1) % 26];
+        n = Math.floor((n - 1) / 26);
+    }
+
+    return str.split("").reverse().join("");
+}
+
+export const convertToTitle = n => {
+    if (n <= 26) 
+        return upperCaseLetters[n];
+    else 
+        return convertToTitleHelper(n, ""); 
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+
+/*
+
+    Just going to sort this array and return n/2
+
+*/
+
+const majorityElementSorter = arr => {
+    // if (arr.length < 2) return arr;
+    //  else {
+    //     let pivot = arr[0];
+    //     let smaller = arr.slice(1).filter(n => n < pivot);
+    //     let bigger = arr.slice(1).filter(n => n >= pivot);
+    //     return [ ...majorityElementSorter(smaller), pivot, ...majorityElementSorter(bigger) ];
+    // }
+
+    let stacks = [arr];
+    let sorted = [];
+
+    while (stacks.length) {
+        const currentArray = stacks.pop();
+
+        if (currentArray.length === 1) {
+            sorted.push(currentArray[0]);
+            continue; // skips this round and moves to next
+        }
+
+        const [ first, ...rest] = currentArray;
+
+        // go through array... so first is pivot...
+        // Need to get smaller and bigger arrays
+
+        let smaller = [], bigger = [];
+
+        for (let i = 0; i < rest.length; i++) {
+            let value = rest[i];
+            if (value < first) {
+                smaller.push(value);
+            } else {
+                bigger.push(value);
+            }
+        }
+
+        // Need to add arrays to stack...
+
+        // In order of smallest, pivot, largest
+
+        if (smaller.length) {
+            stacks.push(smaller);
+        }
+
+        stacks.push([first]);
+
+        if (bigger.length) {
+            stacks.push(bigger);
+        }
+    }
+
+    return sorted;
+}
+
+var majorityElement = function(nums) {
+    let len = Math.floor(nums.length / 2);
+    let sorted = majorityElementSorter(nums);
+    return sorted[len];
+};
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+
+/*
+    A - Z mapped 0 - 25 hash map... 
+*/
+const numbersToUpperCaseLetters = [...new Array(26)]
+    .map((item, idx) => idx)
+    .reduce((acc, cur) => {
+    acc[String.fromCharCode(cur + 65)] = cur;
+    return acc;
+}, {});
+
+export const titleToNumber = s => {
+    const charArr = s.split("").reverse(); // array of chars... 
+
+    return charArr.reduce((acc, cur, coefficent) => {
+        const coe = Math.pow(26, coefficent);
+        return acc + (coe * (numbersToUpperCaseLetters[cur] + 1));
+    }, 0);
+};

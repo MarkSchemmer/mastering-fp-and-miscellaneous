@@ -1,5 +1,5 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
-    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, isSameTree, isSymmetric, levelOrderBottom, generate, maxProfit } from "./problems";
+    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, isSameTree, isSymmetric, levelOrderBottom, generate, maxProfit, convertToTitle, titleToNumber } from "./problems";
 import { Tree } from "./LeetCodeDataStructures";
 
 
@@ -191,5 +191,30 @@ describe("121. Best Time to Buy and Sell Stock: ", () => {
     it("Input: [7,1,5,3,6,4] -> output should be 5", () => {
         expect(maxProfit([7,1,5,3,6,4])).toBe(5);
         expect(maxProfit([1,2])).toBe(1);
+    });
+}); 
+
+describe("168. Excel Column Title: ", () => {
+    it("Testing lower than and equal to 26: ", () => {
+        // Harder versions here...
+        expect(convertToTitle(27)).toBe("AA");
+        expect(convertToTitle(28)).toBe("AB");
+        // Hardest versions here...
+        expect(convertToTitle(701)).toBe("ZY");
+        // Mega hard versions here...
+        expect(convertToTitle(1500)).toBe("BER");
+        expect(convertToTitle(2168)).toBe("CEJ");
+        // Tests failed in LeetCode 
+        expect(convertToTitle(52)).toBe("AZ");
+     });
+});
+
+describe("171. Excel Sheet Column Number: ", () => {
+    it("First easy test cases: ", () => {
+        expect(titleToNumber("A")).toBe(1);
+        expect(titleToNumber("B")).toBe(2);
+        expect(titleToNumber("Z")).toBe(26);
+        expect(titleToNumber("AA")).toBe(27);
+        expect(titleToNumber("AB")).toBe(28);
     });
 });
