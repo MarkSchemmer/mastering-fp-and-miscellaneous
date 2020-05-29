@@ -1783,3 +1783,23 @@ const trailingZeroesTimeEfficent = n => {
     return zeroes;
 };
 
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+
+/*
+    I pop the array for k amount... then unshift the popped item 
+    This works... very fast and very simply... 
+*/
+export const rotate = (nums, k) => {
+    let i = 0;
+
+    while (i < k) {
+        nums.unshift(nums.pop());
+        i = i + 1;
+    }
+
+    return nums;
+};
