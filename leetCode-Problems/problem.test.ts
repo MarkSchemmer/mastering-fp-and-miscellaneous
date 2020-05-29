@@ -1,5 +1,8 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
-    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, isSameTree, isSymmetric, levelOrderBottom, generate, maxProfit, convertToTitle, titleToNumber } from "./problems";
+    dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, 
+    isSameTree, isSymmetric, levelOrderBottom, generate, 
+    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, 
+     } from "./problems";
 import { Tree } from "./LeetCodeDataStructures";
 
 
@@ -216,5 +219,36 @@ describe("171. Excel Sheet Column Number: ", () => {
         expect(titleToNumber("Z")).toBe(26);
         expect(titleToNumber("AA")).toBe(27);
         expect(titleToNumber("AB")).toBe(28);
+    });
+});
+
+describe("Factorial trailing zeros...: ", () => {
+    it("Testing add function which is a helper function for this problem: ", () => {
+        expect(add("20", "20")).toBe("40");
+        expect(add("34", "9")).toBe("43");
+        expect(add("1307674368000", "1307674368000")).toBe("2615348736000");
+        expect(add("10461394944000", "2615348736000")).toBe("13076743680000");
+        expect(add("10461394944000", "1")).toBe("10461394944001");
+        expect(add("1", "10461394944000")).toBe("10461394944001");
+        expect(add("10", "10")).toBe("20");
+        expect(add("999", "1")).toBe("1000");
+
+    }); // I'm thinking add is functioning... 
+
+    it("Testing factorial function.... : ", () => {
+        const res1 = factorialGenerator(5);
+        console.log("res1: ", res1);
+        expect(res1).toBe("120");
+        const res2 = factorialGenerator(15);
+        console.log("res2: ", res2);
+        expect(res2).toBe("1307674368000");
+        const res3 = factorialGenerator(20);
+        console.log("res3: ", res3);
+        expect(res3).toBe("2432902008176640000");
+    });
+
+    it("testing trailing zeros: ", () => {
+        expect(trailingZeroes(5)).toBe(1);
+        expect(trailingZeroes(20)).toBe(4);
     });
 });

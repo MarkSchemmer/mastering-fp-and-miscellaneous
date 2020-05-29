@@ -1665,3 +1665,121 @@ export const titleToNumber = s => {
         return acc + (coe * (numbersToUpperCaseLetters[cur] + 1));
     }, 0);
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+
+/*
+
+    Create Factorial generator, and then memoize it as well to speed up the process
+
+    Finally implement getting the trailing zeros... 
+
+    My factorial generator is not working so I have to refactor...
+
+    So basically I have to create an add function wi
+
+*/
+
+// Iteration 1
+// const factorialGenerator = n => {
+//     let total = n;
+
+//     while (n > 0) {
+//         total = total * n;
+//         n = n - 1;
+//     }
+
+//     return total;
+// };
+
+// Iteration 2
+export const add = (s1: any, s2: any) => {
+    let sum = "";
+
+    s1 = s1.toString().split("").map(x => Number(x));
+    s2 = s2.toString().split("").map(x => Number(x));
+    let diff = [ ...new Array(Math.abs(s1.length - s2.length)) ]
+               .map(() => 0);
+    
+    if (s1.length !== s2.length) {
+        if (s1.length > s2.length) {
+            s2 = [ ...diff, ...s2 ];
+        } else {
+            s1 = [ ...diff, ...s1 ];
+        }
+    }
+
+    // now I need to iterate through the sets and the values...
+    let carry = 0;
+
+    for (let i = s1.length - 1; i >= 0; i--) {
+        let a = s1[i], b = s2[i];
+        let totalNewSum = a + b + carry;
+        let sumToConcat = totalNewSum > 9 ? Number(totalNewSum.toString()[1]) : totalNewSum;
+        carry = totalNewSum > 9 ? Number(totalNewSum.toString()[0]) : 0;
+        // assign sum
+        sum = (i === 0) ? totalNewSum + sum : sumToConcat + sum;
+    }
+
+    return sum;
+
+};
+
+export const factorialGenerator = n => {
+    let fact: any = 1;
+
+    for (let i = 2; i <= Number(n); i++) {
+        if (Number.isSafeInteger(fact * i)) {
+            fact = fact * i;
+        } else {
+            // Need to do multiplication by adding...
+            let facti = "0";
+            for (let j = 0; j < i; j++) {
+                facti = add(facti, fact.toString());
+            }
+            fact = facti;
+        }
+    }
+    return fact.toString();
+};
+
+const memoizedFactorial = fn => {
+    let cache = {};
+
+    return n => {
+        return n in cache ? cache[n] : (cache[n] = fn(n), cache[n]);
+    }
+};
+
+let memoizedFactorialFunc = memoizedFactorial(factorialGenerator);
+
+const takeWhileTrailingZeros = (toTake, strSet) => {
+    let iterCount = 0;
+
+    while (strSet[iterCount] === "0") {
+        iterCount = iterCount + 1;
+    }
+
+    return iterCount;
+}
+
+export const trailingZeroes = n => {
+    let factorialNumb = memoizedFactorialFunc(n);
+    return takeWhileTrailingZeros("0", factorialNumb.split("").reverse());
+};
+
+// solution that is time efficent...
+const trailingZeroesTimeEfficent = n => {
+    let zeroes = 0;
+
+    while (n >= 5) {
+        n = Math.floor(n / 5);
+        zeroes += n;
+    }
+
+    return zeroes;
+};
+
