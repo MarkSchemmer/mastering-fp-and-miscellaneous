@@ -4,6 +4,7 @@ import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray,
     maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, 
      } from "./problems";
 import { Tree } from "./LeetCodeDataStructures";
+import { convertBase, convertBinaryToBase10 } from "./problemsHelperLibrary";
 
 
 describe("leetCode # 14", () => {
@@ -257,5 +258,16 @@ describe("189. Rotate Array: ", () => {
     it("Example 1", () => {
         expect(rotate([1,2,3,4,5,6,7], 3)).toStrictEqual([5,6,7,1,2,3,4]);
         expect(rotate([-1,-100,3,99], 2)).toStrictEqual([3,99,-1,-100]);
+    });
+});
+
+describe("Testing library base function for multiple bases: ", () => {
+    // it("Base 2: ", () => {
+    //     expect(convertBase(43261596, 2))
+    //     .toBe("00000010100101000001111010011100");
+    // });
+
+    it("Binary to Decimal: ", () => {
+        expect(convertBinaryToBase10("00111001011110000010100101000000")).toBe(964176192);
     });
 });
