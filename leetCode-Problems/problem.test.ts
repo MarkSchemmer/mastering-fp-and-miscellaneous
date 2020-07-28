@@ -261,13 +261,13 @@ describe("189. Rotate Array: ", () => {
     });
 });
 
-describe("Testing library base function for multiple bases: ", () => {
-    // it("Base 2: ", () => {
-    //     expect(convertBase(43261596, 2))
-    //     .toBe("00000010100101000001111010011100");
-    // });
+// describe("Testing library base function for multiple bases: ", () => {
+//     // it("Base 2: ", () => {
+//     //     expect(convertBase(43261596, 2))
+//     //     .toBe("00000010100101000001111010011100");
+//     // });
 
-    it("Binary to Decimal: ", () => {
-        expect(convertBinaryToBase10("00111001011110000010100101000000")).toBe(964176192);
-    });
-});
+//     it("Binary to Decimal: ", () => {
+//         expect(convertBinaryToBase10("00111001011110000010100101000000")).toBe(964176192);
+//     });
+// });

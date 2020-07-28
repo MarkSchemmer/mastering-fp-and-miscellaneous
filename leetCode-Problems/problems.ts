@@ -1818,4 +1818,4 @@ const reverseBits = n => {
     Solve the following using JavaScript (console.log each line of the output): For every number from 1 to 100: 1) if the number is divisible by 3, print ”clearly”; 2) 
     if the number is divisible by 5, print “agile”; 3) if the number is divisible by 3 and 5, print “clearlyagile”; 4) otherwise, print the number
 */
-const clearlyAgile = () => [ ...Array(101).keys() ].slice(1).map(n => n % 15 === 0 ? "clearlyagile" : n % 5 === 0 ? "agile" : n % 3 === 0 ? "clearly" : n).forEach(n => console.log(n));
+// const clearlyAgile = () => [ ...Array(101).keys() ].slice(1).map(n => n % 15 === 0 ? "clearlyagile" : n % 5 === 0 ? "agile" : n % 3 === 0 ? "clearly" : n).forEach(n => console.log(n));
