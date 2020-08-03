@@ -157,6 +157,131 @@ export const listIntersect = (list1, list2) => {
         r2 = r2.next;
     }
 
-    return false;
+    return  null;
 };
+
+// Recursive power, naive approach... 
+
+// Implement both recursive and iterative approach, and naivly
+
+// Modular Exponiation naive
+
+
+
+// x^n -> x^3 -> x * x * x
+// using recursion...
+export const naiveExponetiationRec = (x, n) => {
+    return n === 0 ? 1 : x * naiveExponetiationRec(x, n - 1);
+};
+
+// exponentiation iterative solution... naive approach
+export const naiveExponetiationIter = (x, n) => {
+    let res = 1;
+    while (n-- > 0) {
+        res = res * x;
+    }
+
+    return res;
+};
+/*
+
+A more optimized approach to 
+
+While calculating x^n , the basis of Binary Exponentiation relies on whether n is odd or even.
+
+If n is even, then x^n can be broken down to ((x^2)^n/2). Programmatically, finding x^2 is a one-step process. However, the problem is to find ((x^2)^n/2)
+
+Notice how the computation steps were reduced from  to  in just one step? You can continue to divide the power by  as long as it is even.
+
+When  is odd, try and convert it into an even value.  can be written as . This ensures that  is even.
+
+If n is even, replace x^n by (x^2)^n/2.
+If n is odd, replace x^n by x * x^n-1.  becomes even and you can apply the relevant formula.
+Example
+
+You are required to compute 3^10. The steps are as follows:
+
+1. The power of 3 is 10, which is even. Break it down as follows:
+
+3^10  -> (3^2)^5 -> 9^5 --> 9 * 9^4 ---> 9 * (9^2)^2 ---> 9 * 81^2 ---> result... 
+
+Find . The power of  is , which is odd. Convert it into an even power and then apply the following formula:
+ is a one-step computation process
+
+The result is .
+
+This is an efficient method and the ten-step process of determining  
+is reduced to a three-step process. At every step,  is divided by . Therefore, the time complexity is O(log N).
+
+*/
+
+export const optimizedExponetiationIter = (x, n) => {
+    let res = 1;
+
+    while (n > 0) {
+        if (n % 2 === 0) {
+            x = x * x;
+            n /= 2;
+        } else {
+            res *= x;
+            n -= 1;
+        }
+    }
+
+    return res;
+}
+
+export const optimizedExponetiationRec = (x, n) => {
+    return n === 0 ? 1 : n % 2 === 0 
+    ? optimizedExponetiationRec(x * x, n / 2) 
+    : x * optimizedExponetiationRec(x * x, (n - 1) / 2);
+};
+
+// How to store bigger numbers in exponentiation... 
+
+// Solving the GCD
+
+/*
+    GCD is the largest positive integer that divides into each of the integers
+
+    For exampel GCD -> g, two integers a, b -> a = 12, b = 8, then the g === 4 -> 4 is the biggest 
+    divisor that goes into 8 and 12
+
+    The naive approach is to decend at 2 at a time from the smaller number... 
+*/
+
+export const naiveGcdIter = (a, b) => {
+    let smaller = a < b ? a : b;
+    for (let i = smaller; i >= 1; i -= 2) {
+        if (a % i === 0 && b % i === 0) return i;
+    }
+
+    return null;
+};
+
+
+/*
+    How to have a modular adnvace to this problem?
+
+    How to have a more optimized solution... ?
+
+    I take the smaller number and the bigger put it as m
+
+    and take the bigger number and modulus it with m and then either test both or
+
+    recall using it
+*/
+
+export const optimizedGcdIter = (a, b) => {
+    let m = a < b ? a : b;
+    let sm = m;
+    let bg = a < b ? b : a;
+    while (m > 1) {
+        console.log(m);
+        if (sm % m === 0 && bg % m === 0) return m;
+        m = bg % m;
+    }
+
+    return null;
+}
 

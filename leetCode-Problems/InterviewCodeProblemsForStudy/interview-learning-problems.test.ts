@@ -1,4 +1,13 @@
-import { validBraces, validBracesV2, listIntersect } from "./problems";
+import { validBraces, validBracesV2, listIntersect, naiveExponetiationRec, naiveExponetiationIter, optimizedExponetiationIter, optimizedExponetiationRec, naiveGcdIter, optimizedGcdIter } from "./problems";
+
+class Node {
+    public value;
+    public next;
+    constructor (value) {
+        this.value = value;
+        this.next = null;
+    }
+}
 
 describe("Interview question for valid braces version 1 ", () => {
     const str1 = "{{{[]}}}"; // true
@@ -42,13 +51,41 @@ describe("Interview question for valid braces version 1 ", () => {
         // expect statement here...
         expect(listIntersect(set1, set2)).toBe(n4);
     });
+
+    it("Testing naive exponetiation approach recursivly: ", () => {
+        expect(naiveExponetiationRec(3, 10)).toBe(59049);
+    });
+
+    it("Testing naive exponetiation approach iterativly: ", () => {
+        expect(naiveExponetiationIter(3, 10)).toBe(59049);
+    });
+
+    it("testing more optimized appraoch iterative way: ", () => {
+        expect(optimizedExponetiationIter(3, 10)).toBe(59049);
+        expect(optimizedExponetiationIter(3, 12)).toBe(531441);
+    });
+
+    it("Testing more optimized approach recursivly: ", () => {
+        expect(optimizedExponetiationRec(3, 10)).toBe(59049);
+        expect(optimizedExponetiationRec(3, 12)).toBe(531441);
+    });
+
+    it("Testing GCD naive iter approach: ", () => {
+        expect(naiveGcdIter(12, 8)).toBe(4);
+        expect(naiveGcdIter(3, 9)).toBe(3);
+        expect(naiveGcdIter(25, 15)).toBe(5);
+    });
+
+    it("Testing GCD more optimized iter approach: ", () => {
+        expect(optimizedGcdIter(12, 8)).toBe(4);
+        expect(optimizedGcdIter(3, 9)).toBe(3);
+        expect(optimizedGcdIter(25, 15)).toBe(5);
+        expect(optimizedGcdIter(120, 110)).toBe(10);
+        expect(optimizedGcdIter(10, 6)).toBe(2);
+    });
 });
 
-class Node {
-    public value;
-    public next;
-    constructor (value) {
-        this.value = value;
-        this.next = null;
-    }
-}
+
+describe("Interview test question preparation: ", () => {
+
+});
