@@ -1,4 +1,4 @@
-import { validBraces, validBracesV2, listIntersect, naiveExponetiationRec, naiveExponetiationIter, optimizedExponetiationIter, optimizedExponetiationRec, naiveGcdIter, optimizedGcdIter } from "./problems";
+import { validBraces, validBracesV2, listIntersect, naiveExponetiationRec, naiveExponetiationIter, optimizedExponetiationIter, optimizedExponetiationRec, naiveGcdIter, optimizedGcdIter, diamondGenerator } from "./problems";
 
 class Node {
     public value;
@@ -85,7 +85,9 @@ describe("Interview question for valid braces version 1 ", () => {
     });
 });
 
-
 describe("Interview test question preparation: ", () => {
-
+    it("diamond correct?", () => {
+        diamondGenerator(4); 
+        expect(true).toBeTruthy();
+    });
 });

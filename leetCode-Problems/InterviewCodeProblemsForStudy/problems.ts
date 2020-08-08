@@ -277,11 +277,35 @@ export const optimizedGcdIter = (a, b) => {
     let sm = m;
     let bg = a < b ? b : a;
     while (m > 1) {
-        console.log(m);
+        // console.log(m);
         if (sm % m === 0 && bg % m === 0) return m;
         m = bg % m;
     }
 
     return null;
 }
+
+export const diamondGenerator = rows => {
+    let accumStr = "";
+    let spaces = rows;
+    const space = " ";
+    const star = "*";
+    const newLine = "\n";
+    const genStar = n => star.repeat(n);
+    const genSpace = n => space.repeat(n);
+
+    for (let i = 1; i < rows; i++) {
+        const sp = genSpace(spaces - i);
+        const st = genStar(i);
+        accumStr += sp + st + newLine;
+    }
+
+    for (let i = rows - 1; i > 0; i--) {
+        const sp = genSpace(spaces - i);
+        const st = genStar(i);
+        accumStr += sp + st + sp + newLine;
+    }
+
+    console.log(accumStr);
+};
 
