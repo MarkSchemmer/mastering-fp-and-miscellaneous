@@ -6,7 +6,8 @@
 
 import { quickSort } from "./quickSort";
 import { isObject } from "util";
-import { convertBase, convertBinaryToBase10 } from "./problemsHelperLibrary";
+import { convertBase, convertBinaryToBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
+import { title } from "process";
 
 const palindroneHelper = arr => arr.length === 1 || arr.length === 0
                         ? true 
@@ -1809,8 +1810,10 @@ export const rotate = (nums, k) => {
  * @param {number} n - a positive integer
  * @return {number} - a positive integer
  */
-const reverseBits = n => {
-    return convertBinaryToBase10(convertBase(n, 2));
+export const reverseBits = n => {
+    return convertBinaryToBase10(
+            shouldAddZero(n, 2)
+        ) / 2;
 };
 
 
@@ -1819,3 +1822,301 @@ const reverseBits = n => {
     if the number is divisible by 5, print “agile”; 3) if the number is divisible by 3 and 5, print “clearlyagile”; 4) otherwise, print the number
 */
 // const clearlyAgile = () => [ ...Array(101).keys() ].slice(1).map(n => n % 15 === 0 ? "clearlyagile" : n % 5 === 0 ? "agile" : n % 3 === 0 ? "clearly" : n).forEach(n => console.log(n));
+
+
+/**
+ * @param {number} n - a positive integer
+ * @return {number}
+ * 
+ * 
+ * 
+ * I'm just going to convert number to binary string and then filter for 1's 
+ * And return the set's count
+ */
+export const hammingWeight = n => {
+    return convertBase(n, 2).split("").filter(i => i === "1").length;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+export const rob = nums => {
+    let rob1 = 0, rob2 = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        let temp = Math.max(rob1 + nums[i], rob2);
+        rob1 = rob2;
+        rob2 = temp;
+    }
+
+    return rob2;
+};
+
+// Task 2 Toptal interview question
+// you can write to stdout for debugging purposes, e.g.
+// console.log('this is a debug message');
+
+
+export const compress = s => {
+    let out = "";
+    let sum = 1;
+
+    for (let i = 0; i < s.length - 1; i++) {
+        if (s[i] === s[i + 1]) {
+            sum++;
+        } else {
+            out = out + (sum === 1 ? "" : sum) + s[i];
+            sum = 1;
+        }
+    }
+
+    if (sum === 1) { out = out + sum + s[s.length - 1]; }
+    return out.length < s.length ? out : s;
+};
+
+export const solution = (S, K) => {
+    // console.log(compress(S));
+};
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+
+/*
+
+    Write an algorithm to determine if a number n is "happy".
+
+    A happy number is a number defined by the following process: 
+    Starting with any positive integer, replace the number by the sum of the 
+    squares of its digits, and repeat the process until the number equals 1 
+    (where it will stay), or it loops endlessly in a cycle which does not include 1. 
+    Those numbers for which this process ends in 1 are happy numbers.
+
+    Return True if n is a happy number, and False if not.
+
+*/
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+const isHappy1 = () => {
+    let map = {};
+    let convertNToNextSet = n => n.toString().split("")
+                                .map(x => Math.pow(Number(x), 2))
+                                .reduce((acc, cur) => acc + cur, 0);
+
+    let isValidHappy = n => n === 1;
+
+    return n => {
+        let origN = n;
+        let tn = {};
+        
+        if (n in map)  { return map[n]; }
+        
+        tn[n] = { n };
+        
+        while (true) {
+
+            n = convertNToNextSet(n);
+            if (isValidHappy(n)) {
+                map[origN] = true;
+                return true;
+            } else {
+                if (n in tn) {
+                    return false;
+                } else {
+                    tn[n] = n;
+                }
+            }
+        }
+    };
+};
+
+export const isHappy = isHappy1();
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+export const removeElements = (head, val) => {
+    // Accounting for the head... 
+    if (head === null) return head;
+    if (head.val === val) {
+        head = head.next;
+        return removeElements(head, val);
+    }
+
+    // Accounting for the middle
+
+    let runner = head;
+
+    while (runner.next !== null) {
+        if (runner.next.val === val && runner.next.next !== null) {
+            let temp = runner.next.next;
+            runner.next = null;
+            runner.next = temp;
+            return removeElements(head, val);
+        }
+        if (runner.next.next === null) {
+            break;            
+        } else {
+            runner = runner.next;
+        }
+
+    }
+
+    if (runner.next && runner.next.val === val) {
+        runner.next = null;
+        return removeElements(head, val);
+    }
+    // Accounting for the tail... 
+    return head;
+};
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+export const countPrimes1 = () => {
+    let primesResMap = {
+        0: 0,
+        1: 0,
+        2: 0
+    };
+    let primesMap = [ 2, 3, 5, 7, 11 ]
+    let largestPrime = () => primesMap[primesMap.length - 1];
+
+
+    const genRestOfPrimesToN = n => {
+        let isprime = false;
+        for (let i = largestPrime() + 2; i <= n; i+= 2) {
+            let isPrime = primesMap.every(p => i % p !== 0);
+            if (isPrime) {
+                isprime = isprime === n;
+                primesMap.push(i);
+            }
+        }
+
+        return isprime ? primesMap.length - 1 : primesMap.length;
+    }
+
+    const preparePrimes = n => {
+            // Need to generate a result... 
+            let largestPrimeV = largestPrime();
+            if (n <= largestPrimeV) {
+                let highCounter = primesMap.length - 1;
+                while (highCounter > 0) {
+                    let curPrimes = primesMap[highCounter];
+                    if (curPrimes < n) {
+                        console.log("curprimes: ", curPrimes);
+                        return primesMap.slice(0, highCounter + 1).length;
+                    }
+
+                    highCounter = highCounter - 1;
+                }
+                
+            } else {
+                return genRestOfPrimesToN(n);
+            }
+
+    }
+
+
+
+    return n => {
+        return n in primesResMap ? primesResMap[n] : (
+            primesResMap[n] = preparePrimes(n),
+            primesResMap[n]
+        );
+    }
+};
+
+const https = require('https');
+
+export const countPrimes = countPrimes1;
+
+const findUniqueSubstrings = (str) => {
+
+    const distinct = (value, index, self) => {
+        return self.indexOf(value) === index && value.length > 0;
+    }
+
+    const arr = [...str].reduce((acc, _, idx) =>
+      acc.concat(Array.from({length: str.length}, 
+        (_, innerIdx) => str.substring(idx, innerIdx + 1)
+      )), []);
+
+    return [ ...arr.filter(distinct) ].sort();
+}
+  
+function maxSubstring(s) {
+    let res = findUniqueSubstrings(s);
+    return res[res.length - 1];
+}
+
+const distinct = (value, index, self) => {
+    return self.indexOf(value) === index;
+}
+
+// function returns a Promise
+export const getPromise = (t, page = 1) => {
+  return new Promise((resolve, reject) => {
+    https.get(
+      `https://jsonmock.hackerrank.com/api/movies/search/?Title=${t}&page=${page}`,
+      response => {
+        let d = [];
+
+        response.on('data', fragments => {
+          d.push(fragments);
+        });
+        response.on('end', () => {
+          let data = Buffer.concat(d) as any;
+          resolve(JSON.parse(data));
+        });
+        response.on('error', error => {
+          reject(error);
+        });
+      }
+    );
+  });
+};
+
+// async function to make http request
+export const makeSynchronousRequest = async movie_title => {
+  try {
+    // maing a req for number of pages
+    let response = await getPromise(movie_title) as any;
+    let titles = response.data;
+    let pageNum = 2;
+    let totalPages = response.total_pages;
+
+    while (pageNum <= totalPages) {
+        let newRes = await getPromise(movie_title, pageNum) as any;
+        titles = [ ...titles, ...newRes.data ];
+        pageNum += 1;
+    }
+
+    return titles;
+
+  } catch (error) {
+    // Promise rejected
+    throw new Error(error);
+  }
+};
+
+export async function getMovieTitles1(movie_title) {
+  const allMovies = await makeSynchronousRequest(movie_title);
+  const finalResult = [ ...((allMovies.map(m => m.Title)).sort()) ].reduce((acc, cur) => acc + cur + "\n", "");
+  return finalResult;
+}

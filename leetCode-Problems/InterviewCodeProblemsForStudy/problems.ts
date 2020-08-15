@@ -306,6 +306,7 @@ export const diamondGenerator = rows => {
         accumStr += sp + st + sp + newLine;
     }
 
-    console.log(accumStr);
+    // Need to uncomment to check and see pattern
+    // console.log(accumStr);
 };
 

@@ -11,7 +11,7 @@ describe("does currying work?", () => {
         const shouldBe = sum(1, 3, 4);
         const sumCurred = curry(sum, 3);
         const expected = sumCurred(1)(3)(4);
-        console.log(expected);
+        // console.log(expected);
         expect(expected).toBe(shouldBe);
     });
 
