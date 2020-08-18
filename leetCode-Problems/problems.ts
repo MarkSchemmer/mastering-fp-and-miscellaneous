@@ -8,6 +8,8 @@ import { quickSort } from "./quickSort";
 import { isObject } from "util";
 import { convertBase, convertBinaryToBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
 import { title } from "process";
+import { fastGenRange } from "../generateRange/genRange";
+import { getLastNodeInTree } from "./InterviewCodeProblemsForStudy/problems";
 
 const palindroneHelper = arr => arr.length === 1 || arr.length === 0
                         ? true 
@@ -1302,7 +1304,7 @@ const onlyAlphaNumeric = str => {
     return str.toLowerCase().split("").filter(c => letters.includes(c));
 } 
 
-export const isPalindrome2 = str => {
+export const isPalindrome2 = (str): Boolean => {
     if (str.length === 0) return true;
     const strSet = onlyAlphaNumeric(str);
     for (let i = 0, j = strSet.length - 1; i < Math.floor(strSet.length / 2); i++, j--) {
@@ -1988,63 +1990,125 @@ export const removeElements = (head, val) => {
  * @param {number} n
  * @return {number}
  */
+// export const countPrimes1 = () => {
+//     let primesResMap = {
+//         0: 0,
+//         1: 0,
+//         2: 0
+//     };
+//     let primesMap = [ 2, 3, 5, 7, 11 ];
+//     let primesHashMapVersion = {
+//         2: 2,
+//         3: 3,
+//         5: 5,
+//         7: 7,
+//         11: 11
+//     };
+//     let largestPrime = () => primesMap[primesMap.length - 1];
+
+
+//     const genRestOfPrimesToN = n => {
+//         for (let i = largestPrime() + 2; i <= n; i+= 2) {
+//             let iInPrimesHashMap = i in primesHashMapVersion;
+//             let isPrime = iInPrimesHashMap || primesMap.every(p => i % p !== 0);
+//             if (isPrime) {
+//                 primesMap.push(i);
+//                 primesHashMapVersion[i] = i;
+//             }
+//         }
+
+//         return n in primesHashMapVersion ? primesMap.length - 1 : primesMap.length;
+//     }
+
+//     const preparePrimes = n => {
+//             // Need to generate a result... 
+//             let largestPrimeV = largestPrime();
+//             if (n <= largestPrimeV) {
+//                 let highCounter = primesMap.length - 1;
+//                 while (highCounter > 0) {
+//                     let curPrimes = primesMap[highCounter];
+//                     if (curPrimes < n) {
+//                         console.log("curprimes: ", curPrimes);
+//                         return primesMap.slice(0, highCounter + 1).length;
+//                     }
+
+//                     highCounter = highCounter - 1;
+//                 }
+                
+//             } else {
+//                 return genRestOfPrimesToN(n);
+//             }
+//     }
+
+
+
+//     return n => {
+//         return n in primesResMap ? primesResMap[n] : (
+//             primesResMap[n] = preparePrimes(n),
+//             primesResMap[n]
+//         );
+//     }
+// };
+
+// Need to revamp this solution later on in time for finding faster primes... 
+// This is still very slow at the moment and needs improvement
+// PROBLEM: 204 Count Primes
+/**
+ * @param {number} n
+ * @return {number}
+ */
 export const countPrimes1 = () => {
     let primesResMap = {
-        0: 0,
-        1: 0,
-        2: 0
+        0: [],
+        1: [],
+        2: [],
+        3: [ 2 ],
+        4: [ 2, 3 ],
+        5: [ 2, 3 ],
+        6: [ 2, 3, 5 ],
+        7: [ 2, 3, 5 ],
+        8: [ 2, 3, 5, 7 ],
+        9: [ 2, 3, 5, 7 ],
+        10: [ 2, 3, 5, 7 ]
     };
-    let primesMap = [ 2, 3, 5, 7, 11 ]
-    let largestPrime = () => primesMap[primesMap.length - 1];
-
-
-    const genRestOfPrimesToN = n => {
-        let isprime = false;
-        for (let i = largestPrime() + 2; i <= n; i+= 2) {
-            let isPrime = primesMap.every(p => i % p !== 0);
-            if (isPrime) {
-                isprime = isprime === n;
-                primesMap.push(i);
-            }
-        }
-
-        return isprime ? primesMap.length - 1 : primesMap.length;
-    }
 
     const preparePrimes = n => {
-            // Need to generate a result... 
-            let largestPrimeV = largestPrime();
-            if (n <= largestPrimeV) {
-                let highCounter = primesMap.length - 1;
-                while (highCounter > 0) {
-                    let curPrimes = primesMap[highCounter];
-                    if (curPrimes < n) {
-                        console.log("curprimes: ", curPrimes);
-                        return primesMap.slice(0, highCounter + 1).length;
-                    }
+        // TODO: 
+        // Need to remove this while loop and get this in a for loop so I don't have
+        // to generate a large set each time I iterate this can be after I do another problem... 
+        // Need to generate range from 2 to n
+        let range = fastGenRange(2, n);
+        // console.log("range before: ", range);
+        let nextRange = [];
+        let counter = 0;
 
-                    highCounter = highCounter - 1;
-                }
-                
-            } else {
-                return genRestOfPrimesToN(n);
-            }
+        while (counter < range.length - 1) {
+            let curVal = range[counter];
+            nextRange.push(curVal); 
+            range = range.filter(p => p % curVal !== 0);
+            // console.log(range);
+        }
 
-    }
+        // console.log(nextRange);
 
-
-
+        return nextRange;
+    };
+    
     return n => {
-        return n in primesResMap ? primesResMap[n] : (
+        return n in primesResMap ? primesResMap[n].length : (
             primesResMap[n] = preparePrimes(n),
-            primesResMap[n]
+            primesResMap[n].length
         );
     }
 };
 
-const https = require('https');
-
 export const countPrimes = countPrimes1;
+
+
+
+
+
+const https = require('https');
 
 const findUniqueSubstrings = (str) => {
 
@@ -2108,7 +2172,6 @@ export const makeSynchronousRequest = async movie_title => {
     }
 
     return titles;
-
   } catch (error) {
     // Promise rejected
     throw new Error(error);
@@ -2119,4 +2182,233 @@ export async function getMovieTitles1(movie_title) {
   const allMovies = await makeSynchronousRequest(movie_title);
   const finalResult = [ ...((allMovies.map(m => m.Title)).sort()) ].reduce((acc, cur) => acc + cur + "\n", "");
   return finalResult;
-}
+};
+
+/*
+
+        PROBLEM: 205. Isomorphic Strings
+
+        Given two strings s and t, determine if they are isomorphic.
+
+        Two strings are isomorphic if the characters in s can be replaced to get t.
+
+        All occurrences of a character must be replaced with another character while preserving 
+        the order of characters. No two characters may map to the same character but a character may map to itself.
+
+        Example 1:
+
+        Input: s = "egg", t = "add"
+        Output: true
+        Example 2:
+
+        Input: s = "foo", t = "bar"
+        Output: false
+*/
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+
+export const isIsomorphic = (s: string, t: string): boolean => {  
+    let mapS = {};
+    let mapT = {};
+
+    for (let i = 0; i < s.length; i++) {
+        // Need to iterate over string s 
+        // and map char in s and assign it to char in string t
+        const charS = s[i];
+        const charT = t[i];    
+
+        if (charS in mapS) {
+            let doesMatch = mapS[charS] === charT;
+            if (!doesMatch) { return false; }
+        } else {
+            if (!(charT in mapT) && !(charS in mapS)) {
+                mapS[charS] = charT;
+                mapT[charT] = charS;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    return true;
+};
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+
+/* Complete working solution on LeetCode. */
+export const reverseList = head => {
+
+    const getLastNodeInTree = node => {
+        let runner = node;
+        let count = 1;
+    
+        while (runner && runner.next && runner.next !== null) {
+            runner = runner.next;
+            count++;
+        }
+    
+        return {
+            lastNode: runner,
+            count
+        };
+    };
+      
+    const gettingNthToListNode = (node, howManyToCount) => {
+        let counter = 0;
+        while (node.next !== null && counter < howManyToCount) {
+            node = node.next;
+            counter = counter + 1;
+        }
+    
+        return node;
+    };
+
+    return () => {
+        if (head === null) return head;
+        let origHead = head;
+        let h = head;
+        const { count } = getLastNodeInTree(head);
+        let itersToRemove = Math.floor(count / 2);
+        let counter = 1;
+
+        while (h.next !== null && counter <= itersToRemove) {
+            // Need to get last node
+            let howMany = count - counter;
+            let endNthNode = gettingNthToListNode(origHead, howMany);
+
+            // Could create a swap function... 
+            let hValTemp = h.val;
+            h.val = endNthNode.val;
+            endNthNode.val = hValTemp;
+            counter = counter + 1;
+            h = h.next;
+        }
+
+        return origHead
+    }
+};
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+export const containsDuplicate = nums => {
+    let map = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] in map) {
+            return true;
+        } else {
+            map[nums[i]] = nums[i];
+        }
+    }
+
+    return false;
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+/*
+    Find duplicate number and must be spaced less than or equal to k
+    [1, 2, 3, 1] - k = 3, => true
+*/
+export const containsNearbyDuplicate = (nums, k) => {
+    let map = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        let val = nums[i];
+        if (!(val in map)) {
+            map[val] = i;
+        } else {
+            if (i - map[val] <= k) {
+                return true;
+            } else {
+                map[val] = i;
+            }
+        }
+    }
+
+    return false;
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function(root) {
+    if (root === null) return null;
+    
+    if (root.left === null && root.right === null) {
+        return root;
+    } else {
+        let leftNode = invertTree(root.left);
+        let rightNode = invertTree(root.right);
+        
+        let temp = root.left;
+        
+        root.left = root.right;
+        root.right = temp;
+        
+        return root;
+    }
+};
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+export const isPowerOfTwo = () => {
+    let map = {
+        2: 2,
+        4: 4,
+        8: 8,
+        16: 16,
+        32: 32
+    };
+
+    let mapArray = [ 2, 4, 8, 16, 32 ];
+
+    const generateNew2ndPower = nn => {
+        let maxNumb = mapArray[mapArray.length - 1];
+
+        while (maxNumb <= nn) {
+            if (maxNumb === nn) return true;
+            maxNumb = maxNumb * 2;
+            mapArray.push(maxNumb);
+            map[maxNumb] = maxNumb;
+        }
+
+        return false;
+    };
+
+    return n => {
+        if (n === 1) return true;
+        return n in map ? true : generateNew2ndPower(n);
+    }
+};
+

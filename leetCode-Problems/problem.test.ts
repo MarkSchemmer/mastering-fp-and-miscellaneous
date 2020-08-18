@@ -1,7 +1,7 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
     dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, 
     isSameTree, isSymmetric, levelOrderBottom, generate, 
-    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, 
+    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, 
      } from "./problems";
 import { Tree } from "./LeetCodeDataStructures";
 import { convertBase, convertBinaryToBase10, prepStrNumbForBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
@@ -365,5 +365,37 @@ describe("Testing new interview question... : ", () => {
             testPromise3
         );
         expect(true).toBeTruthy();
+    });
+});
+
+describe(" Testing primes until n: ", () => {
+    it("Testing 10 -> 4: ", () => {
+        let primer = countPrimes();
+        expect(primer(10)).toBe(4);
+        expect(primer(11)).toBe(4);
+    });
+});
+
+describe("isIsomorphic 205 leetcode problem: ", () => {
+    it("egg and add: ", () => {
+        expect(isIsomorphic("egg", "add")).toBe(true);
+    });
+
+    it("foo and bar: ", () => {
+        expect(isIsomorphic("foo", "bar")).toBe(false);
+    });
+
+    it("ab and aa", () => {
+        expect(isIsomorphic("ab", "aa")).toBe(false);
+    });
+
+    it("ab and ca: ", () => {
+        expect(isIsomorphic("ab", "ca")).toBe(true);
+    });
+});
+
+describe("219. Contains Duplicate II: ", () => {
+    it("nums = [1,2,3,1,2,3] k = 2", () => {
+        expect(containsNearbyDuplicate([ 1, 2, 3, 1, 2, 3 ], 2)).toBe(false);
     });
 });

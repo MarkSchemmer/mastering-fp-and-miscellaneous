@@ -82,7 +82,7 @@ export const validBracesV2 = str => {
 
 */
 
-const getLastNodeInTree = node => {
+export const getLastNodeInTree = node => {
     let runner = node;
     let count = 1;
 
