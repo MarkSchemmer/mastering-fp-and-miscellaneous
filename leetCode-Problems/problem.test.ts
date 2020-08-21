@@ -1,9 +1,9 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
     dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, 
     isSameTree, isSymmetric, levelOrderBottom, generate, 
-    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, 
+    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, 
      } from "./problems";
-import { Tree } from "./LeetCodeDataStructures";
+import { Tree, LinkedList } from "./LeetCodeDataStructures";
 import { convertBase, convertBinaryToBase10, prepStrNumbForBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
 import { count } from "console";
 
@@ -360,10 +360,18 @@ describe("Testing new interview question... : ", () => {
         // console.log(testPromise2);
 
         let testPromise3 = await getMovieTitles1("spiderman");
+        
         // log testPromise3
-        console.log(
-            testPromise3
-        );
+        // console.log(
+        //     testPromise3
+        // );
+
+        let testPromise4 = await getMovieTitles2("spiderman");
+
+        // console.log(
+        //     testPromise4
+        // );
+
         expect(true).toBeTruthy();
     });
 });
@@ -397,5 +405,24 @@ describe("isIsomorphic 205 leetcode problem: ", () => {
 describe("219. Contains Duplicate II: ", () => {
     it("nums = [1,2,3,1,2,3] k = 2", () => {
         expect(containsNearbyDuplicate([ 1, 2, 3, 1, 2, 3 ], 2)).toBe(false);
+    });
+});
+
+
+describe("Testing LinkedList: ", () => {
+    it("Adding to front: ", () => {
+        // let a = [ 1, 2, 3 ];
+        // let list = new LinkedList();
+        // a.forEach(i => list.addToBack(i));
+        // list.interateAndLogEachValue();
+        expect(true).toBeTruthy();
+    });
+
+    it("Is LinkedList palindrome?: ", () => {
+        let a = [ 1, 2, 2, 1 ];
+        let list = new LinkedList();
+        a.forEach(i => list.addToBack(i));
+        expect(isPalindromeLinkedList(list.head)).toBe(true);
+        expect(true).toBeTruthy();
     });
 });

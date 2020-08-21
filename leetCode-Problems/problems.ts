@@ -2178,12 +2178,45 @@ export const makeSynchronousRequest = async movie_title => {
   }
 };
 
+// async function to make http request
+// Using Promise.all
+export const makeSynchronousRequestUsingPromiseAll = async movie_title => {
+    try {
+      // maing a req for number of pages
+      let response = await getPromise(movie_title) as any;
+      let titles = response.data;
+      let pageNum = 2;
+      let totalPages = response.total_pages;
+
+      let promiseList = [];
+  
+      while (pageNum <= totalPages) {
+          let newRes = getPromise(movie_title, pageNum) as any;
+          promiseList.push(newRes);
+          pageNum += 1;
+      }
+
+      let results = await Promise.all(promiseList);
+      titles = titles.concat(results.map(r => r.data));
+  
+      return titles;
+    } catch (error) {
+      // Promise rejected
+      throw new Error(error);
+    }
+  };
+
 export async function getMovieTitles1(movie_title) {
   const allMovies = await makeSynchronousRequest(movie_title);
   const finalResult = [ ...((allMovies.map(m => m.Title)).sort()) ].reduce((acc, cur) => acc + cur + "\n", "");
   return finalResult;
 };
 
+export async function getMovieTitles2(movie_title) {
+    const allMovies = await makeSynchronousRequestUsingPromiseAll(movie_title);
+    const finalResult = [ ...((allMovies.map(m => m.Title)).sort()) ].reduce((acc, cur) => acc + cur + "\n", "");
+    return finalResult;
+  };
 /*
 
         PROBLEM: 205. Isomorphic Strings
@@ -2412,3 +2445,39 @@ export const isPowerOfTwo = () => {
     }
 };
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+// isPalindrome
+/*
+    Let's iterate through end of linked list
+    and push each item to stack
+    iterate again and compare each poped item with current with head
+    if don't match false if all match true
+*/
+export const isPalindromeLinkedList = head => { 
+    if (head === null) return null;
+    let stack = [];
+    let runner = head;
+    while (runner !== null) {
+        stack.push(runner.val);
+        runner = runner && runner.next && runner.next;
+    }
+
+    runner = head;
+
+    while (runner.next !== null) {
+        if (runner.val !== stack.pop()) return false;
+        runner = runner.next;
+    }
+
+    return true;
+};

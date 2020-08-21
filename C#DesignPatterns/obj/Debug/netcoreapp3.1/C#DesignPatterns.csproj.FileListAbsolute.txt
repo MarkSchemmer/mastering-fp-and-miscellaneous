@@ -1,0 +1,13 @@
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\bin\Debug\netcoreapp3.1\C#DesignPatterns.exe
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\bin\Debug\netcoreapp3.1\C#DesignPatterns.deps.json
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\bin\Debug\netcoreapp3.1\C#DesignPatterns.runtimeconfig.json
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\bin\Debug\netcoreapp3.1\C#DesignPatterns.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\bin\Debug\netcoreapp3.1\C#DesignPatterns.dll
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\bin\Debug\netcoreapp3.1\C#DesignPatterns.pdb
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.dll
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.pdb
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.genruntimeconfig.cache

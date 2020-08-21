@@ -60,3 +60,85 @@ export class Tree {
     }
 
 }
+
+
+
+
+
+export class LinkedList {
+
+    public head;
+    public tail;
+    public count;
+
+    constructor () {
+        this.head = null;
+        this.tail = null;
+        this.count = 0;
+    }
+
+    addToBack = val => {
+
+        const node = new Node(val);
+
+        if (this.count === 0) {
+            this.head = node;
+        } else {
+            // run through the list until the last and connect 
+            // The last with the new tail
+            let runner = this.head;
+
+            while(runner.next !== null) {
+                runner = runner.next;
+            }
+
+            
+            runner.next = node;
+            console.log(runner.next.value);
+        }
+
+        this.count++;
+        return this;
+    }
+
+    emptyList = () => {
+        this.head = null;
+        this.tail = null;
+        this.count = 0;
+    }
+
+    getCount = () => {
+        return this.count;
+    }
+
+    contains = item => {
+        let runner = this.head;
+
+        while (runner !== null) {
+            if (item === runner.value) {
+                return true;
+            }
+
+            runner = runner.next;
+        }
+
+        return false;
+    }
+
+    interateAndLogEachValue = () => {
+        let runner = this.head;
+        while (runner !== null) {
+            console.log(runner.value);
+            runner = runner.next;
+        }
+    }
+}
+
+export class Node {
+    public value;
+    public next;
+    constructor (value) {
+        this.value = value;
+        this.next = null;
+    }
+}
