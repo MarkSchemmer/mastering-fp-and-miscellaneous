@@ -1,7 +1,7 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
     dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, 
     isSameTree, isSymmetric, levelOrderBottom, generate, 
-    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, 
+    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, getMiddleNode, reverseSecondedHalfOfNodeList, mostEfficentLinkedListIsPalindrone, 
      } from "./problems";
 import { Tree, LinkedList } from "./LeetCodeDataStructures";
 import { convertBase, convertBinaryToBase10, prepStrNumbForBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
@@ -424,5 +424,54 @@ describe("Testing LinkedList: ", () => {
         a.forEach(i => list.addToBack(i));
         expect(isPalindromeLinkedList(list.head)).toBe(true);
         expect(true).toBeTruthy();
+    });
+
+    it("Get middle node for LinkedList: ", () => {
+        let aa = [ 1, 2, 5, 2, 1 ];
+        let list = new LinkedList();
+        aa.forEach(i => list.addToBack(i));
+        let result = getMiddleNode(list.head);
+        // console.log(result);
+        expect(result.value).toBe(5);
+    });
+
+    it("Reverse seconded half of LinkedList: ", () => {
+        let a = [ 1, 2, 5, 2, 1 ];
+        let shouldBeResult = [ 1, 2, 5 ]; // get middle node and reverse.
+        let list = new LinkedList();
+        a.forEach(i => list.addToBack(i));
+        let result = reverseSecondedHalfOfNodeList(list.head);
+
+        let runner = result;
+        let finalResult  = [];
+        while (runner !== null) {
+            finalResult.push(runner.value);
+            runner = runner.next;
+        }
+
+        expect(shouldBeResult).toStrictEqual(finalResult);
+    });
+
+    it("Get middle node for LinkedList: even values", () => {
+        let aa = [ 1, 2, 2, 1 ];
+        let list = new LinkedList();
+        aa.forEach(i => list.addToBack(i));
+        let result = getMiddleNode(list.head);
+        // console.log(result);
+        expect(result.value).toBe(2);
+    });
+
+    it("Is LinkedList palindrome?: true ", () => {
+        let aa = [ 1, 2, 2, 1 ];
+        let list = new LinkedList();
+        aa.forEach(i => list.addToBack(i));
+        expect(mostEfficentLinkedListIsPalindrone(list.head)).toBe(true);
+    });
+
+    it("Is LinkedList palindrome?: false ", () => {
+        let aa = [ 1, 2, 6, 2, 5 ];
+        let list = new LinkedList();
+        aa.forEach(i => list.addToBack(i));
+        expect(mostEfficentLinkedListIsPalindrone(list.head)).toBe(false);
     });
 });

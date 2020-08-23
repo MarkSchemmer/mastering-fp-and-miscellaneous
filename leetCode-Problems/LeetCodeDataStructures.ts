@@ -94,7 +94,7 @@ export class LinkedList {
 
             
             runner.next = node;
-            console.log(runner.next.value);
+            // console.log(runner.next.value);
         }
 
         this.count++;

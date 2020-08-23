@@ -10,6 +10,7 @@ import { convertBase, convertBinaryToBase10, shouldAddZero, chunks } from "./pro
 import { title } from "process";
 import { fastGenRange } from "../generateRange/genRange";
 import { getLastNodeInTree } from "./InterviewCodeProblemsForStudy/problems";
+import { Node } from "../leetCode-Problems/LeetCodeDataStructures";
 
 const palindroneHelper = arr => arr.length === 1 || arr.length === 0
                         ? true 
@@ -2477,6 +2478,66 @@ export const isPalindromeLinkedList = head => {
     while (runner.next !== null) {
         if (runner.val !== stack.pop()) return false;
         runner = runner.next;
+    }
+
+    return true;
+};
+
+// More efficent form of getting 
+
+/*
+    Solution steps
+                    - We will first find the middle node of the given Linked List(Consider both the odd and even cases).
+                    - Then, we will reverse the second half of the Linked List.
+                    - We will compare the second half with the first half, if both the halves are exactly the same then the linked list is a palindrome.
+                    - Reconstruct the actual given Linked List by again reversing the second half and attaching it to the first half.
+*/
+
+export const getMiddleNode = (head: Node): Node => {
+    let slowNode = head;
+    let fastNode = head;
+    let midNode = head;
+
+    while (fastNode !== null && fastNode.next !== null) {
+        fastNode = fastNode.next && fastNode.next.next;
+        slowNode = slowNode.next;
+        midNode = slowNode;
+    }
+
+    if (fastNode === null) {
+        midNode = slowNode;
+    }
+
+    return midNode;
+};
+
+export const reverseSecondedHalfOfNodeList = (head: Node): Node => {
+    let middleNode = getMiddleNode(head);
+    let prev = null, cur = middleNode, next = null;
+
+    while (cur !== null) {
+        // Store next
+        next = cur.next;
+        // Need to do the reversing
+        cur.next = prev;
+        // Need to increment and move the nodes forward
+        prev = cur;
+        cur = next;
+
+    }
+
+    return prev;
+};
+
+export const mostEfficentLinkedListIsPalindrone = (head: Node): boolean => {
+    let secondedHalf = reverseSecondedHalfOfNodeList(head);
+    let firstHalf = head;
+
+    while (firstHalf !== null && secondedHalf !== null) {
+        if (firstHalf.value !== secondedHalf.value) return false;
+
+        firstHalf = firstHalf.next;
+        secondedHalf = secondedHalf.next;
     }
 
     return true;

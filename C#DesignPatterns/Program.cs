@@ -131,6 +131,10 @@ namespace C_DesignPatterns
             public abstract class SingletonBase<T>
      where T : SingletonBase<T>, new()
     {
+
+        static SingletonBase() {
+
+        }
         private static readonly object padlock = new object();
         private static T _instance = new T();
         public static T Instance
