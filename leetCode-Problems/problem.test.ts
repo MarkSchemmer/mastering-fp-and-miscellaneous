@@ -1,7 +1,7 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
     dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, 
     isSameTree, isSymmetric, levelOrderBottom, generate, 
-    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, getMiddleNode, reverseSecondedHalfOfNodeList, mostEfficentLinkedListIsPalindrone, 
+    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, getMiddleNode, reverseSecondedHalfOfNodeList, mostEfficentLinkedListIsPalindrone, binaryTreePaths, isUgly, 
      } from "./problems";
 import { Tree, LinkedList } from "./LeetCodeDataStructures";
 import { convertBase, convertBinaryToBase10, prepStrNumbForBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
@@ -473,5 +473,29 @@ describe("Testing LinkedList: ", () => {
         let list = new LinkedList();
         aa.forEach(i => list.addToBack(i));
         expect(mostEfficentLinkedListIsPalindrone(list.head)).toBe(false);
+    });
+});
+
+describe("All paths in binary tree to last leaf: ", () => {
+    it("all paths test 1", () => {
+        let a = [ 3, 2, 4, 1 ];
+        let tree = new Tree();
+        a.forEach(i => tree.Add(i));
+
+        // console.log(
+        //     tree
+        // );
+
+        binaryTreePaths()(tree.head);
+
+        expect(true).toBeTruthy();
+    });
+});
+
+
+describe("Testing is Ugly: ", () => {
+    it("Testing is ugly 6: true. ", () => {
+        expect(isUgly(6)).toBeTruthy();
+        expect(isUgly(8)).toBeTruthy();
     });
 });

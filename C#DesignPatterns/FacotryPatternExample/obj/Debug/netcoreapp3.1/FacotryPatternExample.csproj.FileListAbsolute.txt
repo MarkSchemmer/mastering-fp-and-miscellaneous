@@ -1,0 +1,13 @@
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\bin\Debug\netcoreapp3.1\FacotryPatternExample.exe
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\bin\Debug\netcoreapp3.1\FacotryPatternExample.deps.json
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\bin\Debug\netcoreapp3.1\FacotryPatternExample.runtimeconfig.json
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\bin\Debug\netcoreapp3.1\FacotryPatternExample.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\bin\Debug\netcoreapp3.1\FacotryPatternExample.dll
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\bin\Debug\netcoreapp3.1\FacotryPatternExample.pdb
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\obj\Debug\netcoreapp3.1\FacotryPatternExample.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\obj\Debug\netcoreapp3.1\FacotryPatternExample.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\obj\Debug\netcoreapp3.1\FacotryPatternExample.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\obj\Debug\netcoreapp3.1\FacotryPatternExample.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\obj\Debug\netcoreapp3.1\FacotryPatternExample.dll
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\obj\Debug\netcoreapp3.1\FacotryPatternExample.pdb
+C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\C#DesignPatterns\FacotryPatternExample\obj\Debug\netcoreapp3.1\FacotryPatternExample.genruntimeconfig.cache

@@ -132,7 +132,7 @@ namespace C_DesignPatterns
      where T : SingletonBase<T>, new()
     {
 
-        static SingletonBase() {
+        protected SingletonBase() {
 
         }
         private static readonly object padlock = new object();
@@ -168,13 +168,7 @@ namespace C_DesignPatterns
 
     public class Addor: SingletonBase<Addor>
     {
-         public Addor() {
 
-        }
-
-        static Addor () {
-
-        }
         public int a = 5;
         public int b = 5;
 

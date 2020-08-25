@@ -59,6 +59,19 @@ export class Tree {
         }
     }
 
+    public allPaths = (node: Leaf = this.head, paths, pathLen) => {
+        if (node === null) return null;
+
+        paths[pathLen] += node.val.toString();
+
+        if (node.left === null && node.right === null) {
+            pathLen += 1;
+        } else {
+            this.allPaths(node.left, paths, pathLen);
+            this.allPaths(node.right, paths, pathLen);
+        }
+    };
+
 }
 
 

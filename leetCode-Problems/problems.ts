@@ -10,7 +10,7 @@ import { convertBase, convertBinaryToBase10, shouldAddZero, chunks } from "./pro
 import { title } from "process";
 import { fastGenRange } from "../generateRange/genRange";
 import { getLastNodeInTree } from "./InterviewCodeProblemsForStudy/problems";
-import { Node } from "../leetCode-Problems/LeetCodeDataStructures";
+import { Node, Leaf } from "../leetCode-Problems/LeetCodeDataStructures";
 
 const palindroneHelper = arr => arr.length === 1 || arr.length === 0
                         ? true 
@@ -2541,4 +2541,267 @@ export const mostEfficentLinkedListIsPalindrone = (head: Node): boolean => {
     }
 
     return true;
+};
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+export const deleteNode = node => {
+    node.val = node.next.val;
+    node = node.next.next;
+};
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function(s, t) {
+    if (s.length !== t.length || s === null || t === null) return false;
+    
+    s = [ ...s.split("").sort() ], t = [ ...t.split("").sort() ];
+    
+    return s.every((c, idx) => c === t[idx]);
+};
+
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var addDigits = function(num) {
+    num = num.toString();
+    while (num.length > 1) {
+        num = num.split("");
+        let first = Number(num[0]);
+        let nextResult = num.slice(1).reduce((acc, cur) => acc + Number(cur), first);
+        num = nextResult.toString();
+    }
+    
+    return Number(num);
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+
+
+export const binaryTreePaths = function() {
+
+    let paths = [ ];
+
+    const allPaths = (node: Leaf, s) => {
+
+        if (node === null) return null;
+    
+        s += node.val;
+    
+        if (node.left === null && node.right === null) {
+            paths.push(s);
+            return;
+        } 
+        
+        s += "->";
+        
+        allPaths(node.left, s);
+        allPaths(node.right, s);
+    };
+
+    return root => {
+        if (root === null) return paths;
+        allPaths(root, "");
+        console.log(paths);
+        return paths;
+    }
+};
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {  
+    let pVal = p.val, qVal = q.val, rootVal = root.val;
+    
+    if (pVal < qVal) {
+        let temp = pVal;
+        pVal = qVal;
+        qVal = temp;
+    }
+    console.log("root: ", rootVal);
+    console.log("p: ", pVal);
+    console.log("q: ", qVal);
+    
+    if (rootVal === pVal) { return root;}
+    
+    // P is always greater or equal to q
+    if (rootVal >= pVal) {
+        return lowestCommonAncestor(root.left, p, q);
+    } else if (rootVal <= pVal && rootVal >= qVal || rootVal >= pVal && rootVal <= qVal) {
+        return root;
+    } else {
+      return lowestCommonAncestor(root.right, p, q)
+    }
+};
+
+// Iterative solution.
+var lowestCommonAncestorIterative = function(root, p, q) { 
+    while (root !== null) {
+        
+        let pVal = p.val, qVal = q.val, rootVal = root.val;
+    
+        if (pVal < qVal) {
+            let temp = pVal;
+            pVal = qVal;
+            qVal = temp;
+        }
+        
+            console.log("root: ", rootVal);
+            console.log("p: ", pVal);
+            console.log("q: ", qVal);
+        
+        if (rootVal === pVal) { return root;}
+                // P is always greater or equal to q
+        if (rootVal >= pVal) {
+            root = root.left;
+        } else if (rootVal <= pVal && rootVal >= qVal || rootVal >= pVal && rootVal <= qVal) {
+            return root;
+        } else {
+          root = root.right;
+        }
+    }
+};
+
+// Problems to solve again: 
+// Integer to Roman numeral
+// Roman numerial to integer
+// All Permutations in a set
+
+
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+
+ /*
+ 
+
+    Write a program to check whether a given number is an ugly number.
+
+    Ugly numbers are positive numbers whose prime factors only include 2, 3, 5.
+
+    Example 1:
+
+    Input: 6
+    Output: true
+    Explanation: 6 = 2 × 3
+    Example 2:
+
+    Input: 8
+    Output: true
+    Explanation: 8 = 2 × 2 × 2
+    Example 3:
+
+    Input: 14
+    Output: false 
+    Explanation: 14 is not ugly since it includes another prime factor 7.
+    Note:
+
+    1 is typically treated as an ugly number.
+    Input is within the 32-bit signed integer range: [−231,  231 − 1].
+    
+ 
+ */
+
+/*
+    IIF
+
+    Imediately Invoked Function, so when exported it will automatically take a num parameter.
+
+    I'm not really needing to make a double call at this time. 
+
+
+*/
+export const isUgly = (() => {
+    const couldBeUgly = n => n % 2 === 0 || n % 3 === 0 || n % 5 === 0;
+
+    const fastGenRange = (min, max, step = 1) => {
+            let acc = [ min ];
+            let current = min;
+            while (current < max) {
+                acc.push(current + step);
+                current = current + step;
+            }
+            
+            return acc;
+        };
+
+        const isPrime = n => {
+            // Going to use the sieve technique to see if number is prime or not.
+            let range = fastGenRange(2, n); // filtering out ugly numbers... 
+            let allDivisblePrimes = [ ];
+            // Get all primes up to n and then check if any primes are not 2, 3, 5
+            let i = 2;
+            while (range.length > 0) {
+                allDivisblePrimes.push(i);
+                range = range.filter(n => n % i !== 0);
+                i = range[0];
+            }
+            // console.log("allDivisblePrimes: ", allDivisblePrimes);
+            return allDivisblePrimes.filter(p => n % p === 0).every(p => p <= 5);
+        };
+
+        return num => {
+            if (couldBeUgly(num)) {
+                // further check if no other prime is divisble 
+                return isPrime(num);
+                } else {
+                    return false;
+                }
+        }
+})();
+
+export const isUglyFast = num => {
+    if (num === 0) return false;
+    if (num === 1) return true;
+    
+    while (num % 2 === 0) {
+        num /= 2;
+    }
+
+    while (num % 3 === 0) {
+        num /= 3;
+    }
+
+    while (num % 5 === 0) {
+        num /= 5;
+    }
+
+    return num === 1;
 };
