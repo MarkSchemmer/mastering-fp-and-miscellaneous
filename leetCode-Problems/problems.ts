@@ -11,6 +11,7 @@ import { title } from "process";
 import { fastGenRange } from "../generateRange/genRange";
 import { getLastNodeInTree } from "./InterviewCodeProblemsForStudy/problems";
 import { Node, Leaf } from "../leetCode-Problems/LeetCodeDataStructures";
+import { tokenToString } from "typescript";
 
 const palindroneHelper = arr => arr.length === 1 || arr.length === 0
                         ? true 
@@ -2626,11 +2627,10 @@ export const binaryTreePaths = function() {
     return root => {
         if (root === null) return paths;
         allPaths(root, "");
-        console.log(paths);
+        // console.log(paths);
         return paths;
     }
 };
-
 
 /**
  * Definition for a binary tree node.
@@ -2698,20 +2698,12 @@ var lowestCommonAncestorIterative = function(root, p, q) {
     }
 };
 
-// Problems to solve again: 
-// Integer to Roman numeral
-// Roman numerial to integer
-// All Permutations in a set
-
-
 /**
  * @param {number} num
  * @return {boolean}
  */
 
  /*
- 
-
     Write a program to check whether a given number is an ugly number.
 
     Ugly numbers are positive numbers whose prime factors only include 2, 3, 5.
@@ -2735,8 +2727,6 @@ var lowestCommonAncestorIterative = function(root, p, q) {
 
     1 is typically treated as an ugly number.
     Input is within the 32-bit signed integer range: [−231,  231 − 1].
-    
- 
  */
 
 /*
@@ -2745,8 +2735,6 @@ var lowestCommonAncestorIterative = function(root, p, q) {
     Imediately Invoked Function, so when exported it will automatically take a num parameter.
 
     I'm not really needing to make a double call at this time. 
-
-
 */
 export const isUgly = (() => {
     const couldBeUgly = n => n % 2 === 0 || n % 3 === 0 || n % 5 === 0;
@@ -2790,7 +2778,7 @@ export const isUgly = (() => {
 export const isUglyFast = num => {
     if (num === 0) return false;
     if (num === 1) return true;
-    
+
     while (num % 2 === 0) {
         num /= 2;
     }
@@ -2805,3 +2793,161 @@ export const isUglyFast = num => {
 
     return num === 1;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+/*
+var missingNumber = function(nums) {    
+   /* const sortedArray = [ ...nums ].sort((a, b) => a - b);
+    console.log("sorted", sortedArray);
+    if (sortedArray[sortedArray.length - 1] !== sortedArray.length) return sortedArray.length;
+    if (sortedArray[0] !== 0) return 0;
+
+    for (let i = 0; i < sortedArray.length - 1; i++) {
+        const curVal = sortedArray[i];
+        const nextVal = sortedArray[i + 1];
+
+        if (curVal + 1 !== nextVal) return curVal + 1;
+    }
+    
+    return -1;
+};
+
+*/
+
+var missingNumber = function(nums) {     
+    const add = (acc, cur) => acc + cur;
+    let total = nums.reduce(add, 0);
+
+    for (let i = 0; i <= nums.length; i++) {
+        total -= i;
+    }
+
+    return Math.abs(total);
+};
+
+// method, accept array int arr, [ 2, 2, 2, 5, 5 ] => { 2: 3, 5: 2 } 
+export const convertIntegerOccurences = (nums: number[]) => {
+    return nums.reduce((acc, cur) => {
+            if (cur in acc) {
+                acc[cur] = acc[cur] + 1; 
+            } else {
+                acc[cur] = 1;
+            }
+
+            return acc;
+        }, {});
+};
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead. 
+
+
+            Given an array nums, write a function to move all 0's to 
+            the end of it while maintaining the relative order of the non-zero elements.
+
+            Example:
+
+            Input: [0,1,0,3,12]
+
+            Output: [1,3,12,0,0]
+            Note:
+
+            You must do this in-place without making a copy of the array.
+            Minimize the total number of operations.
+ */
+
+const swap = (arr, idx1, idx2) => {
+    let temp = arr[idx1];
+    arr[idx1] = arr[idx2];
+    arr[idx2] = temp;
+};
+
+export const moveZeroes = nums => {
+    let end = nums.length - 1, start = 0;
+
+    while (start < end) {
+        let curVal = nums[start];
+        if (curVal === 0) {
+                  let zp = start;
+                  for (let i = start + 1; i <= end; i++) {
+                    if (nums[i] !== 0) {
+                        swap(nums, zp, i);
+                        zp = i;
+                    }
+                  }
+                  
+                  end -= 1;
+        }
+
+        start += 1;
+    }
+
+    return nums;
+};
+
+// Roman numeral class helper
+export class RomanConverter {
+
+    private romanStrMap = {
+         "I": 1,
+         "IV": 4,
+         "V": 5,
+         "IX": 9,
+         "X": 10,
+         "XL": 40,
+         "L": 50,
+         "XC": 90,
+         "C": 100,
+         "CD": 400,
+         "D": 500,
+         "CM": 900,
+         "M": 1000
+    };
+
+    private intToRomanMap = Object.keys(this.romanStrMap).reduce((acc, cur) => {
+        let key = cur;
+        let val = this.romanStrMap[cur];
+        acc[val] = key;
+        return acc;
+     }, {});
+
+    public romanToInt = (romanStr: string): number => {
+        let romanSet: number[] = romanStr.split("").map(r => this.romanStrMap[r]).reverse();
+
+        return romanSet.reduce((acc, cur, idx) => {
+                const curr: number = cur;
+                const prev: number = romanSet[idx - 1] || 0;
+                return curr < prev ? acc - curr : acc + curr;
+        }, 0);
+    }
+
+    public intToRoman = (n: number): string => {
+        let newRomanSet: number[] = Object
+                                        .keys(this.romanStrMap)
+                                        .map(key => this.romanStrMap[key])
+                                        .reverse(), result = "";
+        
+        while (n > 0 && newRomanSet.length > 0) {
+            let currentStrMap: number = newRomanSet[0];
+            let currentval: string = this.intToRomanMap[currentStrMap];
+            if (n >= currentStrMap) {
+                result += currentval;
+                n -= currentStrMap;
+            } else {
+                newRomanSet = newRomanSet.slice(1);
+            }
+        }
+
+        return result;
+    }
+}
+
+// All permutations of a string.
+
+
+
+// MiniMax algorithm and implementing NIM game.

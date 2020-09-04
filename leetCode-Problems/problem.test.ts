@@ -1,7 +1,7 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
     dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, 
     isSameTree, isSymmetric, levelOrderBottom, generate, 
-    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, getMiddleNode, reverseSecondedHalfOfNodeList, mostEfficentLinkedListIsPalindrone, binaryTreePaths, isUgly, 
+    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, getMiddleNode, reverseSecondedHalfOfNodeList, mostEfficentLinkedListIsPalindrone, binaryTreePaths, isUgly, convertIntegerOccurences, moveZeroes, RomanConverter, 
      } from "./problems";
 import { Tree, LinkedList } from "./LeetCodeDataStructures";
 import { convertBase, convertBinaryToBase10, prepStrNumbForBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
@@ -498,4 +498,49 @@ describe("Testing is Ugly: ", () => {
         expect(isUgly(6)).toBeTruthy();
         expect(isUgly(8)).toBeTruthy();
     });
+});
+
+describe("Testing occurences in array: ", () => {
+    it("test [ 1, 1, 2, 2, 2, 5 ] -> {1: 2, 2: 3, 5: 1}", () => {
+        const arr = [ 1, 1, 2, 2, 2, 5 ];
+        const result = convertIntegerOccurences(arr);
+        // console.log(result);
+        expect(true).toBeTruthy(); // I'm just looking for the logging right now... 
+    });
+});
+
+describe("Testing pushing zeros to array: ", () => {
+    it("test 1: ", () => {
+        let a = [ 0, 1, 0, 3, 12 ];
+        let b = [ 1, 3, 12, 0, 0 ];
+        expect(moveZeroes(a)).toStrictEqual(b);
+    });
+});
+
+describe("Roman class helper: ", () => {
+
+    it("roman string to integer tests: ", () => {
+        const romanToInHelper = new RomanConverter();
+        expect(romanToInHelper.romanToInt("DCCC")).toBe(800);
+        expect(romanToInHelper.romanToInt("DCCCI")).toBe(801);
+        expect(romanToInHelper.romanToInt("MMCCXXV")).toBe(2225);
+        expect(romanToInHelper.romanToInt("XXV")).toBe(25);
+        expect(romanToInHelper.romanToInt("XLVIII")).toBe(48);
+    });
+
+    it("Integer to Roman numeral tests: ", () => {
+        const romanHelperClass = new RomanConverter();
+
+        const expectGenerator = (input, result) => {
+            expect(romanHelperClass.intToRoman(input)).toBe(result);
+        };
+
+        expect(romanHelperClass.intToRoman(25)).toBe("XXV");
+        expectGenerator(125, "CXXV");
+        expectGenerator(125, "CXXV");
+        expectGenerator(1255, "MCCLV");
+        expectGenerator(39, "XXXIX");
+        expectGenerator(99, "XCIX");
+    });
+
 });

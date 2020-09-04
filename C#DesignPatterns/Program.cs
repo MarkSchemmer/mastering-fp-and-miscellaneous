@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace C_DesignPatterns
 {
@@ -51,7 +52,24 @@ namespace C_DesignPatterns
         }
 
 
+        public static Dictionary<int, int> IntegerOcurrences(int[] arr) 
+        {   
+            Dictionary<int, int> resultSet = new Dictionary<int, int>(); 
 
+            for (int i = 0; i < arr.Length; i++) {
+
+                var containsInt = resultSet.ContainsKey(arr[i]);
+                    if (containsInt) {
+                        // increment value by one
+                        resultSet[arr[i]] = resultSet[arr[i]] + 1;
+                    } else {
+                        // add key and set value to 1
+                        resultSet.Add(arr[i], 1);
+                    }
+            }
+            // return the dictionary 
+            return resultSet;
+        }
 
         public class ValidateArgs 
         {
