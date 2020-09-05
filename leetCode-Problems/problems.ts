@@ -2947,7 +2947,111 @@ export class RomanConverter {
 }
 
 // All permutations of a string.
+// Dynamic programming problem
 
+// result: ‘abc’, the output should be [‘abc’, ‘acb’, ‘cab’, ‘cba’, ‘bca’, ‘bac’].
 
+/*
 
-// MiniMax algorithm and implementing NIM game.
+    To calculate the amount of permutations of a string word
+    it's using n!
+
+    But how do you calculate using a word with repeacted characters
+    peace -> 
+    n! / p (1!) * e (2!) * a (1!) * c (1!)
+
+*/
+
+export const allPermutationCounter = (str: string) => {
+
+    const innerFactorial = (n: number): number => {
+        if (n <= 1) return 1;
+
+        let results = 1;
+
+        while (n > 1) {
+            results = results * n;
+            n = n - 1;
+        }
+
+        return results;
+    };
+
+    const everyCharacterFactorial = (s: string): number => {
+        let charMap = {};
+
+        s.split("").forEach(c => {
+            if (c in charMap) {
+                charMap[c] = charMap[c] + 1;
+            } else {
+                charMap[c] = 1;
+            }
+        });
+
+        return Object.keys(charMap).map(key => {
+            let val = innerFactorial(charMap[key]);
+            return val;
+        }).reduce((acc, cur) => acc * cur, 1);
+    };
+
+    return innerFactorial(str.length) / everyCharacterFactorial(str);
+};
+
+export const allPermutationsOfString = (str: string): string[] => {
+    // edge cases
+    if (str.length === 1) return [ str ];
+    if (str.length < 1 || str === null || str === undefined) return [];
+    
+    // Make sure to make string lowercase. 
+    str = str.toLowerCase();
+    // let origStr = [ ...(str.split("")) ].sort();
+    // // Cached results
+    // let results: string[] = [];
+
+    // // A function for removing duplicates.
+    // const removeDuplicates = (item: string, idx: number, arr: string[]): boolean => {
+    //     return arr.indexOf(item) === idx;
+    // };
+
+    // const areArraysSame = (arr1, arr2) => {
+    //     return arr1.every((item, idx) => item === arr2[idx]);
+    // };
+
+    // const lastFilterForValidResults = (arr: string[]): string[] => {
+    //     return arr.filter(strArr => {
+    //         return areArraysSame(origStr, strArr.split("").sort());
+    //     });
+    // };
+
+    // Need to make a nested recursive function to resolve this problem
+    const permutationHelper = (s: string) => {
+        let res = [];
+
+        if (s.length === 1) {
+            res.push(s);
+            return res;
+        }
+
+        for(let i = 0; i < s.length; i++) {
+            let firstChar = s[i];
+            let charsLeft = s.substring(0, i) + s.substring(i + 1);
+            let innerPermutations = permutationHelper(charsLeft);
+
+            for(let j = 0; j < innerPermutations.length; j++) {
+                console.log(innerPermutations);
+                res.push(firstChar + innerPermutations[j]);
+            }
+        }
+
+        return res;
+    };
+
+    // Note: I might have to write a distinct helper function  as well to remove all duplicates. 
+
+    // Note: I need write the number theory equation for finding all permutations of a word. 
+    //       This will be done after problem is completely solved.
+    return permutationHelper(str);
+}
+
+// MiniMax algorithm and implementing NIM game -> will be a lot harder than thought. 
+// Basically I have to resolve this again. 

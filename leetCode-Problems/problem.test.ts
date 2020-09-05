@@ -1,7 +1,7 @@
 import { longestCommonPrefix, isValid, removeDuplicates, maxSubArray, 
     dynamicFib, plusOne, addBinary, mySqrt, climbStairs, climbStairs2, climbStair2Shell, merge, 
     isSameTree, isSymmetric, levelOrderBottom, generate, 
-    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, getMiddleNode, reverseSecondedHalfOfNodeList, mostEfficentLinkedListIsPalindrone, binaryTreePaths, isUgly, convertIntegerOccurences, moveZeroes, RomanConverter, 
+    maxProfit, convertToTitle, titleToNumber, add, factorialGenerator, trailingZeroes, rotate, reverseBits, rob, solution, countPrimes, getPromise, makeSynchronousRequest, getMovieTitles1, isIsomorphic, containsNearbyDuplicate, isPalindromeLinkedList, getMovieTitles2, getMiddleNode, reverseSecondedHalfOfNodeList, mostEfficentLinkedListIsPalindrone, binaryTreePaths, isUgly, convertIntegerOccurences, moveZeroes, RomanConverter, allPermutationsOfString, allPermutationCounter, 
      } from "./problems";
 import { Tree, LinkedList } from "./LeetCodeDataStructures";
 import { convertBase, convertBinaryToBase10, prepStrNumbForBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
@@ -530,10 +530,7 @@ describe("Roman class helper: ", () => {
 
     it("Integer to Roman numeral tests: ", () => {
         const romanHelperClass = new RomanConverter();
-
-        const expectGenerator = (input, result) => {
-            expect(romanHelperClass.intToRoman(input)).toBe(result);
-        };
+        const expectGenerator = (input, result) => expect(romanHelperClass.intToRoman(input)).toBe(result);
 
         expect(romanHelperClass.intToRoman(25)).toBe("XXV");
         expectGenerator(125, "CXXV");
@@ -542,5 +539,54 @@ describe("Roman class helper: ", () => {
         expectGenerator(39, "XXXIX");
         expectGenerator(99, "XCIX");
     });
+});
 
+describe("All permutations tester: ", () => {
+    // it("first dummy test: ", () => {
+    //     allPermutationsOfString("abc");
+    //     expect(true).toBeTruthy();
+    // }); Just for dummy logging.
+    
+    const expectGenerator = (input, result): void => {
+        expect(allPermutationsOfString(input).sort()).toStrictEqual(result.sort());
+    };
+
+    const testAllPermutationCounter = (input, result): void => {
+        expect(allPermutationCounter(input)).toBe(result);
+    };
+
+    it("testing abc, all permutations should be 6 and same: ", () => {
+        let input = "abc";
+        let result = [ "abc", "acb", "cab", "cba", "bca", "bac" ];
+        expectGenerator(input, result); // first test here... 
+    });
+
+    it("All permutations for Mark: -> ", () => {
+        let input = "mark";
+        let result = [ 
+                "MARK", "AMRK",  "RMAK", "MRAK", "ARMK", "RAMK", "KAMR",
+                "AKMR", "MKAR", "KMAR", "AMKR", "MAKR", "MRKA", "RMKA", "KMRA",
+                "MKRA", "RKMA", "KRMA", "KRAM", "RKAM", "AKRM", "KARM", "RAKM", "ARKM" 
+        ]
+        .map(str => str.toLowerCase()).sort();
+
+        expectGenerator(input, result);
+        testAllPermutationCounter(input, result.length);
+    });
+
+    // it("All permutations for: diction -> ", () => {
+
+    //     const chunkHelper = (str: string, chunk: number): string[][] => {
+    //         return str.split("").reduce((acc, cur, idx) => {
+    //             const currentItem = cur;
+    //             const chunkInner = Math.floor(idx / chunk);
+    //             acc[chunkInner] = (acc[chunkInner] || []).concat(currentItem);
+    //             return acc;
+    //         }, []);
+    //     };
+
+    //     const flattenChunk = (strArr: string[]) => strArr.join("").toLowerCase();
+
+
+    // }); will get Don't need 
 });
