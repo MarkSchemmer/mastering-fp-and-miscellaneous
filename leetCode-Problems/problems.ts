@@ -3092,5 +3092,28 @@ var getHint = function(secret, guess) {
     return `${bullCounts.length}A${cowCount}B`;
 };
 
+/**
+ * @param {number[]} nums
+ */
+var NumArray = function(nums) {
+    this.nums = nums;
+};
+
+/** 
+ * @param {number} i 
+ * @param {number} j
+ * @return {number}
+ */
+NumArray.prototype.sumRange = function(i, j) {
+    let nums = this.nums;
+    return nums.slice(i, j + 1).reduce((acc, cur) => acc + cur, 0);
+};
+
+/** 
+ * Your NumArray object will be instantiated and called as such:
+ * var obj = new NumArray(nums)
+ * var param_1 = obj.sumRange(i,j)
+ */
+
 // MiniMax algorithm and implementing NIM game -> will be a lot harder than thought. 
 // Basically I have to resolve this again. 
