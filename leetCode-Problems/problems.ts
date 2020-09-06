@@ -3053,5 +3053,44 @@ export const allPermutationsOfString = (str: string): string[] => {
     return permutationHelper(str);
 }
 
+/**
+ * @param {string} secret
+ * @param {string} guess
+ * @return {string}
+ */
+
+const filterOutIndexes = (arr, arr1) => arr.filter((x, idx) => !arr1.includes(idx));
+
+const filterValue = (arr, val) => { 
+    const isIndex = arr.findIndex(x => x === val);
+    return isIndex !== null || isIndex !== undefined ? arr.filter((x, idx) => isIndex !== idx) : arr;
+};
+
+const genNewSecretMap = (secretSet) => secretSet.reduce((acc, cur) => cur in acc ? (acc[cur] += 1, acc) : (acc[cur] = 1, acc), {});
+
+var getHint = function(secret, guess) {
+    let secretSet = secret.split("");
+    let guessSet = guess.split("");
+    let bullCounts = secretSet.reduce((acc, cur, idx) => guess[idx] === cur ? acc.concat(idx) : acc, []);
+    secretSet = filterOutIndexes(secretSet, bullCounts);
+    guessSet = filterOutIndexes(guessSet, bullCounts);
+    let cowCount = 0;
+    let i = 0;
+    while (i < secretSet.length) {
+        let s = secretSet[i];
+        
+        if (guessSet.includes(s)) {
+            cowCount += 1;
+            guessSet = filterValue(guessSet, s);
+            secretSet = filterValue(secretSet, s);
+            i = 0;
+        } else {
+            i = i + 1;
+        }
+    }
+
+    return `${bullCounts.length}A${cowCount}B`;
+};
+
 // MiniMax algorithm and implementing NIM game -> will be a lot harder than thought. 
 // Basically I have to resolve this again. 
