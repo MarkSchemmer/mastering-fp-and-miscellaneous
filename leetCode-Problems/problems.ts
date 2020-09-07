@@ -3038,7 +3038,7 @@ export const allPermutationsOfString = (str: string): string[] => {
             let innerPermutations = permutationHelper(charsLeft);
 
             for(let j = 0; j < innerPermutations.length; j++) {
-                console.log(innerPermutations);
+                // console.log(innerPermutations);
                 res.push(firstChar + innerPermutations[j]);
             }
         }
@@ -3115,5 +3115,139 @@ NumArray.prototype.sumRange = function(i, j) {
  * var param_1 = obj.sumRange(i,j)
  */
 
-// MiniMax algorithm and implementing NIM game -> will be a lot harder than thought. 
-// Basically I have to resolve this again. 
+ /**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersection = function(nums1, nums2) {
+    return Object.keys(
+        nums1.reduce(
+            (acc, cur) => !(cur in acc) && nums2.includes(cur) ? (acc[cur] = cur, acc) : acc, {}
+        )
+    );
+};
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersect = function(nums1, nums2) {
+    return nums1.reduce((acc, cur, idx) => {
+        const isIndex = nums2.findIndex(n => n === cur);
+        if (isIndex !== null && isIndex !== undefined && isIndex !== -1) {
+            acc = acc.concat(cur);
+            nums2[isIndex] = null;
+        }
+        
+        return acc;
+    }, []);
+};
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseVowels = function(s) {
+    let vowels = "aeiouAEIOU".split("");
+    s = s.split("");
+    let findAndReverseVowels = s.reduce((acc, cur, idx) => {
+        return vowels.includes(cur) ? (acc.concat({idx, cur})) : acc;
+    }, []);
+    
+    let reversedIndexes = findAndReverseVowels.map(obj => obj.idx).reverse();
+    
+    findAndReverseVowels.forEach((obj, idx) => {
+         s[reversedIndexes[idx]] = obj.cur;
+    });
+    
+    return s.join("");
+};
+
+// to make power of three and 4 generic, pass in power to be and cache, then the rest is the same. 
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+export const isPowerOfThree = () =>  {
+
+    let cache = [
+        null,
+        3, // 1st power
+        9, // 2nd power
+        27 // 3rd power 
+    ];
+
+    return n => {
+        if (cache.includes(n)) return true;
+
+        let arrayMax = cache[cache.length - 1];
+
+        if (n < arrayMax && !cache.includes(n)) return false;
+
+        // n is bigger than max array value and must calculated, I'm going to use a iterative approach. 
+        let nextPower = cache.length;
+        while (arrayMax <= n) {
+            cache[nextPower] = arrayMax * 3;
+
+            arrayMax = cache[nextPower]; // increment next arrayMax result
+            nextPower = cache.length;    // increment next power
+            if (arrayMax === n) return true;
+        }
+
+        return false;
+    };
+};
+
+
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+
+const isPowerOfFour1 = () =>  {
+
+    let cache = [
+        null,
+        4, // 1st power
+        16, // 2nd power
+        64 // 3rd power 
+    ];
+
+    return n => {
+        if (n === 1) return true;
+        
+        if (cache.includes(n)) return true;
+
+        let arrayMax = cache[cache.length - 1];
+
+        if (n < arrayMax && !cache.includes(n)) return false;
+
+        // n is bigger than max array value and must calculated, I'm going to use a iterative approach. 
+        let nextPower = cache.length;
+        while (arrayMax <= n) {
+            cache[nextPower] = arrayMax * 4;
+
+            arrayMax = cache[nextPower]; // increment next arrayMax result
+            nextPower = cache.length;    // increment next power
+            if (arrayMax === n) return true;
+        }
+
+        return false;
+    };
+};
+
+const isPowerOfFour = isPowerOfFour1();
+
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+export const isPerfectSquare = num => {
+    for (let i = 1; i * i <= num; i++) {
+        if (num % i === 0 && num / i ===  i) return true;
+    }
+
+    return false;
+};
