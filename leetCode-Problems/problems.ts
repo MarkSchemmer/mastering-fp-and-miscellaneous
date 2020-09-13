@@ -3251,3 +3251,175 @@ export const isPerfectSquare = num => {
 
     return false;
 };
+
+/** 
+ * Forward declaration of guess API.
+ * @param {number} num   your guess
+ * @return 	            -1 if num is lower than the guess number
+ *			             1 if num is higher than the guess number
+ *                       otherwise return 0
+ * var guess = function(num) {}
+ */
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+const guess = n => null; // this function is only implemented in the leetCode problem. 
+var guessNumber = function(n) {
+    let result = guess(n);
+    
+    while (result !== 0) {
+        if (result === -1) {
+            n -= 1;
+        } else if (result === 1) {
+            n += 1;
+        }
+        
+        result = guess(n);
+    }
+    
+    return n;
+};
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {character}
+ */
+
+// const distinct = (item, idx, arr) => {
+//     return arr.indexOf(item) === idx;
+// }
+
+export const findTheDifference = (s, t) => {
+    s = (s + t).split("");
+    let m = {};
+    
+    for (let i = 0; i < s.length; i++) {
+        let sv = s[i];
+        
+        if (!(sv in m)) {
+            m[sv] = 1;
+        } else { 
+            m[sv] += 1;
+        }
+    }
+    
+    return Object.keys(m).find(key => m[key] % 2 === 1);
+};
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+export const firstUniqChar = (s: string) => {
+    let m = {};
+    s = s.split("") as any;
+    
+    for (let i = 0; i < s.length; i++) {
+        let currentChar = s[i];
+        
+        if (!(currentChar in m)) {
+            m[currentChar] = false;
+            
+            // need to check rest of set
+            let j = i + 1;
+            
+            while (j < s.length &&  m[currentChar] === false) {
+                if (currentChar === s[j]) {
+                    m[currentChar] = true;
+                }
+                
+                j = j + 1;
+            }
+            
+            if (m[currentChar] === false) {
+                return i;
+            }
+            
+        }
+    }
+    
+    return -1;
+};
+
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function(ransomNote, magazine) {
+    
+    
+    let i = 0;
+    ransomNote = ransomNote.split("");
+    magazine = magazine.split("");
+    
+    while (ransomNote.length > 0) {
+        let char = ransomNote[i];
+        console.log("ransom: ", ransomNote);
+         let ransomeIdx = magazine.findIndex(c => c === char);
+        
+        if (ransomeIdx !== -1) {
+            console.log(ransomeIdx);
+            ransomNote = ransomNote.slice(1);
+            magazine = magazine.filter((c, idx) => idx !== ransomeIdx);
+        } else {
+            return false;
+        }
+    }
+    
+    return true;    
+};
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+export const isSubsequence = (s, t) => {
+    let sSet = s.split("").map(x => false);
+    let i = 0;
+    let tPointer = 0;
+    while (i < s.length && tPointer < t.length) {
+        // need to move the s pointer and keep track of the tpointer as well.      
+        let sV = s[i]; // this is the value to find in t
+        let haveFound = false;
+        
+        while (!haveFound && tPointer < t.length) {
+            let tV = t[tPointer]; // current t value to be compared to sV
+            if (tV === sV) {  haveFound = true; sSet[i] = true; i = i + 1;}    
+            tPointer = tPointer + 1;
+        }
+    }
+    
+    return sSet.every(b => b === true);
+};
+
+
+
+// Having trouble with backtracking and Greedy algorithms going to do research and study
+// Later on in time I will come back to this. 
+/**
+ * @param {number} num
+ * @return {string[]}
+ */
+
+let minutes = [ 1, 2, 3, 4, 8, 16, 32 ];
+let hours = [ 1, 2, 4, 8 ];
+
+export const readBinaryWatch = num => {
+    
+    let results = [ ];
+
+    for (let hour = 0; hour < 12; hour++) {
+        for (let minute = 0; minute < 60; minute++) {
+            results.push(
+                `${hour}:${minute}`
+            );
+        }
+    }
+
+    return results;
+};
