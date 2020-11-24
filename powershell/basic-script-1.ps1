@@ -1,5 +1,3 @@
-
-
 # Start with command that works in console
 $computerName = $env:COMPUTERNAME
 # logging computer name to PowerShell console

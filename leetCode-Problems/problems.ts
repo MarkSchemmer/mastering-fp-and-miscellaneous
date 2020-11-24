@@ -5,13 +5,9 @@
  */
 
 import { quickSort } from "./quickSort";
-import { isObject } from "util";
-import { convertBase, convertBinaryToBase10, shouldAddZero, chunks } from "./problemsHelperLibrary";
-import { title } from "process";
+import { convertBase, convertBinaryToBase10, shouldAddZero } from "./problemsHelperLibrary";
 import { fastGenRange } from "../generateRange/genRange";
-import { getLastNodeInTree } from "./InterviewCodeProblemsForStudy/problems";
 import { Node, Leaf } from "../leetCode-Problems/LeetCodeDataStructures";
-import { tokenToString } from "typescript";
 
 const palindroneHelper = arr => arr.length === 1 || arr.length === 0
                         ? true 
