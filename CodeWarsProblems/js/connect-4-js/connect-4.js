@@ -209,7 +209,7 @@ class Connect4 {
         let piece = ar[0];
 
         if (ar.length === 4) {
-            return piece.every(p => p === piece);
+            return ar.every(p => p === piece);
         } else {
 
             while (ar.length >= 4) {
@@ -240,7 +240,7 @@ class Connect4 {
         let piece = ar[0];
 
         if (ar.length === 4) {
-            return piece.every(p => p === piece);
+            return ar.every(p => p === piece);
         } else {
 
             while (ar.length >= 4) {
