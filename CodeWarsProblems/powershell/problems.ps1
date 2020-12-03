@@ -259,7 +259,7 @@ function race($v1, $v2, $g)
     } 
     else {
         $seconds = $g * 3600 / $v2 - $v1;
-        return "${$seconds / 3600} ${($seconds % 3600) / 60} ${$seconds % 60}";
+        return "$($seconds / 3600) $(($seconds % 3600) / 60) $($seconds % 60)";
     }
 }
 
@@ -889,3 +889,89 @@ function backwards-prime($start, $stop)
 $a = "13, 17, 31, 37, 71, 73, 79, 97"
 $res = backwards-prime 1 100
 Write-Host ($res -eq $a);
+
+<#
+    5kyu Not very secure
+
+    Link: https://www.codewars.com/kata/526dbd6c8c0eb53254000110/train/powershell
+
+    Description: 
+
+            In this example you have to validate if a user input string is alphanumeric. 
+            The given string is not nil/null/NULL/None, so you don't have to check that.
+
+            The string has the following conditions to be alphanumeric:
+
+            At least one character ("" is not valid)
+            Allowed characters are uppercase / lowercase latin letters and digits from 0 to 9
+            No whitespaces / underscore
+
+
+#>
+
+function Test-PasswordSecurity([System.String]$Pass)
+{
+    if ($Pass.Length -lt 1) { return $false; }
+
+    if ($Pass -match " ") { return $false; }
+
+    if ($Pass -match "_") { return $false; }
+    
+    if ($Pass -match "[\{\}\[\]!@#%^&*\(\)_+=<:;,`\\|/><\.~&\$]") { return $false; }
+    
+    return $true;
+}
+
+<#
+    6kyu Sum of Parts
+
+    Link: https://www.codewars.com/kata/5ce399e0047a45001c853c2b/train/powershell
+
+    Description: 
+
+                Let us consider this example (array written in general format):
+
+                ls = [0, 1, 3, 6, 10]
+
+                Its following parts:
+
+                ls = [0, 1, 3, 6, 10]
+                ls = [1, 3, 6, 10]
+                ls = [3, 6, 10]
+                ls = [6, 10]
+                ls = [10]
+                ls = []
+                The corresponding sums are (put together in a list): [20, 20, 19, 16, 10, 0]
+
+                The function parts_sums (or its variants in other languages) will take as parameter a list ls and return a list of the sums of its parts as defined above.
+
+                Other Examples:
+                ls = [1, 2, 3, 4, 5, 6] 
+                parts_sums(ls) -> [21, 20, 18, 15, 11, 6, 0]
+
+                ls = [744125, 935, 407, 454, 430, 90, 144, 6710213, 889, 810, 2579358]
+                parts_sums(ls) -> [10037855, 9293730, 9292795, 9292388, 9291934, 9291504, 9291414, 9291270, 2581057, 2580168, 2579358, 0]
+                Notes
+                Some lists can be long.
+                Please ask before translating: some translations are already written and published when/if the kata is approved.
+#>
+
+function parts-sums($ls) {
+    if ($ls.Length -eq 0) { return @(0); }
+
+    $idxLItem = $ls[$ls.Length - 1];
+    [System.Collections.ArrayList] $res = @($idxLItem, 0);
+
+    for ($i = $ls.Length - 2; $i -ge 0; $i--) {
+        $idxLItem += $ls[$i];
+        $ls[$i] = $idxLItem;
+    }
+
+    $ls += 0;
+
+    return $ls;
+}
+
+$r = parts-sums @(1, 2, 3, 4, 5, 6);
+
+Write-Host $r;

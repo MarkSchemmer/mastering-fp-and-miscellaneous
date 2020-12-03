@@ -619,7 +619,7 @@ describe("Reading binary watch tests: ", () => {
 
         const results = readBinaryWatch(1);
 
-        console.log("results: ", results);
+//        console.log("results: ", results);
 
         expect(true).toBeTruthy();
     });
