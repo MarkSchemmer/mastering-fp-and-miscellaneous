@@ -27,6 +27,7 @@ describe("Player 1 winning:", () => {
         expect(game.play(1)).toBe(player2Turn);
         expect(game.play(0)).toBe(player1Turn);
         expect(game.play(1)).toBe(player2Turn);
+        
         expect(game.play(0)).toBe(player1Wins);
       });
 });

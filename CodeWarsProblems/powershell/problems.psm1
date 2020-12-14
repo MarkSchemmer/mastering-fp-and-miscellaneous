@@ -975,3 +975,129 @@ function parts-sums($ls) {
 $r = parts-sums @(1, 2, 3, 4, 5, 6);
 
 Write-Host $r;
+
+
+<#
+
+    7kyu Strong Number 
+
+    Link: https://www.codewars.com/kata/5a4d303f880385399b000001/train/powershell
+
+    Strong number is the number that the sum of the factorial of its digits is equal to number itself.
+
+    For example: 145, since
+    1! + 4! + 5! = 1 + 24 + 120 = 145
+    So, 145 is a Strong number.
+
+#>
+
+$factorialMemoization = @{};
+function strongNumber ([int]$number)
+{
+  function factorial([int]$n) {
+      if ($n -eq 1) { return $n; }
+
+      $sum = 1;
+
+      while ($n -gt 1) {
+          $sum *= $n;
+          $n = $n - 1;
+      }
+
+      return $sum;
+  }
+
+  $charIntArray = $number.ToString().ToCharArray();
+
+  $s = 0;
+  foreach ($item in $charIntArray) {
+
+    [int]$num = [Convert]::ToInt32($item) - 48;
+
+      # Write-Host "number " $num;
+
+      $factN = factorial($num);
+
+      $s += $factN;
+  }
+
+  if($number -eq $s) { return "STRONG!!!!"; } else { return "Not Strong !!"; }
+}
+
+<#
+
+    7 kyu Maximum Triplet Sum (Array Series #7)
+
+    Link: https://www.codewars.com/kata/5aa1bcda373c2eb596000112/train/powershell
+
+    Description: 
+
+        Task
+                Given an array/list [] of n integers , find maximum triplet sum in the array Without duplications .
+
+                Notes :
+                Array/list size is at least 3 .
+
+                Array/list numbers could be a mixture of positives , negatives and zeros .
+
+                Repetition of numbers in the array/list could occur , So (duplications are not included when summing).
+
+                Input >> Output Examples
+                1- maxTriSum ({3,2,6,8,2,3}) ==> return (17)
+                Explanation:
+                As the triplet that maximize the sum {6,8,3} in order , their sum is (17)
+
+                Note : duplications are not included when summing , (i.e) the numbers added only once .
+
+                2- maxTriSum ({2,1,8,0,6,4,8,6,2,4}) ==> return (18)
+                Explanation:
+                As the triplet that maximize the sum {8, 6, 4} in order , their sum is (18) ,
+                Note : duplications are not included when summing , (i.e) the numbers added only once .
+                3- maxTriSum ({-7,12,-7,29,-5,0,-7,0,0,29}) ==> return (41)
+                Explanation:
+                As the triplet that maximize the sum {12 , 29 , 0} in order , their sum is (41) ,
+                Note : duplications are not included when summing , (i.e) the numbers added only once .
+
+
+
+        Need to create algorithm of the biggest range without any duplicates.
+
+#>
+
+function maxTriSum ([int[]]$numbers)
+{
+
+    $numbers  = $numbers | select -Unique;
+
+    $oldSum = $null;
+
+    for($i = 0; $i -lt $numbers.Count - 2; $i++) {
+        $a = $numbers[$i];
+
+        for($j = $i + 1; $j -lt $numbers.Count - 1; $j++) {
+            $b = $numbers[$j];
+
+            for($k = $j + 1; $k -lt $numbers.Count; $k++) {
+                $c = $numbers[$k];
+
+                $possibleNewSum = $a + $b + $c;
+
+                if ($null -eq $oldSum -or $possibleNewSum -gt $oldSum) {
+                    $oldSum = $possibleNewSum;
+                }
+            }
+        }
+    }
+
+    return $oldSum;
+}
+
+# Refactor above solution to improve the speed and effiency of max trim sum...
+# The solution could just be get unique sort and select first 3 and sum them...
+function maxTriSumRefactored ([int[]]$numbers)
+{
+    return  ($numbers | Select-Object -Unique `
+                      | Sort-Object -Descending `
+                      | Select-Object -First 3 `
+                      | Measure-Object -Sum).Sum;
+}

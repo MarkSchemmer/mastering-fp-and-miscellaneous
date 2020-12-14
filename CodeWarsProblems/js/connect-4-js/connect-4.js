@@ -38,10 +38,7 @@
 
 */
 
-class Connect4 {
-
-    // if board[y][x] is 0 then it's open, it's a obj then a piece is there
-   
+class Connect4 {   
     move;
     board;
 
@@ -109,7 +106,6 @@ class Connect4 {
         // can we place a piece here? if so place a piece other wise column full
         // Need to gen the column and see if theres any room to place piece
         // if so place piece in coordinate
-
 
         if (this.isWinner === true) {
             return this.gameIsFinished;
