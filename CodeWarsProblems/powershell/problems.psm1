@@ -1101,3 +1101,107 @@ function maxTriSumRefactored ([int[]]$numbers)
                       | Select-Object -First 3 `
                       | Measure-Object -Sum).Sum;
 }
+
+<#
+
+        6 kyu Consecutive strings
+
+        Link: https://www.codewars.com/kata/56a5d994ac971f1ac500003e/train/powershell
+
+        You are given an array(list) strarr of strings and an integer k. 
+        Your task is to return the first longest string consisting of k consecutive strings taken in the array.
+
+        Examples:
+        strarr = ["tree", "foling", "trashy", "blue", "abcdef", "uvwxyz"], k = 2
+
+        Concatenate the consecutive strings of strarr by 2, we get:
+
+        treefoling   (length 10)  concatenation of strarr[0] and strarr[1]
+        folingtrashy ("      12)  concatenation of strarr[1] and strarr[2]
+        trashyblue   ("      10)  concatenation of strarr[2] and strarr[3]
+        blueabcdef   ("      10)  concatenation of strarr[3] and strarr[4]
+        abcdefuvwxyz ("      12)  concatenation of strarr[4] and strarr[5]
+
+        Two strings are the longest: "folingtrashy" and "abcdefuvwxyz".
+        The first that came is "folingtrashy" so 
+        longest_consec(strarr, 2) should return "folingtrashy".
+
+        In the same way:
+        longest_consec(["zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"], 2) --> "abigailtheta"
+        n being the length of the string array, if n = 0 or k > n or k <= 0 return "".
+
+        Note
+        consecutive strings : follow one after another without an interruption
+
+#>
+
+function LongestConsec([string[]] $strarr, [int]$k) 
+{
+    $n = $strarr.Count;
+
+    if ($n -eq 0 -or $k -gt $n -or $k -le 0) { return ""; }
+
+    $newSet = @();
+
+    # preform mutation
+    for ($i = 0; $i -lt $strarr.Count; $i++) {
+        $str = $strarr[$i]; # base of string and now concatenation
+
+        $counter = 1;
+
+        while($counter -lt $k) {
+
+            $str += $strarr[$i + $counter];
+
+            $counter += 1;
+        }
+
+        $newSet += $str;
+    }
+
+    # find max
+
+    $maxObj = [PSCustomObject]@{
+        strName = $newSet[0];
+        len = $newSet[0].Length;
+    };
+
+    foreach($item in ($newSet | Select-Object -Skip 1)) {
+        $newLen = $item.Length;
+
+        if ($newLen -gt $maxObj.len) {
+            $maxObj.strName = $item;
+            $maxObj.len = $item.Length;
+        }
+    }
+
+    return $maxObj.strName;
+}
+
+<#
+
+    7 kyu Unlucky Days
+
+    - Link: https://www.codewars.com/kata/56eb0be52caf798c630013c0/train/powershell - 
+
+    Friday 13th or Black Friday is considered as unlucky day. Calculate how many unlucky days are in the given year.
+
+    Find the number of Friday 13th in the given year.
+
+    Input: Year in Gregorian calendar as integer.
+
+    Output: Number of Black Fridays in the year as an integer.
+
+    Examples:
+
+    unluckyDays(2015) == 3
+    unluckyDays(1986) == 1
+
+#>
+
+function UnluckyDays([int] $year) {
+    return (1..12 | ForEach-Object { Get-Date -Year $year -Month $_ -Day 13 } | Where-Object { $_.DayOfWeek -eq "Friday" }).Count;
+}
+
+
+UnluckyDays(2015);
