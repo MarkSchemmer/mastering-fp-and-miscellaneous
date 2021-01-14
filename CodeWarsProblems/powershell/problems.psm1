@@ -1203,5 +1203,288 @@ function UnluckyDays([int] $year) {
     return (1..12 | ForEach-Object { Get-Date -Year $year -Month $_ -Day 13 } | Where-Object { $_.DayOfWeek -eq "Friday" }).Count;
 }
 
+<#
 
-UnluckyDays(2015);
+
+
+
+
+
+
+
+
+function sum($ar) {
+    return $ar | ForEach-Object -Begin { $sum = 0 } -Process { $sum += $_ } -End { $sum };
+}
+
+function choose-best-sum($t, $k, $ls)
+{
+    # if ls is less than k return -1
+    if ($ls.Count -lt $k) { return -1; }
+
+    $firstChunk = $ls[0..($k - 1)];
+
+    $remaingChunk = $ls[$k..$ls.Count];
+
+    $currentSum = sum $firstChunk;
+
+    if ($currentSum -eq $t) { return $currentSum; }
+
+    if ($currentSum -gt $t) { $currentSum = $null; }
+
+    [System.Collections.ArrayList] $sets = @();
+
+    $sets += @($firstChunk, $null); # adding first set to sets
+
+    while ($remaingChunk.Count -gt 0) {
+
+        $sets += @($firstChunk, $null); # adding first set to sets
+
+        for ($i = 0; $i -lt $k; $i++) {
+        
+
+            for ($j = 0; $j -lt $remaingChunk.Count; $j++) {
+                $newArrCopy = (@() + $firstChunk);
+    
+                $newArrCopy[$i] = $remaingChunk[$j];
+    
+                $sets += @($newArrCopy, $null);
+            }
+        }
+
+        # Need to mutate firstChunk and remaingChunk
+        $firstChunk = $firstChunk[1..$firstChunk.Count] + @($remaingChunk[0]);
+        $remaingChunk = $remaingChunk[1..$remaingChunk.Count];
+    }
+
+    # foreach ($item in $sets) {
+    #     Write-Host $item ": sum = " (sum $item) 
+    # }
+
+    $result = $sets `
+    | ForEach-Object -Begin { $max = -1 } -Process {
+        $newSum = sum $_;
+
+        if ($newSum -gt $max -and $newSum -le $t) {
+            $max = $newSum;
+        }
+
+    } -End {
+        $max
+    };
+
+    return $result;
+
+}
+
+$ts = @(50, 55, 57, 58, 60);
+
+$tt = @(100, 76, 56, 44, 89, 73, 68, 56, 64, 123, 2333, 144, 50, 132, 123, 34, 89);
+
+choose-best-sum 230 4 $tt
+
+    5 kyu Best travel
+
+    Link: https://www.codewars.com/kata/55e7280b40e1c4a06d0000aa/train/powershell
+
+    John and Mary want to travel between a few towns A, B, C ... Mary has on a sheet of paper a list of distances between these towns. 
+    ls = [50, 55, 57, 58, 60]. John is tired of driving and he says to Mary that he doesn't want to drive more than t = 174 miles and he will visit only 3 towns.
+
+    Which distances, hence which towns, they will choose so that the sum of the distances is the biggest possible to please Mary and John?
+
+    Example:
+    With list ls and 3 towns to visit they can make a choice 
+    between: 
+
+    [50,55,57] -> 
+    
+    [50,55,58] -> 
+    
+    [50,55,60] -> 
+    
+    [50,57,58] -> 
+    
+    [50,57,60] ->  
+    
+    [50,58,60] -> 
+    
+    [55,57,58] -> 
+    
+    [55,57,60] -> 
+    
+    [55,58,60] -> 
+    
+    [57,58,60] -> 
+
+    The sums of distances are then: 162, 163, 165, 165, 167, 168, 170, 172, 173, 175.
+
+    The biggest possible sum taking a limit of 174 into account is then 173 and the distances of the 3 corresponding towns is [55, 58, 60].
+
+    The function chooseBestSum (or choose_best_sum or ... 
+    depending on the language) will take as parameters t (maximum sum of distances, integer >= 0), 
+    k (number of towns to visit, k >= 1) and 
+    ls (list of distances, all distances are positive or null integers and this list has at least one element). 
+    The function returns the "best" sum ie the biggest possible sum of k distances less than or equal to the given limit t,
+    if that sum exists, or otherwise nil, null, None, Nothing, depending on the language.
+
+    With C++, C, Rust, Swift, Go, Kotlin, Dart return -1.
+
+    Examples:
+    ts = [50, 55, 56, 57, 58] choose_best_sum(163, 3, ts) -> 163
+
+    xs = [50] choose_best_sum(163, 3, xs) -> nil (or null or ... or -1 (C++, C, Rust, Swift, Go)
+
+    ys = [91, 74, 73, 85, 73, 81, 87] choose_best_sum(230, 3, ys) -> 228
+
+    Note:
+    don't modify the input list ls
+
+    How to solve this problem linearly... 
+
+    - Need to break up the set of ls into all subsets of ls of size k
+
+    - Then go through and reduce the subsets of size k into it's sum
+
+    - Then iterate through and return the biggest sum that is less than and equal to t
+
+    Need to include the $k value to solve this problem.
+#>
+
+function sum($ar) {
+    return $ar | ForEach-Object -Begin { $sum = 0 } -Process { $sum += $_ } -End { $sum };
+}
+
+function GetChunks($set, $k) {
+    $idx = 0;
+    $endIdx = $k - 1;
+    $counter = 0;
+    [System.Collections.ArrayList] $newSets = @();
+
+    # Need to determine how many interations.
+
+    Write-Host "k: " $k;
+
+    if ($k -eq 0) { return @(); }
+
+    $iterations = [Math]::Floor($set.Count / $k);
+
+    while ($counter++ -lt $iterations) {
+
+        $newSets += @($set[$idx..$endIdx], $null);
+
+        $idx += $k;
+        $endIdx += $k - 1;
+    }
+
+    return $newSets;
+}
+
+function choose-best-sum($t, $k, $ls)
+{
+    # if ls is less than k return -1
+    if ($ls.Count -lt $k) { return -1; }
+
+    $firstChunk = $ls[0..($k - 1)];
+    $remaingChunk = $ls[$k..$ls.Count];
+    [System.Collections.ArrayList] $sets = GetChunks(([System.Collections.ArrayList] @() + $ls), $k);
+
+    while ($remaingChunk.Count -gt 0) {
+
+        $sets += @($firstChunk, $null); # adding first set to sets
+
+        for ($i = 0; $i -lt $k; $i++) {
+        
+
+            for ($j = 0; $j -lt $remaingChunk.Count; $j++) {
+                $newArrCopy = (@() + $firstChunk);
+    
+                $newArrCopy[$i] = $remaingChunk[$j];
+    
+                $sets += @($newArrCopy, $null);
+            }
+        }
+    }
+
+    $result = $sets `
+    | ForEach-Object -Begin { $max = -1 } -Process {
+        $newSum = sum $_;
+
+        if ($newSum -gt $max -and $newSum -le $t) {
+            $max = $newSum;
+        }
+
+    } -End {
+        $max
+    };
+
+    return $result;
+}
+
+# $ts = @(50, 55, 57, 58, 60);
+
+# $tt = @(100, 76, 56, 44, 89, 73, 68, 56, 64, 123, 2333, 144, 50, 132, 123, 34, 89);
+
+# choose-best-sum 230 4 $tt
+
+
+<#
+
+    7 kyu Over The Road
+
+    Link: https://www.codewars.com/kata/5f0ed36164f2bc00283aed07/train/powershell
+
+    Description: 
+
+    Task
+
+    You've just moved into a perfectly straight street with exactly n identical houses on either side of the road. Naturally, 
+    you would like to find out the house number of the people on the other side of the street. The street looks something like this:
+
+    Street
+    1|   |6
+    3|   |4
+    5|   |2
+
+    Evens increase on the right; odds decrease on the left. 
+
+    House numbers start at 1 and increase without gaps. When n = 3, 1 is opposite 6, 3 opposite 4, and 5 opposite 2.
+
+    Example
+    Given your house number address and length of street n, give the house number on the opposite side of the street.
+
+    overTheRoad(address, n)
+    overTheRoad(1, 3) = 6
+    overTheRoad(3, 3) = 4
+    overTheRoad(2, 3) = 5
+    overTheRoad(3, 5) = 8
+
+    Note about errors
+
+    If you are timing out, running out of memory, or get any kind of "error", read on. 
+    Both n and address could get upto 500 billion with over 200 random tests. 
+    If you try to store the addresses of 500 billion houses in a list then you will run out of memory and the tests will crash. 
+    This is not a kata problem so please don't post an issue. Similarly if the tests don't complete within 12 seconds then you also fail.
+
+    To solve this, you need to think of a way to do the kata without making massive lists or huge for loops. Read the discourse for some inspiration :)
+
+
+    Observations...
+
+    - Getting total number of houses: is taking $n and multiplying by 2
+
+    - Finding even row number, the start of the even house number is: ($n*2), if finding opposite of odd for example, if it's 
+
+#>
+
+
+function overTheRoad($address, $n) {
+    # Good luck!
+    $evens = $n * 2;
+
+    # Take entire numbers in both rows
+
+    # Take the address number and and count either all odds or evens and then subtract.
+
+
+    return $evens - ($address - 1);
+  }

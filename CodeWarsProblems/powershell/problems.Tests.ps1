@@ -61,3 +61,38 @@ Describe "Testing maxTriSum" {
         $res2 | Should -Be 41;
     }
 }
+
+Describe "Testing overTheRoad" {
+    It "overTheRoad 1 3" {
+        overTheRoad 1 3 | Should -Be 6
+        overTheRoad 3 3 | Should -Be 4
+        overTheRoad 2 3 | Should -Be 5
+        overTheRoad 3 5 | Should -Be 8
+        overTheRoad 7 11 | Should -Be 16
+    }
+}
+
+Describe "Test choose-best-sum" {
+
+    It "running fixed tests" {
+        function testing($t, $k, $ls, $expect) 
+        {
+            $ans = choose-best-sum $t $k $ls
+            $ans | Should -Be $expect
+        }
+    
+        function fixed()
+        {   
+            $ts = @(50, 55, 56, 57, 58)
+            testing 163 3 $ts 163
+            $ts = @(50)
+            testing 163 3 $ts -1
+            $ts = @(91, 74, 73, 85, 73, 81, 87)
+            testing 230 3 $ts 228
+            $tt = @(100, 76, 56, 44, 89, 73, 68, 56, 64, 123, 2333, 144, 50, 132, 123, 34, 89);
+            testing 230 4 $tt 230
+        }
+
+        fixed
+    }
+}
