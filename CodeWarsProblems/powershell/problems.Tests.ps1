@@ -1,6 +1,9 @@
-$pathToModule = "C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\CodeWarsProblems\powershell";
+# $pathToModule = "C:\Users\Administrator\Desktop\repros\mastering-fp-and-miscellaneous\CodeWarsProblems\powershell";
 $moduleName = "problems";
+$pathToModule = (Get-Location).Path
 $mod = "$($pathToModule)\$($moduleName).psm1";
+
+Write-Host $mod 
 
 # won't run if the module has already been loaded...
 # Import-Module $problemModulePath;
@@ -72,27 +75,27 @@ Describe "Testing overTheRoad" {
     }
 }
 
-Describe "Test choose-best-sum" {
+# Describe "Test choose-best-sum" {
 
-    It "running fixed tests" {
-        function testing($t, $k, $ls, $expect) 
-        {
-            $ans = choose-best-sum $t $k $ls
-            $ans | Should -Be $expect
-        }
+#     It "running fixed tests" {
+#         function testing($t, $k, $ls, $expect) 
+#         {
+#             $ans = choose-best-sum $t $k $ls
+#             $ans | Should -Be $expect
+#         }
     
-        function fixed()
-        {   
-            $ts = @(50, 55, 56, 57, 58)
-            testing 163 3 $ts 163
-            $ts = @(50)
-            testing 163 3 $ts -1
-            $ts = @(91, 74, 73, 85, 73, 81, 87)
-            testing 230 3 $ts 228
-            $tt = @(100, 76, 56, 44, 89, 73, 68, 56, 64, 123, 2333, 144, 50, 132, 123, 34, 89);
-            testing 230 4 $tt 230
-        }
+#         function fixed()
+#         {   
+#             $ts = @(50, 55, 56, 57, 58)
+#             testing 163 3 $ts 163
+#             $ts = @(50)
+#             testing 163 3 $ts -1
+#             $ts = @(91, 74, 73, 85, 73, 81, 87)
+#             testing 230 3 $ts 228
+#             $tt = @(100, 76, 56, 44, 89, 73, 68, 56, 64, 123, 2333, 144, 50, 132, 123, 34, 89);
+#             testing 230 4 $tt 230
+#         }
 
-        fixed
-    }
-}
+#         fixed
+#     }
+# }
