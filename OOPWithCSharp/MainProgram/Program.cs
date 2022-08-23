@@ -32,11 +32,24 @@ namespace OOPWithCSharp
     {
         static void Main(string[] args)
         {
-            ATMLoop();
-            Console.WriteLine("End of Program. ");
+            // Chapter 1 basic atm machine.
+            // ATMLoop();
+
+            var a = new Fraction(3, 8);
+            var b = new Fraction(2, 8);
+            Log($"Fraction a: {a}");
+            Log($"Fraction b: {b}");
+            var c = a + b;
+            Log($"Fraction c: {c}");
+
+            // Console.WriteLine("End of Program. ");
         }
 
         public static void Log(string info) => Console.WriteLine(info);
+
+
+
+
 
         public static void ATMLoop() 
         {

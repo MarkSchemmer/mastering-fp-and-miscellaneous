@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/C#DesignPatterns/bin/Debug/netcoreapp3.1/C#DesignPatterns.dll",
+            "program": "${workspaceFolder}/OOPWithCSharp/MainProgram/bin/Debug/net5.0/OOPWithCSharp.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/C#DesignPatterns",
+            "cwd": "${workspaceFolder}/OOPWithCSharp",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
