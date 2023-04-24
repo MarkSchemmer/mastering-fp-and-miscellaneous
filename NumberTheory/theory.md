@@ -84,3 +84,28 @@ $$
 $$
     d = \sum_{j=1}^{10} 2^j = 2^1 + 2^2 + ... + 2^{10} = 2046
 $$
+
+
+I have soled problem set of 1.1 a - d here are the complete unit tests proving I did the work. 
+
+```js
+
+describe("Number Theory Chapter 1", () => {
+    it("Factorial testing", () => {
+        expect(FactorialIterative(5)).toBe(120);
+        expect(FactorialIterative(4)).toBe(24);
+    });
+
+    it("Summation Tests", () => {
+        // Coding for problem 1.1 'a' 
+       expect(summation(1, 10, () => 2)).toBe(20);  
+       // Coding for problem 1.1 'b'
+       expect(summation(1, 10, (n) => n)).toBe(55);
+       // Coding for problem 1.1 'c'
+       expect(summation(1, 10, (n) => Math.pow(n, 2))).toBe(385);
+       // Coding for problem 1.1 'd'
+       expect(summation(1, 10, (n) => Math.pow(2, n))).toBe(2046);
+    });
+});
+
+```
