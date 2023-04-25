@@ -24,7 +24,9 @@ let factorialIterative = () => {
         if (n < 0) throw new Error("cannot be less than 0.");
         if (n === 0 || n === 1) return 1;
         if (n in map) return map[n];
-        return subFactorial(n);
+        let result = subFactorial(n);
+        map[n] = result;
+        return result;
     }
 };
 
