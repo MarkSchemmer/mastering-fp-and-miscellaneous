@@ -30,7 +30,7 @@ let factorialIterative = () => {
 
 export let FactorialIterative = factorialIterative();
 
-let range = (lowerLimit: number, upperLimit: number) => {
+let range = (lowerLimit: number, upperLimit: number): number[] => {
     if (lowerLimit >= upperLimit) throw new Error("lower limit cannot be greater than or equal to upperlimit.");
 
     let set: number[] = [];
@@ -42,7 +42,7 @@ let range = (lowerLimit: number, upperLimit: number) => {
     return set;
 }
 
-export let summation = (lowerLimit, upperLimit, fn) => {
+export let summation = (lowerLimit, upperLimit, fn) : number => {
     let numb = 0;
     let newRange = range(lowerLimit, upperLimit);
 
@@ -53,3 +53,15 @@ export let summation = (lowerLimit, upperLimit, fn) => {
 
     return sum;
 }
+
+export let product = (lowerLimit: number, upperLimit: number, fn): number => {
+    let numb = 1;
+    let newRange = range(lowerLimit, upperLimit);
+
+    let productResult = newRange.reduce((acc, cur) => {
+        let mutation = fn(cur);
+        return acc * mutation;
+    }, numb);
+
+    return productResult;
+};

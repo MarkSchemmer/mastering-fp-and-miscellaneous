@@ -109,3 +109,124 @@ describe("Number Theory Chapter 1", () => {
 });
 
 ```
+
+
+# Problems 1.1 -> 2
+
+##  2.a)
+
+$$
+    a = \prod_{j = 1}^5 2 = 2 * 2 * 2 * 2 * 2 = 32
+$$
+
+
+# 2.b)
+
+$$
+    b = \prod_{j=1}^5 j = 1 * 2 * 3 * 4 * 5 = 120
+$$
+
+
+# 2.c)
+
+$$
+    c = \prod_{j=1}^5 {j^2} = 1^2 * 2^2 * 3^2 * 4^2 * 5^2 = 14,400
+$$
+
+
+# 2.d)
+
+$$
+    d = \prod_{j=1}^5 {2^j} = 2^1 * 2^2 * 2^3 * 2^4 * 2^5 = 32678
+$$
+
+I also coded out a solution for product
+
+Here is code implementation: 
+
+```js
+
+export let product = (lowerLimit: number, upperLimit: number, fn): number => {
+    let numb = 1;
+    let newRange = range(lowerLimit, upperLimit);
+
+    let productResult = newRange.reduce((acc, cur) => {
+        let mutation = fn(cur);
+        return acc * mutation;
+    }, numb);
+
+    return productResult;
+};
+
+```
+
+
+And here are the unit tests: 
+
+```js
+
+    it("Product Tests ", () => {
+        // Coding for problem 1.1 -> 2.a
+        expect(product(1, 5, () => 2)).toBe(32);
+        // Coding for problem 1.1 -> 2.b
+        expect(product(1, 5, (n) => n)).toBe(120);
+        // Coding for problem 1.1 -> 2.c
+        expect(product(1, 5, (n) => Math.pow(n, 2))).toBe(14400);
+        // Coding for problem 1.1 -> 2.d
+        expect(product(1, 5, (n) => Math.pow(2, n))).toBe(32768);
+    });
+
+```
+
+# Problem 1.1 3: 
+
+Find n! for n = to the 1st 10 integers, basically: 1..10 find !
+
+
+$$
+    n! = \prod_{j=1}^n a_j = a_1a_2...a_n
+$$
+
+
+Factorial implementation: 
+
+```js
+
+let factorialIterative = () => {
+    let map = {};
+
+    let subFactorial = (nn) => {
+        let prev = nn;
+        while (nn > 1) {
+            nn = nn - 1;
+            prev = prev * nn;
+        }
+        return prev;
+    };
+
+    return n => {
+        if (n < 0) throw new Error("cannot be less than 0.");
+        if (n === 0 || n === 1) return 1;
+        if (n in map) return map[n];
+        return subFactorial(n);
+    }
+};
+
+export let FactorialIterative = factorialIterative();
+
+```
+
+Evidence of unit tests: 
+
+```js
+
+    it("Factorial testing", () => {
+        expect(FactorialIterative(5)).toBe(120);
+        expect(FactorialIterative(4)).toBe(24);
+        expect(FactorialIterative(3)).toBe(6);
+        expect(FactorialIterative(6)).toBe(720);
+        expect(FactorialIterative(7)).toBe(5040);
+        expect(FactorialIterative(9)).toBe(362880);
+    });
+
+```
