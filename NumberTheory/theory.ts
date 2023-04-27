@@ -27,7 +27,7 @@ let factorialIterative = () => {
         let result = subFactorial(n);
         map[n] = result;
         return result;
-    }
+    };
 };
 
 export let FactorialIterative = factorialIterative();
@@ -67,3 +67,18 @@ export let product = (lowerLimit: number, upperLimit: number, fn): number => {
 
     return productResult;
 };
+
+export let binomialCoefficient = (() => 
+{
+    let map = {};
+    return (m: number, k: number): number => {
+        if (k > m) throw new Error(" k <= m is false.");
+        if (k === null || m === null) throw new Error("k or m is null. ");
+        
+        let key = m.toString() + k.toString();
+        if (key in map) return map[key];
+        let result = FactorialIterative(m) / (FactorialIterative(k) * FactorialIterative(m - k));
+        map[key] = result;
+        return result;
+    }
+})();

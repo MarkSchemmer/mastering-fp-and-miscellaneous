@@ -1,4 +1,4 @@
-import { FactorialIterative, product, summation } from "./theory";
+import { FactorialIterative, binomialCoefficient, product, summation } from "./theory";
 
 describe("Number Theory Dummy test. ", () => {
     it("demo test", () => {
@@ -37,6 +37,19 @@ describe("Number Theory Chapter 1", () => {
         expect(product(1, 5, (n) => Math.pow(n, 2))).toBe(14400);
         // Coding for problem 1.1 -> 2.d
         expect(product(1, 5, (n) => Math.pow(2, n))).toBe(32768);
+    });
+
+    it("Binomial Coefficient tests: ", () => {
+        expect(binomialCoefficient(7, 3)).toBe(35);
+        expect(binomialCoefficient(9, 3)).toBe(84);
+        expect(binomialCoefficient(9, 4)).toBe(126);
+        expect(binomialCoefficient(10, 4)).toBe(210);
+
+        let a = binomialCoefficient(9, 3);
+        let b = binomialCoefficient(9, 4);
+        let c = binomialCoefficient(10, 4);
+
+        expect(a + b).toBe(c);
     });
 });
 /*

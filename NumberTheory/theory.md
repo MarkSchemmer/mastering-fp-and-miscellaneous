@@ -230,3 +230,37 @@ Evidence of unit tests:
     });
 
 ```
+
+# Binomial coefficient
+
+$$
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+
+In computer code this looks like: 
+
+```ts
+
+export let binomialCoefficient = (() => 
+{
+    let map = {};
+    return (m: number, k: number): number => {
+        if (k > m) throw new Error(" k <= m is false.");
+        if (k === null || m === null) throw new Error("k or m is null. ");
+        
+        let key = m.toString() + k.toString();
+        if (key in map) return map[key];
+        let result = FactorialIterative(m) / (FactorialIterative(k) * FactorialIterative(m - k));
+        map[key] = result;
+        return result;
+    }
+})();
+
+```
+
+\- Todo's for tomorrow - 
+
+- show work for yesterday as well
+
+- And writing out the work for therom 1.2, and another 2 - 3 problems
+
