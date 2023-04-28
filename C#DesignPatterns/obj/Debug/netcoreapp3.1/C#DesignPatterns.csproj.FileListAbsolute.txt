@@ -17,3 +17,10 @@ C:\_repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.
 C:\_repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.csproj.CoreCompileInputs.cache
 C:\_repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.dll
 C:\_repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.pdb
+C:\repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.csproj.AssemblyReference.cache
+C:\repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.GeneratedMSBuildEditorConfig.editorconfig
+C:\repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.AssemblyInfoInputs.cache
+C:\repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.AssemblyInfo.cs
+C:\repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.csproj.CoreCompileInputs.cache
+C:\repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.dll
+C:\repos\mastering-fp-and-miscellaneous\C#DesignPatterns\obj\Debug\netcoreapp3.1\C#DesignPatterns.pdb

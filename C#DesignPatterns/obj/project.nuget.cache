@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "A45FIV6H0lJR/UHf6UFBzJldNApYP9zdHgy56IHwk8MGn5QNdP//Vq3/ttiTKJthOsRqnR0jMz3ArUn3Zg+tmQ==",
+  "dgSpecHash": "Km04M3tTcxGqav6e96ylDcUUczJrHjY9TP39G5xvJfa94wY3a1+D664DAcAbFF0Yb4TVUC1ag0owd4rPMCmQ2w==",
   "success": true,
-  "projectFilePath": "C:\\_repos\\mastering-fp-and-miscellaneous\\C#DesignPatterns\\C#DesignPatterns.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\repos\\mastering-fp-and-miscellaneous\\C#DesignPatterns\\C#DesignPatterns.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mjssc\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\mjssc\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\mjssc\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\mjssc\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.29\\microsoft.netcore.app.host.win-x64.3.1.29.nupkg.sha512"
+  ],
   "logs": []
 }

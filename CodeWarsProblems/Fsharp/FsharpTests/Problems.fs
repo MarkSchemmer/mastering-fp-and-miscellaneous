@@ -1,4 +1,6 @@
-﻿module Problems
+﻿namespace CodeWarsProblems
+
+module Problems =
     open System
     open System.Collections
 
@@ -8,3 +10,9 @@
         |> List.sortDescending
         |> List.take 3
         |> List.reduce (fun x y -> x + y)
+
+
+module YouCantCodeSolution =
+    open System
+    let doubleInteger (n: int) =
+        n * 2
