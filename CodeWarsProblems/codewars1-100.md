@@ -9,7 +9,7 @@ I'm doing 100 Codewars problems in the following languages
 
 When I complete a problem I paste a link with a description here, then I will post my solution in that language and I will update the tracker on how many problems I have solved.
 
-# How pproblems solved: 5/100
+# How pproblems solved: 6/100
 
 ## 1
 
@@ -113,5 +113,71 @@ package kata
 func DoubleInteger(i int) int {
   return i * 2
 }
+
+```
+
+
+# 6
+
+[Convert a String to number -> completed in C](https://www.codewars.com/kata/544675c6f971f7399a000e79/solutions/c)
+
+```c
+
+#include <stdio.h>
+
+int charGenerator (char c) {
+    switch (c)
+    {
+        case '1': return 1;
+        case '2': return 2;
+        case '3': return 3;
+        case '4': return 4;
+        case '5': return 5;
+        case '6': return 6;
+        case '7': return 7;
+        case '8': return 8;
+        case '9': return 9;
+        default: return 0;
+    }
+}
+
+int calculateNthPower (int n) {
+    if (n == 0) return 1;
+
+    int constant = 10;
+    int sum = 1;
+    while (n > 0) {
+        sum = sum * constant;
+        n = n - 1;
+    }
+printf(" %d ", sum);
+    return sum;
+}
+
+
+
+int string_to_number(const char *src) {
+  
+  int finalSum = 0;
+  int indexCounter = 0;
+  int i;
+
+  for (i = strlen(src) - 1; i >= 0; i--) {
+    printf("%c", src[i]);
+     int nthPower = calculateNthPower(indexCounter);
+     int getIntegerFromChar = charGenerator(src[i]);
+     
+     if (src[i] == '-') {
+        finalSum = finalSum * -1;
+     } else {
+        finalSum = finalSum + (getIntegerFromChar * nthPower);
+     }
+
+     indexCounter = indexCounter + 1;
+  }
+printf("final solution here: %d", finalSum);
+  return finalSum;
+}
+
 
 ```
