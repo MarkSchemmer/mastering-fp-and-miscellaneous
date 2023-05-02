@@ -9,7 +9,7 @@ I'm doing 100 Codewars problems in the following languages
 
 When I complete a problem I paste a link with a description here, then I will post my solution in that language and I will update the tracker on how many problems I have solved.
 
-# How pproblems solved: 6/100
+# How pproblems solved: 8/100
 
 ## 1
 
@@ -179,5 +179,52 @@ printf("final solution here: %d", finalSum);
   return finalSum;
 }
 
+
+```
+
+# 7 
+
+[Remove First and Last Character](https://www.codewars.com/kata/56bc28ad5bdaeb48760009b0/solutions/c)
+
+```c
+
+char* remove_char(char* dst, const char* src)
+{
+  /* src is the input string */
+  /* your solution should write the result into dst and return it */  
+  int len = (int) strlen(src);
+  char *s2 = malloc((len) * sizeof(char));
+  int i;
+  for (i = 1; i < len; i++) {
+    s2[i - 1] = src[i];
+  }
+
+  s2[len - 2] = '\0';
+  strcpy(dst, s2);
+  free(s2);
+  return dst;
+}
+
+```
+
+# 8 
+
+[ASCII Total](https://www.codewars.com/kata/572b6b2772a38bc1e700007a/solutions/c)
+
+```c
+
+int uni_total(const char *s) {
+  int sum = 0;
+  int i;
+  int code;
+  int len = strlen(s);
+  
+  for (i = 0; i < len; i++) {
+    code = s[i];
+    sum += code;
+  }
+  
+  return sum;
+}
 
 ```

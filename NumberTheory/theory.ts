@@ -82,3 +82,90 @@ export let binomialCoefficient = (() =>
         return result;
     }
 })();
+
+
+export let pascalsTriangle = (() => {
+        let key = [
+            [1],
+            [ 1, 1 ],
+            [ 1, 2, 1 ]
+        ];
+
+        let calcNewRow = (lastRow: number[]): number[] => {
+
+            let newRow: number[] = [];
+
+            for (let i = 0, j = 1; j <= lastRow.length - 1; i++, j++) {
+                newRow.push(lastRow[i] + lastRow[j]);
+            }
+
+            return [ 1, ...newRow, 1 ];
+        }
+
+        let calculateToNthRow = (n: number) => {
+            let lastRowCalculatedInPascalTri = key.length - 1;
+            while (lastRowCalculatedInPascalTri <= n) {
+                // do calculation of new row.
+                let lastRow = key[lastRowCalculatedInPascalTri];
+                let newRow = calcNewRow(lastRow);
+                lastRowCalculatedInPascalTri = lastRowCalculatedInPascalTri + 1;
+                key[lastRowCalculatedInPascalTri] = newRow
+            }
+        }
+
+        return (nthRow: number) => {
+            if (key[nthRow]) return key[nthRow];
+            calculateToNthRow(nthRow);
+            return key[nthRow];
+        } 
+})();
+
+
+let printPascalsTriangleToNthRow = fn => n => {
+    let str = "";
+    let i = 0;
+    while (i <= n) {
+        let row = fn(i);
+        row.forEach((v) => str = str + " " + v + " ");
+        str += "\n";
+        i++;
+    }
+    console.log(str);
+    return str;
+}
+
+export let PrintPascalsTriangleToNthRow = printPascalsTriangleToNthRow(pascalsTriangle);
+
+
+
+/*
+
+    Can move disk (-) in either direction just a legal move. 
+
+    Even number of disks
+
+        A - B
+        A - C
+        B - C
+
+    Odd number of disks
+
+        A - C
+        A - B
+        B - C
+
+    
+    Disk is object
+
+    Peg is object
+
+    3 Peg<Disk> each Peg is a stack data structure
+    Disk is an object which will have a value such as 
+    weight
+
+*/ 
+
+
+export let towerOfHanoi = (nthLevel) => {
+
+}

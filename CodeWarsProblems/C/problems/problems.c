@@ -1,8 +1,7 @@
-#include <iostream>
-#include <vector>
-#include <string>
 
-using namespace std;
+
+#include <stdio.h>
+#include <string.h>
 
 
 /*
@@ -18,6 +17,37 @@ using namespace std;
     we pass n (nth) the place we are in the for loop.
 
 */
+
+int uni_total(const char *s) {
+  int sum = 0;
+  int i;
+  int code;
+  int len = strlen(s);
+  
+  for (i = 0; i < len; i++) {
+    code = s[i];
+    sum += code;
+  }
+  
+  return sum;
+}
+
+char* remove_char(char* dst, const char* src)
+{
+  /* src is the input string */
+  /* your solution should write the result into dst and return it */  
+  int len = (int) strlen(src);
+  char *s2 = malloc((len) * sizeof(char));
+  int i;
+  for (i = 1; i < len; i++) {
+    s2[i - 1] = src[i];
+  }
+
+  s2[len - 2] = '\0';
+  strcpy(dst, s2);
+  free(s2);
+  return dst;
+}
 
 int charGenerator (char c) {
     switch (c)
@@ -56,7 +86,7 @@ int string_to_number(const char *src) {
   int indexCounter = 0;
   int i;
 
-  for (i = sizeof(src) - 1; i >= 0; i--) {
+  for (i = strlen(src) - 1; i >= 0; i--) {
      // printf("%c", src[i]);
      int nthPower = calculateNthPower(indexCounter);
      int getIntegerFromChar = charGenerator(src[i]);
@@ -74,11 +104,6 @@ int string_to_number(const char *src) {
   return finalSum;
 }
 
-
-int32_t double_integer(int32_t n) 
-{
-    return n * 2;
-}
 
 int main()
 {

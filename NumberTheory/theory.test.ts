@@ -1,4 +1,4 @@
-import { FactorialIterative, binomialCoefficient, product, summation } from "./theory";
+import { FactorialIterative, PrintPascalsTriangleToNthRow, binomialCoefficient, pascalsTriangle, product, summation } from "./theory";
 
 describe("Number Theory Dummy test. ", () => {
     it("demo test", () => {
@@ -50,6 +50,25 @@ describe("Number Theory Chapter 1", () => {
         let c = binomialCoefficient(10, 4);
 
         expect(a + b).toBe(c);
+    });
+
+    it("Pascals Triangle", () => {
+        // expect(pascalsTriangle(5)).toEqual();
+        let fourthRow = [1, 4, 6, 4, 1];
+        pascalsTriangle(4).forEach((val, idx) => {
+            expect(val).toBe(fourthRow[idx]);
+        });
+
+
+        let eigthRow = [ 1, 8, 28, 56, 70, 56, 28, 8, 1 ];
+        pascalsTriangle(8).forEach((val, idx) => {
+            expect(val).toBe(eigthRow[idx]);
+        });
+    });
+
+    it("Printing pascals Triangle example", () => {
+        PrintPascalsTriangleToNthRow(10);
+        expect(true).toBe(true);
     });
 });
 /*
