@@ -9,7 +9,7 @@ I'm doing 100 Codewars problems in the following languages
 
 When I complete a problem I paste a link with a description here, then I will post my solution in that language and I will update the tracker on how many problems I have solved.
 
-# How pproblems solved: 8/100
+# How pproblems solved: 11/100
 
 ## 1
 
@@ -225,6 +225,78 @@ int uni_total(const char *s) {
   }
   
   return sum;
+}
+
+```
+
+
+# 9 
+
+[Geometry Basics: Distance between points in 2D](https://www.codewars.com/kata/58dced7b702b805b200000be)
+
+```c
+
+#include <math.h>
+
+typedef struct Point {
+    double x;
+    double y;
+} point;
+
+double distance_between_points(point a, point b) {
+
+    //  <----  hajime!
+  return sqrt((pow(b.x - a.x, 2) + pow(b.y - a.y, 2)));
+}
+
+```
+
+# 10
+
+[
+Function 1 - hello world](https://www.codewars.com/kata/523b4ff7adca849afe000035)
+
+```c
+
+//Write a function `greet` that returns "hello world!"
+
+char* greet() {
+  return "hello world!";
+}
+
+```
+
+# 11
+
+[Grasshopper - Personalized Message](https://www.codewars.com/kata/5772da22b89313a4d50012f7)
+
+```c
+
+#include <stdio.h>
+#include <string.h>
+
+int myStringCompare (char* str1, char* str2) {
+  int idx = 0;
+  int len1 = strlen(str1);
+  int len2 = strlen(str2);
+
+  if (len1 != len2) return -1;
+
+  while (idx < len1) {
+    if (str1[idx] != str2[idx]) return -1;
+
+    idx++;
+  }
+
+  return 0;
+}
+
+const char* greet(const char *name, const char *owner) {
+  if (myStringCompare(name, owner) == 0) {
+    return "Hello boss";
+  } else {
+    return "Hello guest";
+  }
 }
 
 ```

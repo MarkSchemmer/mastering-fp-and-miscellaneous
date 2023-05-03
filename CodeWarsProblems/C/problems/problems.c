@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include <math.h>
 
 /*
     Convert a string to a number. 
@@ -17,6 +17,50 @@
     we pass n (nth) the place we are in the for loop.
 
 */
+
+int myStringCompare (char* str1, char* str2) {
+  int idx = 0;
+  int len1 = strlen(str1);
+  int len2 = strlen(str2);
+
+  if (len1 != len2) return -1;
+
+  while (idx < len1) {
+    if (str1[idx] != str2[idx]) return -1;
+
+    idx++;
+  }
+
+  return 0;
+}
+
+const char* greet(const char *name, const char *owner) {
+  if (myStringCompare(name, owner) == 0) {
+    return "Hello boss";
+  } else {
+    return "Hello guest";
+  }
+}
+
+
+
+//Write a function `greet` that returns "hello world!"
+
+char* greet() {
+  return "hello world!";
+}
+
+
+typedef struct Point {
+    double x;
+    double y;
+} point;
+
+double distance_between_points(point a, point b) {
+
+    //  <----  hajime!
+    return sqrt((pow(b.x - a.x, 2) + pow(b.y - a.y, 2)));
+}
 
 int uni_total(const char *s) {
   int sum = 0;
