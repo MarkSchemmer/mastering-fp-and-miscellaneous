@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
 
 /*
     Convert a string to a number. 
@@ -109,6 +110,23 @@ int charGenerator (char c) {
     }
 }
 
+void fakeBin(const char *digits, char *binary) {
+  // Please place result in the memory pointed to by
+  // the binary parameter. binary has enough memory to
+  // accommodate the answer as well as the null-terminating
+  // character.
+  int len = strlen(digits);
+  int counter = 0;
+  while(counter < len) {
+    int newDigit = charGenerator(digits[counter]);
+    int newBinary = newDigit < 5 ? '0' : '1';
+    binary[counter] = newBinary;
+    counter++;
+  }
+  
+ 	binary[counter] = '\0';
+}
+
 int calculateNthPower (int n) {
     if (n == 0) return 1;
 
@@ -148,13 +166,160 @@ int string_to_number(const char *src) {
   return finalSum;
 }
 
+/*
+
+    - Make my own divider function
+    - Make my own round up function
+
+
+
+
+    Basically the logic will be a | b such that a = b*c
+
+    also 
+
+    a | b 
+
+    b | c
+
+    a | c
+
+    Also when dividing 
+*/
+int centuryFromYear(int year) 
+{
+  int b = 1;
+  int base = 100;
+
+  while ((base * (b+1)) <= year) {
+    b++;
+  }
+  
+  return year - (base * b) == 0 ? b : b+1;
+}
+
+int nearest_sq(int n)
+{
+  if (n == 1) { return 1; }
+  if (n == 2) { return 1; }
+  if (n == 3) { return 2; }
+  
+  int nn = 3;
+
+  while (nn*nn <= n) {
+    nn++;
+  }
+
+  if (nn*nn == n) return n;
+  
+  printf("nn = %d \n", nn);
+
+  int upperN = nn;
+  int lowerN = nn-1;
+
+  int upperNDifference = (upperN*upperN) - n;
+  printf("upperdifference = %d \n", upperNDifference);
+
+  int lowerNDifference = n - (lowerN*lowerN);
+  printf("lowerDifference = %d \n", lowerNDifference);
+
+  return upperNDifference > lowerNDifference ? lowerN*lowerN : upperN*upperN;
+}
+
+
+
+bool solution(const char *string, const char *ending)
+{
+
+    int len1 = strlen(string);
+    int len2 = strlen(ending);
+
+    int diff = len1 - len2;
+
+    int counter2 = 0;
+
+    while (diff < len1) {
+      if (string[diff] != ending[counter2]) return false;
+
+      counter2++;
+      diff++;
+    }
+
+    return true;
+}
+
+
+char* string_concat(char* str1, char* str2) {
+  int counter2 = 0;
+  int str2Len = strlen(str2);
+  int counter = strlen(str1);
+
+  while (counter2 < str2Len) {
+    str1[counter] = str2[counter2];
+    counter++;
+    counter2++;
+  }
+
+  return str1;
+}
+
+char *are_you_playing_banjo(const char *name) {
+  char *playBanjo = " plays banjo";
+  char *noBanjo = " does not play banjo";
+
+  int nameLen = strlen(name);
+  int noBanjoLen = strlen(noBanjo);
+
+  char *newString = malloc((nameLen + noBanjoLen) * sizeof(char));
+ 
+  char *str = string_concat(newString, name);
+
+  return name[0] == 'R' || name[0] == 'r' ? string_concat(str, playBanjo) : string_concat(str, noBanjo);
+}
+
+bool properLen (char* pin) {
+  int pinLen = strlen(pin);
+  return pinLen == 4 || pinLen == 6 ? true : false; 
+}
+
+
+bool validChar (char c) {
+    switch (c)
+    {
+        case '1': 
+        case '2': 
+        case '3': 
+        case '4': 
+        case '5': 
+        case '6': 
+        case '7': 
+        case '8': 
+        case '9': 
+        case '0':
+          return true;
+        default: return false;
+    }
+}
+
+
+bool validate_pin(const char *pin) {
+
+    bool validPin = true;
+    validPin &= properLen(pin);
+
+    for (int i = 0; pin[i] != '\0'; i++) {
+      validPin &= validChar(pin[i]);
+    }
+
+    return validPin;
+
+}
 
 int main()
 {
 
     // int doubleFour = double_integer(2);
     // printf("2 doubled is 4  -> result %d ", doubleFour);
-
     string_to_number("1234");
 }
 

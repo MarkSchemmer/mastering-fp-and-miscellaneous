@@ -300,3 +300,210 @@ const char* greet(const char *name, const char *owner) {
 }
 
 ```
+
+# 12 - [Fake Binary](https://www.codewars.com/kata/57eae65a4321032ce000002d/solutions/c?filter=me&sort=best_practice&invalids=false)
+
+```c
+
+#include <stdio.h>
+
+int charGenerator (char c) {
+    switch (c)
+    {
+        case '1': return 1;
+        case '2': return 2;
+        case '3': return 3;
+        case '4': return 4;
+        case '5': return 5;
+        case '6': return 6;
+        case '7': return 7;
+        case '8': return 8;
+        case '9': return 9;
+        default: return 0;
+    }
+}
+
+void fakeBin(const char *digits, char *binary) {
+  // Please place result in the memory pointed to by
+  // the binary parameter. binary has enough memory to
+  // accommodate the answer as well as the null-terminating
+  // character.
+  int len = strlen(digits);
+  int counter = 0;
+  while(counter < len) {
+    int newDigit = charGenerator(digits[counter]);
+    int newBinary = newDigit < 5 ? '0' : '1';
+    binary[counter] = newBinary;
+    counter++;
+  }
+  
+ 	binary[counter] = '\0';
+}
+
+
+```
+
+
+# 13 - [Century From Year](https://www.codewars.com/kata/5a3fe3dde1ce0e8ed6000097/solutions/c?filter=me&sort=best_practice&invalids=false)
+
+
+```c
+#include <stdio.h>
+
+int centuryFromYear(int year) 
+{
+  int b = 1;
+  int base = 100;
+
+  while ((base * (b+1)) <= year) {
+    b++;
+  }
+  
+  return year - (base * b) == 0 ? b : b+1;
+}
+
+```
+
+
+# 14 - [Find Nearest sqaure number](https://www.codewars.com/kata/5a805d8cafa10f8b930005ba/solutions/c?filter=me&sort=best_practice&invalids=false)
+
+```c
+
+#include <stdio.h>
+
+int nearest_sq(int n)
+{
+  if (n == 1) { return 1; }
+  if (n == 2) { return 1; }
+  if (n == 3) { return 2; }
+  
+  int nn = 3;
+
+  while (nn*nn <= n) {
+    nn++;
+  }
+
+  if (nn*nn == n) return n;
+  
+  printf("nn = %d \n", nn);
+
+  int upperN = nn;
+  int lowerN = nn-1;
+
+  int upperNDifference = (upperN*upperN) - n;
+  printf("upperdifference = %d \n", upperNDifference);
+
+  int lowerNDifference = n - (lowerN*lowerN);
+  printf("lowerDifference = %d \n", lowerNDifference);
+
+  return upperNDifference > lowerNDifference ? lowerN*lowerN : upperN*upperN;
+}
+
+```
+
+
+# 15 - [String ends with?](https://www.codewars.com/kata/51f2d1cafc9c0f745c00037d/solutions/c?filter=me&sort=best_practice&invalids=false)
+
+```c
+
+#include <stdbool.h>
+#include <stdio.h>
+
+bool solution(const char *string, const char *ending)
+{
+    int len1 = strlen(string);
+    int len2 = strlen(ending);
+  
+    if (len2 > len1) return false;
+
+    int diff = len1 - len2;
+
+    int counter2 = 0;
+
+    while (diff < len1) {
+      if (string[diff] != ending[counter2]) return false;
+
+      counter2++;
+      diff++;
+    }
+
+    return true;
+}
+
+
+```
+
+
+# 16 - [Are you Playing Banjo](https://www.codewars.com/kata/53af2b8861023f1d88000832/solutions/c?filter=me&sort=best_practice&invalids=false)
+
+
+```c
+
+#include <stdio.h>
+#include <string.h>
+
+char *are_you_playing_banjo(const char *name) {
+  char *playBanjo = " plays banjo";
+  char *noBanjo = " does not play banjo";
+
+  int nameLen = (int)strlen(name);
+  int noBanjoLen = (int)strlen(noBanjo);
+
+  char *str = malloc((nameLen + noBanjoLen) * sizeof(char));
+
+  strcpy(str, name);
+  
+  char *banjo = name[0] == 'R' || name[0] == 'r' ? playBanjo : noBanjo;
+  
+  strcat(str, banjo);
+  
+  return str;
+}
+
+```
+
+
+# 17 [Regex validate PIN code](https://www.codewars.com/kata/55f8a9c06c018a0d6e000132/solutions/c?filter=me&sort=best_practice&invalids=false)
+
+```c
+
+
+bool properLen (char* pin) {
+  int pinLen = strlen(pin);
+  return pinLen == 4 || pinLen == 6 ? true : false; 
+}
+
+
+bool validChar (char c) {
+    switch (c)
+    {
+        case '1': 
+        case '2': 
+        case '3': 
+        case '4': 
+        case '5': 
+        case '6': 
+        case '7': 
+        case '8': 
+        case '9': 
+        case '0':
+          return true;
+        default: return false;
+    }
+}
+
+
+bool validate_pin(const char *pin) {
+
+    bool validPin = true;
+    validPin &= properLen(pin);
+
+    for (int i = 0; pin[i] != '\0'; i++) {
+      validPin &= validChar(pin[i]);
+    }
+
+    return validPin;
+
+}
+
+```
