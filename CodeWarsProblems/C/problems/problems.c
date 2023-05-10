@@ -4,6 +4,10 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
+#include <sys/types.h>
+#include <string.h>
+#include <limits.h>
+#include <stdio.h>
 
 /*
     Convert a string to a number. 
@@ -313,6 +317,135 @@ bool validate_pin(const char *pin) {
 
     return validPin;
 
+}
+
+unsigned rental_car_cost(unsigned d)
+{
+    return (40u * d) + (d >= 7 ? -50u : d >= 3 ? -20u : 0);
+}
+
+// ssize_t find_short(const char *s)
+// {
+//   char * shortestString = strtok(s, " ");
+//   int shortestLen = strlen(shortestString);
+//   char * token = shortestString;
+
+//   while (token != NULL) {
+//     token = strtok(NULL, " ");
+//     int newShort = strlen(token);
+
+//     if (shortestLen > newShort) {
+//       shortestLen = newShort;
+//     }
+//   }
+
+//   return (long)shortestLen;
+// }
+
+
+char * copy_str (char * s) {
+  int len = (int) strlen(s);
+  char * newStr = malloc(len * sizeof(char));
+  
+  for (int i = 0; s[i] != '\0'; i++) {
+    newStr[i] = s[i];  
+  }
+  
+  return newStr;
+}
+
+
+ssize_t find_short(const char *s)
+{
+  char * copyStr = copy_str(s);
+  char * shortestString = strtok(copyStr, " ");
+  int shortestLen = strlen(shortestString);
+  char * token = shortestString;
+
+  while (token != NULL) {
+    token = strtok(NULL, " ");
+    int newShort = strlen(token);
+
+    if (shortestLen > newShort) {
+      shortestLen = newShort;
+    }
+  }
+  
+  free(copyStr);
+
+  return (long)shortestLen;
+}
+
+
+
+
+ssize_t find_short(const char *s)
+{
+    int min = INT_MAX;
+    char delim[] = " ";
+    char *token = strtok((char*)s, delim);
+    while(token != NULL) {
+        int len = (int)strlen(token);
+        if (min > len)
+            min = len;
+        token = strtok(NULL, delim);
+    }
+    return min;
+}
+
+
+#include <stddef.h>
+#include <stdio.h>
+
+// return a *new, dynamically allocated* array with each element doubled.
+int *maps(const int *arr, size_t size) {
+  
+  int arrLen = (int)size; 
+  
+  int *ar = malloc(arrLen * sizeof(int));
+  
+  for (int i = 0; i < arrLen; i++) {
+    ar[i] = (int)(arr[i] * 2);
+    printf("%d", ar[i]);
+  }
+  
+  int * p = ar;
+  
+  printf("\n");
+  
+  return (p);
+}
+
+
+unsigned short sale_hotdogs(unsigned short n) {
+
+   int multiplyer = n < 5 ? 100 : n >= 5 && n < 10 ? 95 : n >= 10 ? 90 : 100;
+
+   return multiplyer * n;
+
+}
+
+double find_average(const double array[/* length */], unsigned length)
+{
+  if (array == NULL || length == NULL || length == 0) return 0.0;
+  
+  double sum = 0.0;
+  
+  int counter = 0;
+  
+  int len = (int)length;
+  
+  while(counter < len) {
+    sum += array[counter];
+    
+    counter++;
+  }
+  
+  return sum / len;
+}
+
+int Liters(double time) {
+  return 0.5 * time;
 }
 
 int main()

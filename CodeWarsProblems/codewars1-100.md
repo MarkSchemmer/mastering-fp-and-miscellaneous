@@ -9,7 +9,7 @@ I'm doing 100 Codewars problems in the following languages
 
 When I complete a problem I paste a link with a description here, then I will post my solution in that language and I will update the tracker on how many problems I have solved.
 
-# How pproblems solved: 11/100
+# How pproblems solved: 27/100 - 27%
 
 ## 1
 
@@ -507,3 +507,346 @@ bool validate_pin(const char *pin) {
 }
 
 ```
+
+
+# 18 - [Transportation on vacation](https://www.codewars.com/kata/568d0dd208ee69389d000016/solutions/c?filter=me&sort=best_practice&invalids=false)
+
+
+```c 
+
+unsigned rental_car_cost(unsigned d)
+{
+    return (40u * d) + (d >= 7 ? -50u : d >= 3 ? -20u : 0);
+}
+
+```
+
+
+# 19 - [Shortest  Word](https://www.codewars.com/kata/57cebe1dc6fdc20c57000ac9)
+
+```c
+
+#include <sys/types.h>
+#include <string.h>
+#include <stdio.h>
+
+
+ssize_t find_short(const char *s)
+{
+  int digitCounter = 0;
+  int shortestCounter = 0;
+  int len = (int)strlen(s);
+  for (int i = 0; i < len; i++) {
+    if (s[i] != ' ') {
+      digitCounter = digitCounter + 1;
+    } else {
+      if (shortestCounter == 0) {
+        shortestCounter = digitCounter;
+      } else {
+        if (digitCounter < shortestCounter) {
+          shortestCounter = digitCounter;
+        }
+      }
+      
+      digitCounter = 0;
+    } 
+  }
+  
+  if (digitCounter < shortestCounter || shortestCounter == 0) {
+    shortestCounter = digitCounter; 
+  }
+  
+  printf("%d", shortestCounter);
+  return (long)shortestCounter;
+}
+
+// Better refactor below: 
+
+ssize_t find_short(const char *s)
+{
+    int min = INT_MAX;
+    char delim[] = " ";
+    char *token = strtok((char*)s, delim);
+    while(token != NULL) {
+        int len = (int)strlen(token);
+        if (min > len)
+            min = len;
+        token = strtok(NULL, delim);
+    }
+    return min;
+}
+
+```
+
+# 20 - [Beginner - Lost Without a Map](https://www.codewars.com/kata/57f781872e3d8ca2a000007e)
+
+```c
+
+#include <stddef.h>
+#include <stdio.h>
+
+// return a *new, dynamically allocated* array with each element doubled.
+int *maps(const int *arr, size_t size) {
+  
+  int arrLen = (int)size; 
+  
+  int *ar = malloc(arrLen * sizeof(int));
+  
+  for (int i = 0; i < arrLen; i++) {
+    ar[i] = (int)(arr[i] * 2);
+    printf("%d", ar[i]);
+  }
+  
+  int * p = ar;
+  
+  printf("\n");
+  
+  return (p);
+}
+
+```
+
+
+# 21 - [Is he gonna survive](https://www.codewars.com/kata/59ca8246d751df55cc00014c)
+
+```c
+
+#include <stdbool.h>
+#include <stdint.h>
+
+bool hero(uint32_t bullets, uint32_t dragons) {
+  return dragons * 2 <= bullets ? true : false; 
+}
+
+```
+
+
+# 22 - [Reversed sequence](https://www.codewars.com/kata/5a00e05cc374cb34d100000d)
+
+
+```c
+
+
+/* Note: allocate memory yourself */
+
+#include <stdlib.h>
+
+unsigned short *reverse_seq(unsigned short num)
+{
+    unsigned short * nums = malloc((num*20) * sizeof(short));
+  
+    int counter = 0;
+    int n = num;
+    while (n > 0) {
+      nums[counter] = num - counter;
+      n--;
+      counter++;
+    }
+  
+  return nums;
+}
+
+
+```
+
+
+# 23 - [Round up to the next multiple of 5](https://www.codewars.com/kata/55d1d6d5955ec6365400006d)
+
+```c
+int rounder (int n, int incrementer) {
+  while (n % 5 != 0) {
+    n += incrementer;
+  }
+  
+  return n;
+}
+
+int round_to_next5(int n) {
+  
+    if (n == 0 || n == -1) return 0;
+  
+    if (n == 5) return 5;
+  
+    
+  
+    int next5 = rounder(n, 1);
+  
+  
+    return next5;
+
+}
+
+```
+
+# 24 - [Double Char](https://www.codewars.com/kata/56b1f01c247c01db92000076)
+
+```c
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+
+char *double_char (const char *string, char *doubled)
+{
+  printf("%s \n", string);
+  // char*newD = malloc(sizeof(doubled) * sizeof(char));
+  int len = (int)strlen(string);
+  int next = 1;
+  for (int i = 0; i < len && string[i] != '\0'; i++, next += 2) {
+    char c = string[i];
+    doubled[next - 1] = c;
+    doubled[next] = c;
+  }
+  //  *doubled = '\0'; // write to double
+  // newD[next - 1] = '\0';
+  // strcpy(doubled, newD);
+  // free(newD);
+  doubled[next - 1] = '\0'; 
+  return doubled; // return it
+}
+
+```
+
+# 25 - [Training JS #7: if..else and ternary operator](https://www.codewars.com/kata/57202aefe8d6c514300001fd)
+
+```c
+unsigned short sale_hotdogs(unsigned short n) {
+
+     int multiplyer = n < 5 ? 100 : n >= 5 && n < 10 ? 95 : n >= 10 ? 90 : 100;
+
+   return multiplyer * n;
+
+}
+
+```
+
+# 26 - [Calculate average](https://www.codewars.com/kata/57a2013acf1fa5bfc4000921)
+
+```c
+#include <sys/types.h>
+#include <string.h>
+#include <limits.h>
+#include <stdio.h>
+
+double find_average(const double array[/* length */], unsigned length)
+{
+  if (array == NULL || length == NULL || length == 0) return 0.0;
+  
+  double sum = 0.0;
+  
+  int counter = 0;
+  
+  int len = (int)length;
+  
+  while(counter < len) {
+    sum += array[counter];
+    
+    counter++;
+  }
+  
+  return sum / len;
+}
+
+```
+
+# 27 - [Keep Hydrated](https://www.codewars.com/kata/582cb0224e56e068d800003c)
+
+```c
+int Liters(double time) {
+  return 0.5 * time;
+}
+
+```
+
+# 28 - []()
+
+```c
+
+
+```
+
+# 29 - []()
+
+```c
+
+
+```
+
+# 30 - []()
+
+```c
+
+
+```
+
+# 31 - []()
+
+```c
+
+
+```
+
+# 32 - []()
+
+```c
+
+
+```
+
+# 33 - []()
+
+```c
+
+
+```
+
+# 34 - []()
+
+```c
+
+
+```
+
+# 35 - []()
+
+```c
+
+
+```
+
+# 36 - []()
+
+```c
+
+
+```
+
+# 37 - []()
+
+```c
+
+
+```
+
+# 38 - []()
+
+```c
+
+
+```
+
+# 39 - []()
+
+```c
+
+
+```
+
+# 40 - []()
+
+```c
+
+
+```
+
+
