@@ -448,11 +448,66 @@ int Liters(double time) {
   return 0.5 * time;
 }
 
+int size = 14;
+int prime_arr[2000000] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43 };
+
+
+int divisibleByPrime(int num) {
+  for (int i = 0; i < size; i++) {
+    if (prime_arr[i] == num) { return 0;}
+    if (num % prime_arr[i] == 0) {
+      return 1;
+    }
+  }
+  
+  return 2; 
+}
+
+void add_new_prime_to_arr(int num) {
+  
+  prime_arr[size] = num;
+  size = size + 1;
+  // printf("\n %d", size);
+}
+
+bool is_prime(int num)
+{
+    // printf("\n %d", num);
+    if (num < 0) { return false;  }
+    if (num == 1 || num == 0) { return false; }
+    if (num == 2) return true;
+    if (num % 2 == 0) return false;
+    int memoTest = divisibleByPrime(num);
+  
+    if (memoTest == 0) {
+      return true;
+    }
+  
+    if (memoTest == 1) {
+      return false;
+    }
+
+    int lower = (int)floor(sqrt(num));
+
+    for (int i = prime_arr[size-1] + 2; i <= lower; i += 2) {
+        if (num % i == 0) { return false; }
+    } 
+  
+    add_new_prime_to_arr(num);
+    return true;
+}
+
+
+
+
 int main()
 {
 
     // int doubleFour = double_integer(2);
     // printf("2 doubled is 4  -> result %d ", doubleFour);
-    string_to_number("1234");
+    // string_to_number("1234");
+
+    is_prime(500);
+    return 0;
 }
 

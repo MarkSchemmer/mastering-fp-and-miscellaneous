@@ -73,8 +73,7 @@ module Tests
     [<Fact>]
     let `` Random Tests `` () =
         let rand = System.Random()
-        let randomNumbs : List<int> = [ for i in 1..100 -> rand.Next(1, 1000) ] 
-                                     |> List.map (fun (x : int) -> if x % 2 = 0 then x * -1 else x) 
+        let randomNumbs : List<int> = List.init 100 (fun _ -> rand.Next(-1000, 1000))
 
         for i in randomNumbs do
             let actual = YouCantCodeSolution.doubleInteger(i)

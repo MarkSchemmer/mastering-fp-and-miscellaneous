@@ -4,12 +4,12 @@ I'm doing 100 Codewars problems in the following languages
 - C#
 - F#
 - TypeScript/JS
-- Go
+- Go | Rust -> to be determined.
 - C
 
 When I complete a problem I paste a link with a description here, then I will post my solution in that language and I will update the tracker on how many problems I have solved.
 
-# How pproblems solved: 27/100 - 27%
+# How pproblems solved: 30%
 
 ## 1
 
@@ -758,24 +758,155 @@ int Liters(double time) {
 
 ```
 
-# 28 - []()
+# 28 - [Is a number a prime?](https://www.codewars.com/kata/5262119038c0985a5b00029f)
 
 ```c
+#include <stdbool.h>
+#include <math.h>
+#include <stdio.h>
 
+int size = 14;
+int prime_arr[14] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43 };
+
+
+int divisibleByPrime(int num) {
+  for (int i = 0; i < size; i++) {
+    if (prime_arr[i] == num) { return 0;}
+    if (num % prime_arr[i] == 0) {
+      return 1;
+    }
+  }
+  
+  return 2; 
+}
+
+bool is_prime(int num)
+{
+    if (num < 0) { return false; }
+    if (num == 1 || num == 0) { return false; }
+    int memoTest = divisibleByPrime(num);
+  
+    if (memoTest == 0) {
+      return true;
+    }
+  
+    if (memoTest == 1) {
+      return false;
+    }
+
+    int lower = (int)floor(sqrt(num));
+  
+    if (lower % 2 == 0) { lower = lower - 1; }
+
+    for (int i = prime_arr[size-1] + 2; i <= lower; i += 2) {
+        if (num % i == 0) { return false; }
+    } 
+
+    return true;
+}
 
 ```
 
-# 29 - []()
+# 29 - [Create Phone Number](https://www.codewars.com/kata/525f50e3b73515a6db000b83)
 
 ```c
+#include <stdio.h>
+#include <string.h>
 
+char charGenerator(int c) {
+    switch (c)
+    {
+        case 1: return '1';
+        case 2: return '2';
+        case 3: return '3';
+        case 4: return '4';
+        case 5: return '5';
+        case 6: return '6';
+        case 7: return '7';
+        case 8: return '8';
+        case 9: return '9';
+        default: return '0';
+    }
+}
+
+char* create_phone_number(char phnum[15], const int nums[10])
+{
+    char d1 = charGenerator(nums[0]); char d2 = charGenerator(nums[1]), d3 = charGenerator(nums[2]), d4 = charGenerator(nums[3]),
+        d5 = charGenerator(nums[4]), d6 = charGenerator(nums[5]), d7 = charGenerator(nums[6]), d8 = charGenerator(nums[7]), d9 = charGenerator(nums[8]),
+        d10 = charGenerator(nums[9]);
+
+    char newStr[] = {'(', d1, d2, d3, ')', ' ', d4, d5, d6, '-', d7, d8, d9, d10, '\0'};
+    #pragma warning(suppress : 4996)
+    strcpy(phnum, newStr);
+    return phnum;
+}
 
 ```
 
-# 30 - []()
+# 30 - [Roman Numeral Encoder](https://www.codewars.com/kata/51b62bf6a9c58071c600001b)
 
 ```c
+char* solution(int n) {
+    char *romanNumeral = (char*) malloc( sizeof(char) * 102400 );
+    int romanCounter = 0;
+    while (n > 0) 
+    {
+        if (n >= 1000) {
+            strcat(romanNumeral, "M");
+            n = n - 1000;
+        }
+        else if (n >= 900) {
+            strcat(romanNumeral, "CM");
+            n = n - 900;
+        }
+        else if (n >= 500) {
+            strcat(romanNumeral, "D");
+            n = n - 500;
+        }
+        else if (n >= 400) {
+            strcat(romanNumeral, "CD");
+            n = n - 400;
+        }
+        else if (n >= 100) {
+            strcat(romanNumeral, "C");
+            n = n - 100;
+        }
+        else if (n >= 90) {
+            strcat(romanNumeral, "XC");
+            n = n - 90;
+        }
+        else if (n >= 50) {
+            strcat(romanNumeral, "L");
+            n = n - 50;
+        }
+        else if (n >= 40) {
+            strcat(romanNumeral, "XL");
+            n = n - 40;
+        }
+        else if (n >= 10) {
+            strcat(romanNumeral, "X");
+            n = n - 10;
+        }
+        else if (n >= 9) {
+            strcat(romanNumeral, "IX");
+            n = n - 9;
+        }
+        else if (n >= 5) {
+            strcat(romanNumeral, "V");
+            n = n - 5;
+        }
+        else if (n >= 4) {
+            strcat(romanNumeral, "IV");
+            n = n - 4;
+        }
+        else if (n >= 1) {
+            strcat(romanNumeral, "I");
+            n = n - 1;
+        }
+    }
 
+    return romanNumeral;
+}
 
 ```
 
