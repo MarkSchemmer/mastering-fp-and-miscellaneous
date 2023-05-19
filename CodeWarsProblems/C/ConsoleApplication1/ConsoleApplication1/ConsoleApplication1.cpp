@@ -131,6 +131,19 @@ char* solution(int n) {
     return romanNumeral;
 }
 
+
+int square_sum(const int values[/* count */], size_t count)
+{
+    int sum = 0;
+
+    for (int i = 0; i < count; i++) {
+        int n = values[i];
+        sum += n * n;
+    }
+    
+    return sum;
+}
+
 int main()
 {   
     char newArr[15];

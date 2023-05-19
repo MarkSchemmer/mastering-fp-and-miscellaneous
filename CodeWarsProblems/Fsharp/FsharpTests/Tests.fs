@@ -79,3 +79,7 @@ module Tests
             let actual = YouCantCodeSolution.doubleInteger(i)
             let expected = i * 2
             Assert.Equal("", actual, expected)
+
+    [<Fact>]
+    let `` sqaureSum `` () =
+        Assert.Equal("", 14, SquareSum.squareSum([ 1; 2; 3 ]))

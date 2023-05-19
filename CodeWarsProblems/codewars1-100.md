@@ -4,12 +4,12 @@ I'm doing 100 Codewars problems in the following languages
 - C#
 - F#
 - TypeScript/JS
-- Go | Rust -> to be determined.
-- C
+- Rust
+- C -> 25 problems
 
 When I complete a problem I paste a link with a description here, then I will post my solution in that language and I will update the tracker on how many problems I have solved.
 
-# How pproblems solved: 30%
+# How pproblems solved: 31%
 
 ## 1
 
@@ -831,9 +831,10 @@ char charGenerator(int c) {
 
 char* create_phone_number(char phnum[15], const int nums[10])
 {
-    char d1 = charGenerator(nums[0]); char d2 = charGenerator(nums[1]), d3 = charGenerator(nums[2]), d4 = charGenerator(nums[3]),
-        d5 = charGenerator(nums[4]), d6 = charGenerator(nums[5]), d7 = charGenerator(nums[6]), d8 = charGenerator(nums[7]), d9 = charGenerator(nums[8]),
-        d10 = charGenerator(nums[9]);
+    char d1 = charGenerator(nums[0]); char d2 = charGenerator(nums[1]), d3 = charGenerator(nums[2]), 
+    d4 = charGenerator(nums[3]), d5 = charGenerator(nums[4]), d6 = charGenerator(nums[5]), 
+    d7 = charGenerator(nums[6]), d8 = charGenerator(nums[7]), d9 = charGenerator(nums[8]),
+    d10 = charGenerator(nums[9]);
 
     char newStr[] = {'(', d1, d2, d3, ')', ' ', d4, d5, d6, '-', d7, d8, d9, d10, '\0'};
     #pragma warning(suppress : 4996)
@@ -910,31 +911,119 @@ char* solution(int n) {
 
 ```
 
-# 31 - []()
+# 31 - [Square(n) Sum](https://www.codewars.com/kata/515e271a311df0350d00000f)
+
+```js
+const squareSum = numbers => numbers.reduce((a, c) => a += Math.pow(c, 2), 0);
+```
+
+# 32 - [Square(n) Sum](https://www.codewars.com/kata/515e271a311df0350d00000f)
 
 ```c
 
+int square_sum(const int values[/* count */], size_t count)
+{
+	  int sum = 0;
+
+    for (int i = 0; i < count; i++) {
+        int n = values[i];
+        sum += n * n;
+    }
+    
+    return sum;
+}
 
 ```
 
-# 32 - []()
+# 33 - [Square(n) Sum](https://www.codewars.com/kata/515e271a311df0350d00000f)
 
-```c
+```fs
 
+open System
+
+let squareSum (numbers : int list) : int =
+    let rec recSquareSum (numbs : int list, sum : int): int =
+        match numbs with
+        | head :: tail -> recSquareSum(tail, (sum + (head * head)))
+        | [ ] -> sum 
+    recSquareSum(numbers, 0)
 
 ```
 
-# 33 - []()
+# 34 - [Roman Numerals Encoder (Translation)](https://www.codewars.com/kumite/6466d977c6ec5c6f4d3e4bcd?sel=6466d977c6ec5c6f4d3e4bcd)
 
-```c
+```fs
+
+module RomanNumeralsTests
+open System
+open RomanNumerals
+open NUnit.Framework
+
+let rand = new System.Random()
+
+let MySolution(numb: int): String = 
+    let rec innerSolution(n, str): String = 
+        match n with 
+        | nn when nn >= 1000 -> innerSolution(nn - 1000, str + "M")
+        | nn when nn >= 900 -> innerSolution(nn - 900, str + "CM")
+        | nn when nn >= 500 -> innerSolution(nn - 500, str + "D")
+        | nn when nn >= 400 -> innerSolution(nn - 400, str + "CD")
+        | nn when nn >= 100 -> innerSolution(nn - 100, str + "C")
+        | nn when nn >= 90 -> innerSolution(nn - 90, str + "XC")
+        | nn when nn >= 50 -> innerSolution(nn - 50, str + "L")
+        | nn when nn >= 40 -> innerSolution(nn - 40, str + "XL")
+        | nn when nn >= 10 -> innerSolution(nn - 10, str + "X")
+        | nn when nn >= 9 -> innerSolution(nn - 9, str + "IX")
+        | nn when nn >= 5 -> innerSolution(nn - 5, str + "V")
+        | nn when nn >= 4 -> innerSolution(nn - 4, str + "IV")
+        | nn when nn >= 1 -> innerSolution(nn - 1, str + "I")
+        | nn when nn <= 0 -> str
+        | _ -> str
+    innerSolution(numb, "")
+    
+[<TestFixture(Description = "Random Tests")>]
+type RandomTests() =
+    [<Test>]
+    member this.Assertions() =
+        for i in 1..100 do
+          let newRand = rand.Next(1, 3000)
+          Assert.AreEqual(MySolution(newRand), solution(newRand))
 
 
-```
-
-# 34 - []()
-
-```c
-
+[<TestFixture(Description = "Fixed Tests")>]
+type FixedTests() =
+    [<Test>]
+    member this.Assertions() =
+        Assert.AreEqual("I", solution(1))
+        Assert.AreEqual("IV", solution(4))
+        Assert.AreEqual("M", solution(1000))
+        Assert.AreEqual("MCMXC", solution(1990))
+        Assert.AreEqual("MMVII", solution(2007))
+        
+[<TestFixture(Description = "Test Cases")>]
+type TestCasesTests() =
+    [<Test>]
+    member this.Assertions() =
+        Assert.AreEqual("I", solution(1))
+        Assert.AreEqual("IV", solution(4))
+        Assert.AreEqual("M", solution(1000))
+        Assert.AreEqual("MCMXC", solution(1990))
+        Assert.AreEqual("MMVII", solution(2007))
+        Assert.AreEqual(solution(1004), "MIV")
+        Assert.AreEqual(solution(2004), "MMIV")
+        Assert.AreEqual(solution(3003), "MMMIII")
+        Assert.AreEqual(solution(1991), "MCMXCI")
+        Assert.AreEqual(solution(1992), "MCMXCII")
+        Assert.AreEqual(solution(2091), "MMXCI")
+        Assert.AreEqual(solution(1996), "MCMXCVI")
+        Assert.AreEqual(solution(2843), "MMDCCCXLIII")
+        Assert.AreEqual(solution(964), "CMLXIV")
+        Assert.AreEqual(solution(345), "CCCXLV")
+        Assert.AreEqual(solution(979), "CMLXXIX")
+        Assert.AreEqual(solution(746), "DCCXLVI")
+        Assert.AreEqual(solution(390), "CCCXC")
+        Assert.AreEqual(solution(376), "CCCLXXVI")
+        Assert.AreEqual(solution(189), "CLXXXIX")
 
 ```
 
