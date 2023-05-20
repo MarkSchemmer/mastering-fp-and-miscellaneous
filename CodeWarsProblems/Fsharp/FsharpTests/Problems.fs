@@ -2,6 +2,7 @@
 
 module Problems =
     open System
+    open System.Linq
     open System.Collections
 
     let maxTriSum (nums: int list) =
@@ -49,4 +50,39 @@ module RomanNumerals =
             | nn when nn >= 1 -> innerSolution(nn - 1, str + "I")
             | nn when nn <= 0 -> str 
         innerSolution(numb, "")
+
+    let RomanToNumberValue(v: string): int =
+        match v with 
+        | "I" -> 1
+        | "IV" -> 4
+        | "V" -> 5
+        | "IX" -> 9
+        | "X" -> 10
+        | "XL" -> 40
+        | "L" -> 50
+        | "XC" -> 90
+        | "C" -> 100
+        | "CD" -> 400
+        | "D" -> 500
+        | "CM" -> 900
+        | "M" -> 1000
+        | _ -> 0
+
+    let determineNextValues(str1: string, str2: string): bool =
+        let n1 = RomanToNumberValue(str1)
+        let n3 = RomanToNumberValue(str1+str2)
+        if n3 <> 0 then true else false  
+
+
+
+    let FromRoman (romanNumeral: string): int = 
+        let romanNumeralStack: string list = romanNumeral.ToCharArray() |> List.ofArray |> List.map (fun i -> i.ToString())
+        
+        let rec inner(stack: List<string>, numb: int): int = 
+            match stack with
+            | item1::item2::list -> if determineNextValues(item1, item2) then inner(list, numb+RomanToNumberValue(item1+item2)) else inner([item2]@list, numb+RomanToNumberValue(item1))
+            | item::list -> inner(list, numb + RomanToNumberValue(item))
+            | _ -> numb 
+
+        inner(romanNumeralStack, 0)
             

@@ -5,6 +5,13 @@ module RomanNumeralsTests
     open Xunit
     open Fuchu
 
+    [<Fact>]
+    let `` From Roman sample tests `` () = 
+        Assert.Equal("", 1, RomanNumerals.FromRoman("I"))
+        Assert.Equal("", 2, RomanNumerals.FromRoman("II"))
+        Assert.Equal("", 1990, RomanNumerals.FromRoman("MCMXC"))
+        Assert.Equal("", 1666, RomanNumerals.FromRoman("MDCLXVI"))
+
 
     [<Fact>]
     let `` Sample test cases `` () =

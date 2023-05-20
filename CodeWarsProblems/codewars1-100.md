@@ -1027,24 +1027,157 @@ type TestCasesTests() =
 
 ```
 
-# 35 - []()
+# 35 - [Roman Numerals Decoder](https://www.codewars.com/kata/51b6249c4612257ac0000005)
 
-```c
+```fs
 
+    let RomanToNumberValue(v: string): int =
+        match v with 
+        | "I" -> 1
+        | "IV" -> 4
+        | "V" -> 5
+        | "IX" -> 9
+        | "X" -> 10
+        | "XL" -> 40
+        | "L" -> 50
+        | "XC" -> 90
+        | "C" -> 100
+        | "CD" -> 400
+        | "D" -> 500
+        | "CM" -> 900
+        | "M" -> 1000
+        | _ -> 0
+
+    let determineNextValues(str1: string, str2: string): bool =
+        let n1 = RomanToNumberValue(str1)
+        let n3 = RomanToNumberValue(str1+str2)
+        if n3 <> 0 then true else false  
+
+
+
+    let FromRoman (romanNumeral: string): int = 
+        let romanNumeralStack: string list = romanNumeral.ToCharArray() 
+                                             |> List.ofArray |> List.map (fun i -> i.ToString())
+        
+        let rec inner(stack: List<string>, numb: int): int = 
+            match stack with
+            | item1::item2::list -> if determineNextValues(item1, item2) 
+                                    then inner(list, numb+RomanToNumberValue(item1+item2)) 
+                                    else inner([item2]@list, numb+RomanToNumberValue(item1))
+            | item::list -> inner(list, numb + RomanToNumberValue(item))
+            | _ -> numb 
+
+        inner(romanNumeralStack, 0)
 
 ```
 
-# 36 - []()
+# 36 - [Roman Numeral Helper](https://www.codewars.com/kata/51b66044bce5799a7f000003)
 
-```c
+```fs
+open System
+open System.Linq
+open System.Collections
 
+
+let RomanToNumberValue(v: string): int =
+    match v with 
+    | "I" -> 1
+    | "IV" -> 4
+    | "V" -> 5
+    | "IX" -> 9
+    | "X" -> 10
+    | "XL" -> 40
+    | "L" -> 50
+    | "XC" -> 90
+    | "C" -> 100
+    | "CD" -> 400
+    | "D" -> 500
+    | "CM" -> 900
+    | "M" -> 1000
+    | _ -> 0
+
+let determineNextValues(str1: string, str2: string): bool =
+    let n1 = RomanToNumberValue(str1)
+    let n3 = RomanToNumberValue(str1+str2)
+    if n3 <> 0 then true else false  
+
+let FromRoman (romanNumeral: string) = 
+    let romanNumeralStack: string list = romanNumeral.ToCharArray() |> List.ofArray |> List.map (fun i -> i.ToString())
+
+    let rec inner(stack, numb): int = 
+        match stack with
+        | item1::item2::list -> if determineNextValues(item1, item2) then inner(list, numb+RomanToNumberValue(item1+item2)) else inner([item2]@list, numb+RomanToNumberValue(item1))
+        | item::list -> inner(list, numb + RomanToNumberValue(item))
+        | _ -> numb 
+
+    inner(romanNumeralStack, 0)
+
+let ToRoman (numb: int): String = 
+    let rec innerSolution(n, str): String = 
+        match n with 
+        | nn when nn >= 1000 -> innerSolution(nn - 1000, str + "M")
+        | nn when nn >= 900 -> innerSolution(nn - 900, str + "CM")
+        | nn when nn >= 500 -> innerSolution(nn - 500, str + "D")
+        | nn when nn >= 400 -> innerSolution(nn - 400, str + "CD")
+        | nn when nn >= 100 -> innerSolution(nn - 100, str + "C")
+        | nn when nn >= 90 -> innerSolution(nn - 90, str + "XC")
+        | nn when nn >= 50 -> innerSolution(nn - 50, str + "L")
+        | nn when nn >= 40 -> innerSolution(nn - 40, str + "XL")
+        | nn when nn >= 10 -> innerSolution(nn - 10, str + "X")
+        | nn when nn >= 9 -> innerSolution(nn - 9, str + "IX")
+        | nn when nn >= 5 -> innerSolution(nn - 5, str + "V")
+        | nn when nn >= 4 -> innerSolution(nn - 4, str + "IV")
+        | nn when nn >= 1 -> innerSolution(nn - 1, str + "I")
+        | nn when nn <= 0 -> str
+        | _ -> str
+    innerSolution(numb, "")
 
 ```
 
-# 37 - []()
+# 37 - [Roman Numerals](https://www.codewars.com/kata/59ea10e87729993f87001647)
 
-```c
+```js
 
+const romanToNumeral = (romanNumeral) => {
+
+    let map = {
+        "I": 1,
+        "IV": 4,
+        "V": 5,
+        "IX": 9,
+        "X": 10,
+        "XL": 40,
+        "L" : 50,
+        "XC": 90,
+        "C": 100,
+        "CD": 400,
+        "D": 500,
+        "CM": 900,
+        "M": 1000 
+    };
+    let sum = 0;
+    let r = romanNumeral.split("");
+    while (r.length > 0) {
+        let [f, s, ...res] = r;
+        
+        if (f && s && f+s in map) {
+            sum = sum + map[f+s];
+            r = res;
+        } else {
+            sum = sum + map[f];
+            r = s === undefined ? [] : [s, ...res]; 
+        }
+    }
+
+    return sum;
+}
+
+Object.setPrototypeOf(Number.prototype, new Proxy({}, {
+  get(target, prop, receiver) {
+    let end = romanToNumeral(prop);
+    return [ ...Array(end).keys()]
+  }
+}));
 
 ```
 
