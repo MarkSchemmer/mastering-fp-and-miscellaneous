@@ -1332,14 +1332,14 @@ public class ComplexItem<T>
 
 ```
 
-# 39 - # 38 - [PaginationHelper - (JavaScript)](https://www.codewars.com/kata/515bb423de843ea99400000a)
+# 39 -  [PaginationHelper - (JavaScript)](https://www.codewars.com/kata/515bb423de843ea99400000a)
 
 ```js
 
 
 ```
 
-# 40 - # 38 - [PaginationHelper - (F#)](https://www.codewars.com/kata/515bb423de843ea99400000a)
+# 40 - [PaginationHelper - (F#)](https://www.codewars.com/kata/515bb423de843ea99400000a)
 
 ```fs
 
