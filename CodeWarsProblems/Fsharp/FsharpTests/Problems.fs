@@ -5,6 +5,20 @@ module Problems =
     open System.Linq
     open System.Collections
 
+
+    let reverseWords (str: string) =
+        let list: List<string> = str.Split(' ') |> List.ofArray |> List.rev
+        let l: string = list |> List.reduceBack  (fun s1 s2 -> s1 +  s2 + " ") 
+        l
+
+    let reverseString (s: string) = 
+        if s.Length = 0 || s = null 
+        then 
+            s
+        else 
+            let str: string = s.ToCharArray() |> List.ofArray |> List.map (fun i -> i.ToString()) |> List.rev |>  List.reduceBack (fun  s1 s2 -> s1 + s2)
+            str 
+
     let maxTriSum (nums: int list) =
         nums 
         |> List.distinct

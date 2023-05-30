@@ -1,5 +1,7 @@
 import { doubleInteger, romanToNumeral } from "./problems";
 
+import * as javaScriptProblems from './problems-js.js';
+
 describe("dummy test", () => {
     it("You can't code under pressure #1", () => {
         expect(doubleInteger(2)).toBe(4);
@@ -22,5 +24,9 @@ describe(" some roman Numeral tests: ", () => {
         expect(romanToNumeral("M")).toBe(1000);
         expect(romanToNumeral("MCMXC")).toBe(1990);
         expect(romanToNumeral("MMVII")).toBe(2007);
+    });
+
+    it("Pagination Helper: ", () => {
+        expect((new javaScriptProblems.PaginationHelper()).pageCount()).toBe(0);
     });
 });

@@ -1,5 +1,6 @@
 module Tests 
     open CodeWarsProblems
+    open Problems
     open System
     open Xunit
     open Fuchu
@@ -60,6 +61,14 @@ module Tests
     //     dotest(41, [-7; 12; -7; 29; -5; 0; -7; 0; 0; 29])
     //     randomTests()
 
+    let MyreverseString (s: string) = 
+        if s.Length = 0 || s = null 
+        then 
+            s
+        else 
+            let str: string = s.ToCharArray() |> List.ofArray |> List.map (fun i -> i.ToString()) |> List.rev |>  List.reduceBack (fun  s1 s2 -> s1 + s2)
+            str
+
 
     [<Fact>]
     let `` doubleInteger tests `` () =
@@ -79,6 +88,16 @@ module Tests
             let actual = YouCantCodeSolution.doubleInteger(i)
             let expected = i * 2
             Assert.Equal("", actual, expected)
+
+    [<Fact>]
+    let `` RandomTests `` () =
+      let rand = System.Random()
+      let s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ   "
+      for i in [1..100] do 
+        let strLen = rand.Next(1, 100)
+        let newStr = [ for j in 1..strLen do yield s[rand.Next(0, 20)].ToString() ] |> List.reduce((fun s1 s2 -> s1 + s2))
+        Assert.Equal("", Problems.reverseString(newStr), MyreverseString(newStr))
+            
 
     [<Fact>]
     let `` sqaureSum `` () =

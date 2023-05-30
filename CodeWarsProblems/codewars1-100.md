@@ -1332,14 +1332,120 @@ public class ComplexItem<T>
 
 ```
 
-# 39 -  [PaginationHelper - (JavaScript)](https://www.codewars.com/kata/515bb423de843ea99400000a)
+# 39 -  [PaginationHelper - (JavaScript) - Incomplete](https://www.codewars.com/kata/515bb423de843ea99400000a)
 
 ```js
 
 
+function e7()
+{
+  var lut = []; for (var i=0; i<256; i++) { lut[i] = (i<16?'0':'')+(i).toString(16); }
+    var d0 = Math.random()*0xffffffff|0;
+    var d1 = Math.random()*0xffffffff|0;
+    var d2 = Math.random()*0xffffffff|0;
+    var d3 = Math.random()*0xffffffff|0;
+    return lut[d0&0xff]+lut[d0>>8&0xff]+lut[d0>>16&0xff]+lut[d0>>24&0xff]+'-'+
+    lut[d1&0xff]+lut[d1>>8&0xff]+'-'+lut[d1>>16&0x0f|0x40]+lut[d1>>24&0xff]+'-'+
+    lut[d2&0x3f|0x80]+lut[d2>>8&0xff]+'-'+lut[d2>>16&0xff]+lut[d2>>24&0xff]+
+    lut[d3&0xff]+lut[d3>>8&0xff]+lut[d3>>16&0xff]+lut[d3>>24&0xff];
+}
+
+class ComplexItem {
+    constructor(item) {
+        this.item = item;
+		    this.Id = e7(); 
+    }
+}
+
+class Page {
+	constructor(items, pgNumb) {
+		this.items = items;
+		this.pgNumb = pgNumb;
+	}
+}
+
+ class PaginationHelper {
+
+	constructor(collection, itemsPerPage) {
+		// The constructor takes in an array of items and a integer indicating how many
+		// items fit within a single page
+    this.c = [ ...collection ];
+		this.list = collection.map((i) => new ComplexItem(i));
+		this.itemsPerPage = itemsPerPage;
+		this.pages = this.generatePages([ ...this.list ], this.itemsPerPage); 
+	}
+
+	generatePages = (l, itemsPerPage) => {
+		
+		let pages = [];
+		let page = 0;
+
+		while (l.length > 0) {
+			let take = [...l].splice(0, itemsPerPage);
+			l = [...l].splice(itemsPerPage);
+      if (take.length > 0)
+			  pages.push(new Page(take, page));
+			page = page + 1;
+		}
+
+		return pages;
+	}
+
+	itemCount() {
+	// returns the number of items within the entire collection
+    // console.log("mark here. ");
+		return this.c.length;
+	}
+
+	pageCount() {
+    // console.log(this.pages);
+	// returns the number of pages
+		return this.pages.length; 
+	}
+
+	pageItemCount(pageIndex) {
+	// returns the number of items on the current page. page_index is zero based.
+	// this method should return -1 for pageIndex values that are out of range
+		try {
+      console.log("pageIndex: ", pageIndex);
+      if (pageIndex < 0) {
+        return -1;
+      }
+			let complexItem = this.pages[pageIndex].items.length; 
+			return complexItem;
+		} catch(e) {
+			return -1;
+		}
+	}
+
+	pageIndex(itemIndex) {
+    // console.log(itemIndex);
+	// determines what page an item is on. Zero based indexes
+	// this method should return -1 for itemIndex values that are out of range
+		try {
+			let item = this.list[itemIndex];
+      
+      console.log("pageIndex: ", item.Id);
+
+			let pageWithItem = this.pages.filter(pg => {
+        return pg.items.some(i => i.Id === item.Id);
+      });
+      // if (pageWithItem === null || pageWithItem === undefined)
+      //     return -1;
+      
+      // console.log("page with item: ", pageWithItem);
+
+			return pageWithItem[0].pgNumb;
+		}
+		catch(e) {
+			return -1;
+		}
+	}
+}
+
 ```
 
-# 40 - [PaginationHelper - (F#)](https://www.codewars.com/kata/515bb423de843ea99400000a)
+# 40 -  [PaginationHelper - (F#)](https://www.codewars.com/kata/515bb423de843ea99400000a)
 
 ```fs
 
@@ -1347,3 +1453,132 @@ public class ComplexItem<T>
 ```
 
 
+
+# 41 -  [Reversed Words - (JS)](https://www.codewars.com/kata/51c8991dee245d7ddf00000e)
+
+```js
+  function reverseWords(str){
+    return str.split(' ').reverse().join(' ');
+  }
+```
+
+
+
+# 42 -  [Reversed Words - (C#)](https://www.codewars.com/kata/51c8991dee245d7ddf00000e)
+
+```cs
+  using System;
+  using System.Linq;
+
+  public class Kata
+  {
+    public static string ReverseWords(string str)
+    {
+      return (
+      str.Split(' ')
+      .Reverse()
+      .Aggregate("", (acc, cur) => acc + cur + " ")
+      )
+      .Trim(' ');
+    }
+  }
+```
+
+
+# 43 -  [Reversed Words - (F#)](https://www.codewars.com/kata/51c8991dee245d7ddf00000e)
+
+```fs
+let reverseWords (str: string) =
+    let list: List<string> = str.Split(' ') 
+    |> List.ofArray |> List.rev
+    let l: string = list 
+    |> List.reduceBack  (fun s1 s2 -> s1 + " " + s2) 
+    l
+```
+
+
+# 44 - [Reversed Words - (C)](https://www.codewars.com/kata/51c8991dee245d7ddf00000e)
+
+```c
+
+ 
+
+
+
+```
+
+
+# 45 - [Reverse Strings - (JavaScript)](https://www.codewars.com/kata/5168bb5dfe9a00b126000018)
+
+```js
+
+let solution = s => s.split('').reverse().join('');
+
+```
+
+# 46 - [Reverse Strings - (C#)](https://www.codewars.com/kata/5168bb5dfe9a00b126000018)
+
+```cs
+
+using System;
+using System.Linq;
+
+public static class Kata
+{
+  public static string Solution(string s) 
+  {
+    return s.ToCharArray().Reverse().Aggregate("", (a, c) => a + c);
+  }
+}
+
+```
+
+# 47 - [Reverse Strings - (F#)](https://www.codewars.com/kata/5168bb5dfe9a00b126000018)
+
+```fs
+module Kata
+    open System
+    open System.Linq
+    open System.Collections
+    
+    let reverseString (s: string) =
+        if s.Length = 0 || s = null 
+        then 
+            s
+        else 
+            let str: string = s.ToCharArray() 
+            |> List.ofArray 
+            |> List.map (fun i -> i.ToString()) 
+            |> List.rev 
+            |>  List.reduceBack (fun  s1 s2 -> s1 + s2)
+            str
+
+```
+
+# 48 - [Reverse Strings - (C)](https://www.codewars.com/kata/5168bb5dfe9a00b126000018)
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+char *strrev (char *string)
+{
+    int sLenEnd = strlen(string) - 1;
+    int start = 0;
+    // char* temp[] = "";
+
+    while (sLenEnd > start) 
+    {
+        char * temp = string[start];
+
+        string[start] = string[sLenEnd];
+        string[sLenEnd] = temp;
+
+        sLenEnd = sLenEnd - 1;
+        start = start + 1;
+    }
+
+    return string;
+}
+
+```

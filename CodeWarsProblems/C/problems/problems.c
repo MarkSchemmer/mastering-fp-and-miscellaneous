@@ -497,7 +497,39 @@ bool is_prime(int num)
     return true;
 }
 
+char *reverse_words (const char *words, size_t length, char *reversed)
+{
 
+  int arIdx = 0;
+  char delim[] = " ";
+  char * ar[length][length] = { };
+  char * token = strtok(words, delim);
+
+  while (token != NULL) {
+    int tokenLen = strlen(token);
+    ar[arIdx] = token;
+
+    arIdx = arIdx + 1;
+    token = strtok(NULL, delim);
+  } 
+
+  for (int i = arIdx; i >= 0; i--) {
+    char * str = ar[i];
+
+    strcat(reversed, str);
+
+    if (i > 0) {
+      strcat(reversed, delim);
+    }
+  }
+
+	return reversed;
+}
+
+char *strrev (char *string)
+{
+  int sLen = strlen(string);
+}
 
 
 int main()
