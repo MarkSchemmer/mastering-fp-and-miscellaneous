@@ -1582,3 +1582,53 @@ char *strrev (char *string)
 }
 
 ```
+
+
+
+# 49 - [Two Oldest Ages - (JavaScript)](https://www.codewars.com/kata/511f11d355fe575d2c000001)
+
+```js
+let slowSort = arr => {
+	for (let i = 0; i < arr.length; i++) {
+		for (let j = i + 1; j < arr.length; j++) {
+			if (arr[i] < arr[j]) {
+				let temp = arr[j];
+				arr[j] = arr[i];
+				arr[i] = temp;
+			}
+		}
+	}
+
+	return arr;
+}
+
+let twoOldestAges = ages => {
+	let sortedAges = slowSort(ages);
+	let [first, second, ...rest] = sortedAges;
+	return [ second, first ];
+}
+
+```
+
+# 50 - [Two Oldest Ages - (C#)](https://www.codewars.com/kata/511f11d355fe575d2c000001)
+
+```cs
+  public static int[] TwoOldestAges(int[] ages)
+  {
+    var sortedAges = ages.OrderByDescending(x => x).ToArray();
+    return new int[] { sortedAges[0], sortedAges[1] };
+  }
+```
+
+# 51 - [Two Oldest Ages - (C)](https://www.codewars.com/kata/511f11d355fe575d2c000001)
+
+```c
+
+```
+
+# 52 - [Two Oldest Ages - (F#)](https://www.codewars.com/kata/511f11d355fe575d2c000001)
+
+```fs
+
+```
+

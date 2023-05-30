@@ -92,7 +92,29 @@ class Page {
 	}
 }
 
+// Cheap sort algorithm
+
+let slowSort = arr => {
+	for (let i = 0; i < arr.length; i++) {
+		for (let j = i + 1; j < arr.length; j++) {
+			if (arr[i] < arr[j]) {
+				let temp = arr[j];
+				arr[j] = arr[i];
+				arr[i] = temp;
+			}
+		}
+	}
+
+	return arr;
+}
+
+let twoOldestAges = ages => {
+	let sortedAges = slowSort(ages);
+	let [first, second, ...rest] = sortedAges;
+	return [ second, first ];
+}
 
 module.exports = {
-	PaginationHelper
+	PaginationHelper,
+	twoOldestAges
 }
