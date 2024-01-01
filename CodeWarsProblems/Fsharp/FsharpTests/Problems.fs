@@ -5,6 +5,25 @@ module Problems =
     open System.Linq
     open System.Collections
 
+    let toCamelCase (text : string) =
+        if (text.Length = 0) 
+            then text
+        else 
+            let splitChars = [|"-"; "_"|]
+            let splitedArray : string array = text.Split(splitChars, System.StringSplitOptions.RemoveEmptyEntries)
+            let firstItem = splitedArray[0]
+            let rest : string array = splitedArray 
+                                    |> Array.skip 1 
+                                    |> Array.map (fun i -> 
+                                                    let newStr = i.ToCharArray() 
+                                                    newStr.[0] <- Convert.ToChar(newStr[0].ToString().ToUpper())
+                                                    let str: string = (newStr |> Array.map (fun i -> i.ToString()) |> Array.reduce(fun s1 s2 -> s1 + s2))
+                                                    str)
+            firstItem + (rest |> Array.reduce(fun s1 s2 -> s1 + s2)) 
+
+
+    
+
 
     let reverseWords (str: string) =
         let list: List<string> = str.Split(' ') |> List.ofArray |> List.rev
@@ -99,4 +118,7 @@ module RomanNumerals =
             | _ -> numb 
 
         inner(romanNumeralStack, 0)
-            
+
+
+
+

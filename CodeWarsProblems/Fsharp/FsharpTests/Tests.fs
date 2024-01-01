@@ -102,3 +102,13 @@ module Tests
     [<Fact>]
     let `` sqaureSum `` () =
         Assert.Equal("", 14, SquareSum.squareSum([ 1; 2; 3 ]))
+
+
+    
+    [<Fact>]
+    let `` toCamelCase `` () =
+        Assert.Equal("", "", Problems.toCamelCase "")
+        // Assert.Equal("", "theStealthWarrior", toCamelCase "the_stealth_warrior")
+        Assert.Equal("", "theStealthWarrior", Problems.toCamelCase "the_stealth_warrior")
+        // Assert.Equal("", "TheStealthWarrior", toCamelCase "The-Stealth-Warrior")
+        Assert.Equal("", "TheStealthWarrior", Problems.toCamelCase "The-Stealth-Warrior")
