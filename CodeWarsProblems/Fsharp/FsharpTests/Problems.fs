@@ -5,6 +5,28 @@ module Problems =
     open System.Linq
     open System.Collections
 
+    let descendingOrder n =  
+        let ar = (n.ToString().ToCharArray() |> List.ofArray |> List.sort |> List.map(fun i -> i.ToString()) |> List.rev)
+        Convert.ToInt32((String.concat "" ar))
+
+    let noneObject : Object = Unchecked.defaultof<_>
+    let rec matchIntegers (arr, res) = 
+        match arr with 
+        | head::tail when head.GetType().ToString() = "System.Int32" -> matchIntegers(tail, head::res)
+        | _ -> res 
+
+    let GetIntegersFromList (listOfItems: Object list) = // Happy coding!
+        let newList = matchIntegers(listOfItems, [])
+        newList
+
+    let isOpenOrSenior (ar: int * int) =
+      match ar with
+        | (f, s) when f >= 55 && s > 7 -> "Senior"
+        | _ -> "Open"
+
+    let OpenOrSenior (xs : (int * int) list) : string list =
+        xs |> List.map isOpenOrSenior
+
     let toCamelCase (text : string) =
         if (text.Length = 0) 
             then text
