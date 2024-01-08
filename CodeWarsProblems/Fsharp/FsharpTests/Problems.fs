@@ -5,6 +5,16 @@ module Problems =
     open System.Linq
     open System.Collections
 
+    // F# solution for multiples of 3 & 5 : https://www.codewars.com/kata/514b92a657cdc65150000006
+    let solveMultiplesOf3And5 (n: int): int = 
+        if n <= 3 
+            then 0
+        else  
+            (Enumerable.Range(3, n)) 
+            |> Seq.filter ( fun i -> i % 3 = 0 || i % 5 = 0) 
+            |> Seq.reduce (fun acc item -> acc + item)
+             
+
     let descendingOrder n =  
         let ar = (n.ToString().ToCharArray() |> List.ofArray |> List.sort |> List.map(fun i -> i.ToString()) |> List.rev)
         Convert.ToInt32((String.concat "" ar))
