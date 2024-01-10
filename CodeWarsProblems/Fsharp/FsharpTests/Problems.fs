@@ -5,6 +5,11 @@ module Problems =
     open System.Linq
     open System.Collections
 
+    // Friend or foe cw translation 
+    let friend  friends:List<string> = 
+        let siFriend f = f.ToString().Length = 4
+        friends |> List.filter siFriend
+
     // F# solution for multiples of 3 & 5 : https://www.codewars.com/kata/514b92a657cdc65150000006
     let solveMultiplesOf3And5 (n: int): int = 
         if n <= 3 
@@ -14,7 +19,6 @@ module Problems =
             |> Seq.filter ( fun i -> i % 3 = 0 || i % 5 = 0) 
             |> Seq.reduce (fun acc item -> acc + item)
              
-
     let descendingOrder n =  
         let ar = (n.ToString().ToCharArray() |> List.ofArray |> List.sort |> List.map(fun i -> i.ToString()) |> List.rev)
         Convert.ToInt32((String.concat "" ar))
@@ -52,10 +56,6 @@ module Problems =
                                                     let str: string = (newStr |> Array.map (fun i -> i.ToString()) |> Array.reduce(fun s1 s2 -> s1 + s2))
                                                     str)
             firstItem + (rest |> Array.reduce(fun s1 s2 -> s1 + s2)) 
-
-
-    
-
 
     let reverseWords (str: string) =
         let list: List<string> = str.Split(' ') |> List.ofArray |> List.rev
@@ -138,8 +138,6 @@ module RomanNumerals =
         let n3 = RomanToNumberValue(str1+str2)
         if n3 <> 0 then true else false  
 
-
-
     let FromRoman (romanNumeral: string): int = 
         let romanNumeralStack: string list = romanNumeral.ToCharArray() |> List.ofArray |> List.map (fun i -> i.ToString())
         
@@ -150,7 +148,4 @@ module RomanNumerals =
             | _ -> numb 
 
         inner(romanNumeralStack, 0)
-
-
-
 

@@ -35,5 +35,7 @@
   ],
   "C_Cpp_Runner.useAddressSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
-  "C_Cpp.errorSquiggles": "disabled"
+  "C_Cpp.errorSquiggles": "disabled",
+  "FSharp.inlayHints.parameterNames": false,
+  "editor.inlayHints.enabled": "offUnlessPressed"
 }

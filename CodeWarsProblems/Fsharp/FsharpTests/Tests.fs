@@ -1,6 +1,5 @@
 module Tests 
     open CodeWarsProblems
-    open Problems
     open System
     open Xunit
     open Fuchu
@@ -112,3 +111,8 @@ module Tests
         Assert.Equal("", "theStealthWarrior", Problems.toCamelCase "the_stealth_warrior")
         // Assert.Equal("", "TheStealthWarrior", toCamelCase "The-Stealth-Warrior")
         Assert.Equal("", "TheStealthWarrior", Problems.toCamelCase "The-Stealth-Warrior")
+
+
+    [<Fact>]
+    let `` friend List `` () =
+        Assert.Equal("", Problems.friend ["Ryan"; "Kieran"; "Mark"] , Problems.friend ["Ryan"; "Mark"])
