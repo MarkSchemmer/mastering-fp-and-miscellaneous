@@ -5,6 +5,20 @@ module Problems =
     open System.Linq
     open System.Collections
 
+
+    // For a translation for SplitStrings -> https://www.codewars.com/kata/515de9ae9dcfc28eb6000001/translation
+    let splitStrings(s: string) = 
+        let ar: List<string> = s.ToString().ToCharArray() 
+                               |> Array.map (fun i -> i.ToString()) |> Array.toList
+
+        let rec inner (a: List<string>, acc: List<string>) =
+            match a with 
+            | f::s::tail ->  inner(tail, acc@[f+s])
+            | f::tail -> inner(tail, acc@[f+"_"])
+            | _ -> acc 
+
+        inner(ar, [])
+
     // Friend or foe cw translation 
     let friend  friends:List<string> = 
         let siFriend f = f.ToString().Length = 4

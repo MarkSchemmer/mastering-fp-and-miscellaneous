@@ -3,8 +3,6 @@ module Tests
     open System
     open Xunit
     open Fuchu
-
-
     //let preformTest(num, list) = 
     //    Assert.Equal("Should be equal: {num}", num, maxTriSum(list))
 
@@ -116,3 +114,9 @@ module Tests
     [<Fact>]
     let `` friend List `` () =
         Assert.Equal("", Problems.friend ["Ryan"; "Kieran"; "Mark"] , Problems.friend ["Ryan"; "Mark"])
+
+
+    [<Fact>]
+    let `` StringSplit `` () = 
+        Assert.Equal("", Problems.splitStrings("abcde"), ["ab"; "cd"; "e_"])
+        Assert.Equal("", Problems.splitStrings("abcdef"), ["ab"; "cd"; "ef"])
