@@ -5,7 +5,6 @@
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SplitStringsTests.fs" />
     <Compile Include="Problems.fs" />
     <Compile Include="Tests.fs" />
     <Compile Include="RomanNumeralsTests.fs" />

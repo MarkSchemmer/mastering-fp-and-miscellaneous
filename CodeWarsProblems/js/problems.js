@@ -33,4 +33,17 @@ const multiTable = n => {
 
 const res = multiTable(5);
 
-console.log(res);
+
+// Breaking Camel Case for Javascript, https://www.codewars.com/kata/5208f99aee097e6552000148
+// This solution passes all tests. 
+export const breakCamelCase = s => {
+    // camelCase -> "camel Caser"... Basically we break on the UpperCase.... 
+    let breakCase = (oldStringArray, newString) => {
+        let [f, ...rest] = oldStringArray;
+        if (!f && rest.length === 0) return newString;
+        return (f && f === f.toUpperCase()) ? breakCase(rest, newString + " " + f) : 
+               breakCase(rest, newString + f);
+    };
+
+    return breakCamelCase(s.split(""), "");
+};

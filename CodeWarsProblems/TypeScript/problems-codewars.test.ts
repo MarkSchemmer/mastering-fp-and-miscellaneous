@@ -1,3 +1,4 @@
+import { breakCamelCase } from "../js/problems.js";
 import { doubleInteger, romanToNumeral } from "./problems";
 
 import * as javaScriptProblems from './problems-js.js';

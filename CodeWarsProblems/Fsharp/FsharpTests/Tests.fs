@@ -120,3 +120,4 @@ module Tests
     let `` StringSplit `` () = 
         Assert.Equal("", Problems.splitStrings("abcde"), ["ab"; "cd"; "e_"])
         Assert.Equal("", Problems.splitStrings("abcdef"), ["ab"; "cd"; "ef"])
+        Assert.Equal("", Problems.splitStrings(""), [])
