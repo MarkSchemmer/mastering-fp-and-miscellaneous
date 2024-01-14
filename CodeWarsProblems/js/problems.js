@@ -34,6 +34,19 @@ const multiTable = n => {
 const res = multiTable(5);
 
 
+// Simple pig latin solution. 
+// https://www.codewars.com/kata/520b9d2ad5c005041100000f
+const pigIt = s => {
+    let alpahbet = "abcdefghijklmnopqrstuvwxyz";
+    let pigify = str => {
+        if (str.length === 1) { return alpahbet.includes(str.toLowerCase()) ? str+"ay" : str }
+        let a = str.split("");
+        let [f, ...rest] = a;
+        return rest.join("") + f + "ay";
+    }
+
+    return s.split(" ").map(pigify).join(" ");
+};
 // Breaking Camel Case for Javascript, https://www.codewars.com/kata/5208f99aee097e6552000148
 // This solution passes all tests. 
 export const breakCamelCase = s => {
