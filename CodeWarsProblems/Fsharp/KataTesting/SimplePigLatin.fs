@@ -4,10 +4,8 @@ module SimplePigLatin
     open System
     open System.Linq
     open Microsoft.FSharp.Collections
-// NUnit is used to test F# 6.0.
-
+    // NUnit is used to test F# 6.0.
     let rand = System.Random()
-
     let pigIt(s:string):string = 
             if String.IsNullOrEmpty(s) 
             then 
@@ -29,6 +27,7 @@ module SimplePigLatin
                         (rest |> String.concat "") + f + "ay"
                 s.Split(" ") |> Seq.map (fun i -> pigify(i.Trim(' '))) |> String.concat " "
 
+
     let sol(s:string):string = 
             if String.IsNullOrEmpty(s) 
             then 
@@ -49,8 +48,7 @@ module SimplePigLatin
                         let rest = str_ |> List.skip 1 
                         (rest |> String.concat "") + f + "ay"
                 s.Split(" ") |> Seq.map (fun i -> pigify(i.Trim(' '))) |> String.concat " "
-
-
+                
     let randomCases = [
         ["Acta est fabula"; "ctaAay steay abulafay"];
         ["Barba non facit philosophum"; "arbaBay onnay acitfay hilosophumpay"];
@@ -99,8 +97,6 @@ module SimplePigLatin
             doTest "Pig" "igPay"
             doTest "my" "ymay"
             doTest "solution" "olutionsay"
-
-
     (*
          it should "pass random tests" in {
                 import util.Random
@@ -118,8 +114,6 @@ module SimplePigLatin
                 }
             }
     *)
-
-
     let shouldMakeUpperCase(s:string):string = 
         let r = System.Random()
         let isUpperOrLower = r.Next(0, 1) = 0
@@ -134,9 +128,6 @@ module SimplePigLatin
          let range = rand.Next(1, 7)
          let word = Enumerable.Range(0, range) |> Seq.map(fun i -> alpahbet[rand.Next(0, 25)]) |> String.concat ""
          word 
-
-    
-
     let makeRandomTestCase():string = 
         let wordRange = rand.Next(1, 5)
         let words = Enumerable.Range(0, wordRange) |> Seq.map (fun i -> 
@@ -144,7 +135,6 @@ module SimplePigLatin
                                                                     shouldMakeUpperCase(randWord))
         ((words |> String.concat " ")).Trim(' ')
 
-            
     [<TestFixture>]
     [<Order(2)>]
     type RandomTestSubmissions () =
