@@ -22,9 +22,6 @@
             10 * 5 = 50
 
             P. S. You can use \n in string to jump to the next line.
-
-            
-
 */
 
 const multiTable = n => {
@@ -47,6 +44,7 @@ const pigIt = s => {
 
     return s.split(" ").map(pigify).join(" ");
 };
+
 // Breaking Camel Case for Javascript, https://www.codewars.com/kata/5208f99aee097e6552000148
 // This solution passes all tests. 
 export const breakCamelCase = s => {
@@ -60,3 +58,4 @@ export const breakCamelCase = s => {
 
     return breakCamelCase(s.split(""), "");
 };
+

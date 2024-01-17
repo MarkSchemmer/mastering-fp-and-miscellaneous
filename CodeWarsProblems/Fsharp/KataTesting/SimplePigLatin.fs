@@ -2,6 +2,8 @@ module SimplePigLatin
 
     open NUnit.Framework
     open System
+    open System.Linq
+    open System.Collections.Generic
     open Microsoft.FSharp.Collections
 // NUnit is used to test F# 6.0.
 
@@ -23,6 +25,23 @@ module SimplePigLatin
                     let rest = str_ |> List.skip 1 
                     (rest |> String.concat "") + f + "ay"
             s.Split(" ") |> Seq.map (fun i -> pigify(i)) |> String.concat " "
+
+    let sol(s:string):string = 
+        let alpahbet = "abcdefghijklmnopqrstuvwxyz";
+        let pigify(str:string):string = 
+            if str.Length = 1 
+            then 
+                if alpahbet.Contains(str.ToString().ToLower()) = true 
+                    then 
+                        $"{str}ay" 
+                else 
+                    $"{str}"
+            else 
+                let str_ = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+                let f = str_[0]
+                let rest = str_ |> List.skip 1 
+                (rest |> String.concat "") + f + "ay"
+        s.Split(" ") |> Seq.map (fun i -> pigify(i)) |> String.concat " "
 
 
     let randomCases = [
@@ -73,7 +92,51 @@ module SimplePigLatin
             doTest "Pig" "igPay"
             doTest "my" "ymay"
             doTest "solution" "olutionsay"
-            
+
+
+    (*
+         it should "pass random tests" in {
+                import util.Random
+                
+                def makeRandomWord: String = 
+                Iterator.fill(Random.between(1, 7))(Random.between('a', 'z' + 1).toChar).mkString
+                
+                def makeTestCase: (String, String) = 
+                val words = Seq(makeRandomWord) ++ Seq.fill(Random.nextInt(5))(makeRandomWord.capitalize)
+                (words.mkString, words.mkString(" "))
+                
+                Iterator.fill(100)(makeTestCase) foreach {
+                (s, expected) =>
+                    assert(breakCamelCase(s) == expected, s"for breakCamelCase(\"$s\")")
+                }
+            }
+    *)
+
+
+    let shouldMakeUpperCase(s:string):string = 
+        let r = System.Random()
+        let isUpperOrLower = r.Next(0, 1) = 0
+        let ar = s.ToString().ToCharArray()
+        if isUpperOrLower 
+            then ar.[0] <- Convert.ToChar(ar.[0].ToString().ToUpper())
+
+        ar |> Array.map(fun i -> i.ToString()) |> String.concat ""
+
+    let alpahbet = "abcdefghijklmnopqrstuvwxyz".ToCharArray() |> Array.map (fun i -> i.ToString()) |> Array.toList 
+    let makeRandomWord():string = 
+         let range = rand.Next(1, 7)
+         let word = Enumerable.Range(0, range) |> Seq.map(fun i -> alpahbet[rand.Next(0, 25)]) |> String.concat ""
+         word 
+
+    
+
+    let makeRandomTestCase():string = 
+        let wordRange = rand.Next(1, 5)
+        let words = Enumerable.Range(0, wordRange) |> Seq.map (fun i -> 
+                                                                    let randWord = makeRandomWord()
+                                                                    shouldMakeUpperCase(randWord))
+        words |> String.concat " " 
+
             
     [<TestFixture>]
     [<Order(2)>]
@@ -85,6 +148,12 @@ module SimplePigLatin
                 let actual = i[0]
                 let expected = i[1]
                 doTest actual expected
+        [<Test>]
+        member this.moreExtremeRandomTests() =
+                for i in 1..100 do 
+                    let randomTestCase = makeRandomTestCase()
+                    let expected = sol(randomTestCase)
+                    doTest randomTestCase expected
 
 
 
