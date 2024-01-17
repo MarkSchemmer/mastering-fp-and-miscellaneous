@@ -3,45 +3,52 @@ module SimplePigLatin
     open NUnit.Framework
     open System
     open System.Linq
-    open System.Collections.Generic
     open Microsoft.FSharp.Collections
 // NUnit is used to test F# 6.0.
 
     let rand = System.Random()
 
     let pigIt(s:string):string = 
-            let alpahbet = "abcdefghijklmnopqrstuvwxyz";
-            let pigify(str:string):string = 
-                if str.Length = 1 
-                then 
-                    if alpahbet.Contains(str.ToString().ToLower()) = true 
-                        then 
-                            $"{str}ay" 
+            if String.IsNullOrEmpty(s) 
+            then 
+                s
+            else  
+                let alpahbet = "abcdefghijklmnopqrstuvwxyz";
+                let pigify(str:string):string = 
+                    if str.Length = 1 
+                    then 
+                        if alpahbet.Contains(str.ToString().ToLower()) = true 
+                            then 
+                                $"{str}ay" 
+                        else 
+                            $"{str}"
                     else 
-                        $"{str}"
-                else 
-                    let str_ = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
-                    let f = str_[0]
-                    let rest = str_ |> List.skip 1 
-                    (rest |> String.concat "") + f + "ay"
-            s.Split(" ") |> Seq.map (fun i -> pigify(i)) |> String.concat " "
+                        let str_ = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+                        let f = str_[0]
+                        let rest = str_ |> List.skip 1 
+                        (rest |> String.concat "") + f + "ay"
+                s.Split(" ") |> Seq.map (fun i -> pigify(i.Trim(' '))) |> String.concat " "
 
     let sol(s:string):string = 
-        let alpahbet = "abcdefghijklmnopqrstuvwxyz";
-        let pigify(str:string):string = 
-            if str.Length = 1 
+            if String.IsNullOrEmpty(s) 
             then 
-                if alpahbet.Contains(str.ToString().ToLower()) = true 
+                s
+            else  
+                let alpahbet = "abcdefghijklmnopqrstuvwxyz";
+                let pigify(str:string):string = 
+                    if str.Length = 1 
                     then 
-                        $"{str}ay" 
-                else 
-                    $"{str}"
-            else 
-                let str_ = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
-                let f = str_[0]
-                let rest = str_ |> List.skip 1 
-                (rest |> String.concat "") + f + "ay"
-        s.Split(" ") |> Seq.map (fun i -> pigify(i)) |> String.concat " "
+                        if alpahbet.Contains(str.ToString().ToLower()) = true 
+                            then 
+                                $"{str}ay" 
+                        else 
+                            $"{str}"
+                    else 
+                        let str_ = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+                        let f = str_[0]
+                        let rest = str_ |> List.skip 1 
+                        (rest |> String.concat "") + f + "ay"
+                s.Split(" ") |> Seq.map (fun i -> pigify(i.Trim(' '))) |> String.concat " "
 
 
     let randomCases = [
@@ -135,7 +142,7 @@ module SimplePigLatin
         let words = Enumerable.Range(0, wordRange) |> Seq.map (fun i -> 
                                                                     let randWord = makeRandomWord()
                                                                     shouldMakeUpperCase(randWord))
-        words |> String.concat " " 
+        ((words |> String.concat " ")).Trim(' ')
 
             
     [<TestFixture>]
@@ -152,6 +159,7 @@ module SimplePigLatin
         member this.moreExtremeRandomTests() =
                 for i in 1..100 do 
                     let randomTestCase = makeRandomTestCase()
+                    // Console.WriteLine($"'{randomTestCase}'")
                     let expected = sol(randomTestCase)
                     doTest randomTestCase expected
 
