@@ -30,6 +30,41 @@ const multiTable = n => {
 
 const res = multiTable(5);
 
+// Single Word Pig Latin.
+// https://www.codewars.com/kata/558878ab7591c911a4000007
+export const pigLatin = (() => {
+    let alpahbet = "abcdefghijklmnopqrstuvwxyz";
+    let vowels = "aeiou";
+
+    let hasNoneAlphaCharacter = (str) => {
+        return !(str.split("").every(s => alpahbet.includes(s)));
+    }
+
+    let isVowel = (str) => {
+        return vowels.includes(str);
+    }
+
+    let hasNoVowels = (str) => {
+        let hasAnyVowels = str.split("").some(s => vowels.includes(s));
+        return hasAnyVowels === false;
+    }
+
+    let sol = (s, newStr) => {
+        // take str characters until we hit a vowel... 
+        // Then concat 
+        let [nextChar, ...rest] = s.split("");
+        return isVowel(nextChar) ? nextChar + (rest.join("")) + newStr + "ay" : sol(rest.join(""), newStr + nextChar);
+    }
+
+    return s => {
+        s = s.toLowerCase();
+        let [f, ...rest] = s.split("");
+        return hasNoneAlphaCharacter(s) ? null 
+        : isVowel(f) ? s + "way" 
+        : hasNoVowels(s) ? s + "ay" 
+        : sol(s, "");
+    }
+})();
 
 // Simple pig latin solution. 
 // https://www.codewars.com/kata/520b9d2ad5c005041100000f

@@ -1,5 +1,4 @@
 module SimplePigLatin
-
     open NUnit.Framework
     open System
     open System.Linq
@@ -48,7 +47,7 @@ module SimplePigLatin
                         let rest = str_ |> List.skip 1 
                         (rest |> String.concat "") + f + "ay"
                 s.Split(" ") |> Seq.map (fun i -> pigify(i.Trim(' '))) |> String.concat " "
-                
+
     let randomCases = [
         ["Acta est fabula"; "ctaAay steay abulafay"];
         ["Barba non facit philosophum"; "arbaBay onnay acitfay hilosophumpay"];
