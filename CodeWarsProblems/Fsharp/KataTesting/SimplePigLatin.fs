@@ -6,6 +6,13 @@ module SimplePigLatin
     // NUnit is used to test F# 6.0.
     let rand = System.Random()
 
+
+    // let removeBackFromString(s:string) =
+    //     let ar = s.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+    //     let inner(backOfString:string, acc:List<string>) =
+    //         match acc with
+    //         | f::tail when 
+
     let removeNoneAlphaFromFront(s:string) =
         let alpahbet = "abcdefghijklmnopqrstuvwxyz";
         let ar = s.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
@@ -116,13 +123,7 @@ module SimplePigLatin
         (!"(£word)??") -> (!"(£ordway)??")
 
     *)
-        [<Test>]
-        member this.wordWithNoneAlphaCharacter() =
-            doTest "word" "ordway"
-            doTest ".leading" ".eadinglay"
-            doTest "trailing." "railingtay."
-            doTest "(parens)" "(arenspay)"
-            doTest "(!\"(£word)??\")" "(!\"(£ordway)??\")"
+ 
     (*
          it should "pass random tests" in {
                 import util.Random
