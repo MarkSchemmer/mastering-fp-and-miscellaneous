@@ -5,6 +5,15 @@ module SimplePigLatin
     open Microsoft.FSharp.Collections
     // NUnit is used to test F# 6.0.
     let rand = System.Random()
+
+    let removeNoneAlphaFromFront(s:string) =
+        let alpahbet = "abcdefghijklmnopqrstuvwxyz";
+        let ar = s.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+        let front = ar.TakeWhile(fun i -> alpahbet.Contains(i, StringComparison.OrdinalIgnoreCase) = false) |> String.concat ""
+        let tempMiddle = ar.SkipWhile(fun i ->  alpahbet.Contains(i, StringComparison.OrdinalIgnoreCase) = false)
+        let word = tempMiddle.TakeWhile(fun i -> alpahbet.Contains(i, StringComparison.OrdinalIgnoreCase) = true) |> String.concat ""
+        let back = tempMiddle.SkipWhile(fun i -> alpahbet.Contains(i, StringComparison.OrdinalIgnoreCase) = true) |> String.concat ""
+        (front, word, back)
     let pigIt(s:string):string = 
             if String.IsNullOrEmpty(s) 
             then 
@@ -20,10 +29,11 @@ module SimplePigLatin
                         else 
                             $"{str}"
                     else 
-                        let str_ = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+                        let (front, word, back) = removeNoneAlphaFromFront(str)
+                        let str_ = word.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
                         let f = str_[0]
                         let rest = str_ |> List.skip 1 
-                        (rest |> String.concat "") + f + "ay"
+                        front + (rest |> String.concat "") + f + "ay" + back
                 s.Split(" ") |> Seq.map (fun i -> pigify(i.Trim(' '))) |> String.concat " "
 
 
@@ -91,11 +101,28 @@ module SimplePigLatin
             doTest "Pig latin is cool" "igPay atinlay siay oolcay"
             doTest "This is my string" "hisTay siay ymay tringsay"
             doTest "This is my string" "hisTay siay ymay tringsay"
+        [<Test>]
         member this.singleWordString() =
             doTest "is" "siay"
             doTest "Pig" "igPay"
             doTest "my" "ymay"
             doTest "solution" "olutionsay"
+    (*
+
+        word -> ordway
+        trailing. -> railingtay.
+        .leading -> .eadinglay
+        (parens) -> (arenspay)
+        (!"(£word)??") -> (!"(£ordway)??")
+
+    *)
+        [<Test>]
+        member this.wordWithNoneAlphaCharacter() =
+            doTest "word" "ordway"
+            doTest ".leading" ".eadinglay"
+            doTest "trailing." "railingtay."
+            doTest "(parens)" "(arenspay)"
+            doTest "(!\"(£word)??\")" "(!\"(£ordway)??\")"
     (*
          it should "pass random tests" in {
                 import util.Random

@@ -45,15 +45,13 @@ export const pigLatin = (() => {
     }
 
     let hasNoVowels = (str) => {
-        let hasAnyVowels = str.split("").some(s => vowels.includes(s));
-        return hasAnyVowels === false;
+        return str.split("").some(s => vowels.includes(s)) === false;
     }
 
     let sol = (s, newStr) => {
-        // take str characters until we hit a vowel... 
-        // Then concat 
         let [nextChar, ...rest] = s.split("");
-        return isVowel(nextChar) ? nextChar + (rest.join("")) + newStr + "ay" : sol(rest.join(""), newStr + nextChar);
+        return isVowel(nextChar) ? nextChar + (rest.join("")) + newStr + "ay" : 
+                                 sol(rest.join(""), newStr + nextChar);
     }
 
     return s => {
