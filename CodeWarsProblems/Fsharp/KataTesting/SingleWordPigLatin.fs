@@ -119,3 +119,38 @@ module SingleWordPigLatin
             doTest "map" "apmay"
             doTest "egg" "eggway"
             doTest "tes3t5" null 
+
+
+(*
+
+  assert.strictEqual(pigLatin("Hello"), "ellohay");
+    assert.strictEqual(pigLatin("CCCC"), "ccccay");
+    assert.strictEqual(pigLatin("tes3t5"), null);
+    assert.strictEqual(pigLatin("ay"), "ayway");
+    assert.strictEqual(pigLatin("ya"), "ayay");
+    assert.strictEqual(pigLatin("YA"), "ayay");
+    assert.strictEqual(pigLatin("123"), null);
+    assert.strictEqual(pigLatin("ya1"), null);
+    assert.strictEqual(pigLatin("yaYAya"), "ayayayay");
+    assert.strictEqual(pigLatin("YayayA"), "ayayayay");
+
+*)
+
+    [<TestFixture>]
+    [<Order(2)>]
+    type TestSubmissions() =
+        [<Test>]
+        member this.wordWithUpperCase() =
+            doTest "Hello" "ellohay"
+            doTest "CCCC" "ccccay"
+        member this.ContainerNoneAlpaCharacters() =
+            doTest "tes3t5" null
+            doTest "123" null
+            doTest "ya1" null 
+        member this.wordStartingwithVowel() =
+            doTest "ay" "ayway"
+        member this.wordStartingWithConsenant() =
+            doTest "ya" "ayay"
+            doTest "YA" "ayay"
+            doTest "yaYAya" "ayayayay"
+            doTest "YayayA" "ayayayay"
