@@ -3,6 +3,8 @@ module SingleWordPigLatin
     open System
     open System.Linq
 
+
+    let rand = System.Random()
     (*
 
         Solution: 
@@ -70,6 +72,24 @@ module SingleWordPigLatin
             })();
     *)
 
+    let shouldMakeUpperCase(s:string):string = 
+        let r = System.Random()
+        let isUpperOrLower = r.Next(0, 1) = 0
+        let ar = s.ToString().ToCharArray()
+        if isUpperOrLower 
+            then ar.[0] <- Convert.ToChar(ar.[0].ToString().ToUpper())
+
+        ar |> Array.map(fun i -> i.ToString()) |> String.concat ""
+    let characterList = "abcdefghijklmnopqrstuvwxyz123WZ[ZX]ZY{ZAB!CDZ@ZEZF#HI$JK%LM^NO&QR*S(T)UV".ToCharArray() |> Array.map (fun i -> i.ToString()) |> Array.toList 
+    let makeRandomWord():string = 
+         let range = rand.Next(1, 15)
+         let word = Enumerable.Range(0, range) |> Seq.map(fun i -> characterList[rand.Next(0, 72)]) |> String.concat ""
+         word 
+    let makeRandomTestCase():string = 
+        let randWord = makeRandomWord()
+        shouldMakeUpperCase(randWord).Trim(' ')
+        
+
     let alpahbet = "abcdefghijklmnopqrstuvwxyz";
     let vowels = "aeiou";
     let hasNoneAlphaCharacter(str:string) =
@@ -88,6 +108,26 @@ module SingleWordPigLatin
         | _ -> newStr
     let pigLatin(str:string) =
         let ar = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+        let rec sol(str:string, newStr) =
+            let ar = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+            match ar with // nextChar + (rest.join("")) + newStr + "ay" 
+            | nextChar::rest when isVowel(nextChar) -> nextChar + (rest |> String.concat "") + newStr + "ay"
+            | nextChar::rest -> sol((rest |> String.concat ""), newStr + nextChar)
+            | _ -> newStr
+        match ar with
+        | str when hasNoneAlphaCharacter((str |> String.concat "").ToLower()) -> null 
+        | c::tail when isVowel(c.ToString()) -> str.ToLower() + "way"
+        | s when hasNoVowels(str.ToLower()) -> str.ToLower() + "ay"
+        | _ -> sol(str.ToLower(), "")
+
+    let referenceSolution(str:string) =
+        let ar = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+        let rec sol(str:string, newStr) =
+            let ar = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
+            match ar with // nextChar + (rest.join("")) + newStr + "ay" 
+            | nextChar::rest when isVowel(nextChar) -> nextChar + (rest |> String.concat "") + newStr + "ay"
+            | nextChar::rest -> sol((rest |> String.concat ""), newStr + nextChar)
+            | _ -> newStr
         match ar with
         | str when hasNoneAlphaCharacter((str |> String.concat "").ToLower()) -> null 
         | c::tail when isVowel(c.ToString()) -> str.ToLower() + "way"
@@ -98,17 +138,6 @@ module SingleWordPigLatin
         let actual = pigLatin(input)
         Assert.AreEqual(actual, expected, $"Your solution failed when tested with input string s  = '{input}'")
 
-
-
-    (*
-
-
-         assert.strictEqual(pigLatin("map"), "apmay");
-        assert.strictEqual(pigLatin("egg"), "eggway");
-        assert.strictEqual(pigLatin("tes3t5"), null);
-
-
-    *)
     [<TestFixture>]
     [<Order(1)>]
     type SampleTests () =
@@ -120,22 +149,6 @@ module SingleWordPigLatin
             doTest "egg" "eggway"
             doTest "tes3t5" null 
 
-
-(*
-
-  assert.strictEqual(pigLatin("Hello"), "ellohay");
-    assert.strictEqual(pigLatin("CCCC"), "ccccay");
-    assert.strictEqual(pigLatin("tes3t5"), null);
-    assert.strictEqual(pigLatin("ay"), "ayway");
-    assert.strictEqual(pigLatin("ya"), "ayay");
-    assert.strictEqual(pigLatin("YA"), "ayay");
-    assert.strictEqual(pigLatin("123"), null);
-    assert.strictEqual(pigLatin("ya1"), null);
-    assert.strictEqual(pigLatin("yaYAya"), "ayayayay");
-    assert.strictEqual(pigLatin("YayayA"), "ayayayay");
-
-*)
-
     [<TestFixture>]
     [<Order(2)>]
     type TestSubmissions() =
@@ -143,14 +156,30 @@ module SingleWordPigLatin
         member this.wordWithUpperCase() =
             doTest "Hello" "ellohay"
             doTest "CCCC" "ccccay"
+        [<Test>]
         member this.ContainerNoneAlpaCharacters() =
             doTest "tes3t5" null
             doTest "123" null
             doTest "ya1" null 
+        [<Test>]
         member this.wordStartingwithVowel() =
             doTest "ay" "ayway"
+        [<Test>]
         member this.wordStartingWithConsenant() =
             doTest "ya" "ayay"
             doTest "YA" "ayay"
             doTest "yaYAya" "ayayayay"
             doTest "YayayA" "ayayayay"
+
+
+    [<TestFixture>]
+    [<Order(3)>]
+    type RandomTestSubmissions () =
+        
+        [<Test>]
+        member this.RandomTestSubmissions() =
+                for i in 1..1000 do 
+                    let randomTestCase = makeRandomTestCase()
+                    Console.WriteLine($"'{randomTestCase}'")
+                    let expected = referenceSolution(randomTestCase)
+                    doTest randomTestCase expected
