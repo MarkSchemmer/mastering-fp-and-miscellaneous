@@ -100,12 +100,6 @@ module SingleWordPigLatin
     let hasNoVowels(str:string) =
         let ar = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
         ar |> List.forall(fun i -> vowels.Contains(i.ToString()) = false)
-    let rec sol(str:string, newStr) =
-        let ar = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
-        match ar with // nextChar + (rest.join("")) + newStr + "ay" 
-        | nextChar::rest when isVowel(nextChar) -> nextChar + (rest |> String.concat "") + newStr + "ay"
-        | nextChar::rest -> sol((rest |> String.concat ""), newStr + nextChar)
-        | _ -> newStr
     let pigLatin(str:string) =
         let ar = str.ToCharArray() |> Array.map(fun i -> i.ToString()) |> Array.toList
         let rec sol(str:string, newStr) =
