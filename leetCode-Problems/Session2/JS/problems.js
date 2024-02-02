@@ -1,3 +1,45 @@
+
+
+
+
+
+
+
+/**
+ * @param {number} x
+ * @return {boolean}
+ * 
+ * 
+ * Link to problem: https://leetcode.com/problems/palindrome-number/
+ */
+const isPalindrome = x => {
+    return ([ ...x.toString().split("")].reverse()).join("") === x.toString(); 
+};
+
+// the stack overflow answer is here: 
+/*
+    https://stackoverflow.com/questions/199184/how-do-i-check-if-a-number-is-a-palindrome
+
+    The mathematic solution is here: 
+
+
+*/
+// Can you re-write the problem so that we don't have to conver to a string... using just math logic....?
+const isPalindromeV2 = x => {
+    let numb = x; // temp holder for the number
+    let rev = 0; // the final number reversed
+    let last_numb = 0; // the difference of digits added to the rev
+
+
+    while (numb > 0) {
+        last_numb = numb % 10; // get the remaining
+        numb = Math.floor(numb / 10); // divide numb by 10 and widdle it down
+        rev = rev * 10 + last_numb; // slowly creating the numb but in reverse... 
+    }
+
+    return x === rev;
+}
+
 /**
  * 
  * Link to problem: https://leetcode.com/problems/two-sum/
@@ -10,6 +52,10 @@
  */
 
 /*
+
+    Problem 1. 
+
+
     Hint that made get how to do this: 
 
     So, if we fix one of the numbers, say x, 
