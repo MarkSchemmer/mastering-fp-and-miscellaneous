@@ -1,7 +1,55 @@
 
 
 
+/*
+    Symbol       Value
+    I             1
+    V             5
+    X             10
+    L             50
+    C             100
+    D             500
+    M             1000
 
+
+    4.  IV
+    9.  IX
+    10. 
+
+*/
+/**
+ * @param {string} s
+ * @return {number}
+ */
+const romanToInt = s => {
+    let sum = 0;
+    let ar = s.split("");
+    let romanKeys = {
+        "I": 1,
+        "IV": 4,
+        "V": 5,
+        "IX": 9,
+        "X": 10,
+        "XL": 40,
+        "L": 50,
+        "XC":90,
+        "C": 100,
+        "CD": 400,
+        "D": 500,
+        "CM": 900,
+        "M": 1000
+    }
+
+    while (ar.length > 0) {
+        let [l1, l2, ...rest] = ar;
+        let special = (l1 && l2 && romanKeys[l1+l2]);
+        let l1Int = romanKeys[l1] || 0, l2Int = romanKeys[l2] || 0;
+        sum = special ? sum + romanKeys[l1+l2] : l1Int + sum;
+        ar = [(special ? null : l2), ...rest].filter(i => i !== null && i !== undefined);
+    }
+
+    return sum;
+};
 
 
 
