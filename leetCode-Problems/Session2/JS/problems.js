@@ -1,6 +1,95 @@
 
 
 
+// Valid Parentheses - Link: https://leetcode.com/problems/valid-parentheses/
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+const isValid = s => {
+
+    let regex = /\[\]|\(\)|{}/;
+
+    while(s.match(regex) != null) {
+        s = s.replace(regex, "");
+    }
+
+    return s.length === 0;
+};
+
+// Can you solve using a stack...?
+/*
+
+    Hint 1
+        Use a stack of characters.
+
+    Hint 2
+        When you encounter an opening bracket, push it to the top of the stack.
+
+    Hint 3
+        When you encounter a closing bracket, check if the top of the stack was the opening for it. 
+        If yes, pop it from the stack. Otherwise, return false.
+
+*/
+
+const isValidUsingStack = (() => {
+    let stack = [];
+    let openingBraces = "({[";
+    let isOpeningBrace = c => openingBraces.includes(c);
+
+    let parenMap = {
+        "}": "{",
+        "]": "[",
+        ")": "("
+    };
+
+    let pop = ar => {
+        let [f, ...rest] = ar;
+        return rest;
+    };
+
+    let push = (item, ar) => {
+        return [item, ...ar];
+    };
+
+    let inner = (array, stck) => {
+        
+        if (array.length === 0 && stck.length === 0) 
+            return true;
+        else if (array.length === 0 && stck.length !== 0)
+            return false;
+
+        let [c, ...rest] = array;
+        return isOpeningBrace(c) ? inner(rest, push(c, stck)) : (parenMap[c] === stck[0] ? inner(rest, pop(stck)) : false)
+    }
+
+    return (s) => {
+        return inner(s.split(""), stack);
+    }
+})();
+
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+const longestCommonPrefix = strs => {
+    let [first, ...rest] = strs;
+    if (rest.length === 0) return first;
+
+    const inner = (idx, result) => {
+        if (idx === first.length) return result;
+        let fChar = first[idx];
+        let isCommon = rest.every(s => fChar === s[idx]);
+        return isCommon ? inner(
+            idx + 1, result + fChar
+        ) : result;
+    };
+
+    return inner(0, "");
+};
+
 /*
     Symbol       Value
     I             1
