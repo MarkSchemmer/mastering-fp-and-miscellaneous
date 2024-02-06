@@ -1,6 +1,3 @@
-
-
-
 // Valid Parentheses - Link: https://leetcode.com/problems/valid-parentheses/
 
 /**
@@ -32,7 +29,6 @@ const isValid = s => {
         If yes, pop it from the stack. Otherwise, return false.
 
 */
-
 const isValidUsingStack = (() => {
     let stack = [];
     let openingBraces = "({[";
@@ -68,7 +64,6 @@ const isValidUsingStack = (() => {
         return inner(s.split(""), stack);
     }
 })();
-
 
 /**
  * @param {string[]} strs
