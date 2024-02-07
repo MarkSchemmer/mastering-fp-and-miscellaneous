@@ -55,9 +55,9 @@ const isValidUsingStack = (() => {
             return true;
         else if (array.length === 0 && stck.length !== 0)
             return false;
-
         let [c, ...rest] = array;
-        return isOpeningBrace(c) ? inner(rest, push(c, stck)) : (parenMap[c] === stck[0] ? inner(rest, pop(stck)) : false)
+        return isOpeningBrace(c) ? inner(rest, push(c, stck)) 
+        : (parenMap[c] === stck[0] ? inner(rest, pop(stck)) : false)
     }
 
     return (s) => {
