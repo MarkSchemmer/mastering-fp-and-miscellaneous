@@ -1,3 +1,81 @@
+
+
+// Merge Two Linked Lists : https://leetcode.com/problems/merge-two-sorted-lists/
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+
+function ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+}
+
+let isValue = (v) => v !== null && v !== undefined;
+
+// implement like both have values
+// then cover all the edge cases. 
+var mergeTwoLists = function(list1, list2) {
+    let genNode = () => new ListNode(null, null);
+    if (!isValue(list1) && !isValue(list2)) return list1;
+    if (list1 === undefined) return list2;
+    if (list2 === undefined) return list1;
+
+    let newList = genNode();
+    let head = newList;
+
+    while(list1 || list2) {
+        let a = list1 !== null ? list1.val : null, 
+        b = list2 !== null ?  list2.val : null;
+
+        if (isValue(a) && isValue(b)) {
+            if (a <= b) {
+                newList.val = a;
+                list1 = list1.next; 
+            } else {
+                newList.val = b;
+                list2 = list2.next;
+            }
+        } 
+        else if (isValue(a)) {
+            newList.val = a;
+            list1 = list1.next; 
+        } 
+        else if (isValue(b)) {
+            newList.val = b;
+            list2 = list2.next;
+        } 
+        else {
+
+            console.log("he")
+            return head;
+        }
+
+        newList.next = genNode();
+        newList = newList.next;
+    }
+
+    let temp = head;
+
+    while ( temp && isValue(temp.next)) {
+       if (!isValue(temp.next.val)) {
+           temp.next = null;
+       }
+
+       temp = temp.next;
+    }
+    
+    return head;
+};
+
 // Valid Parentheses - Link: https://leetcode.com/problems/valid-parentheses/
 
 /**
