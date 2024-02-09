@@ -1,5 +1,51 @@
 
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+const removeElement = (nums, val) => {
+    let j = 0;
+    let cnt = 0;
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === val) {
+            cnt++;
+        } else {
+            nums[j++]=nums[i];
+        }
+    }
+
+    return nums.length - cnt;
+};
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const removeDuplicates = nums => {
+    let unorderedList = [];
+    let orderedList = [];
+    let seen = {};
+    for(let i = 0; i < nums.length; i++) {
+        let n = nums[i];
+        if (n in seen) {
+            unorderedList.push(n);
+        } else {
+            orderedList.push(n);
+            seen[n] = n;
+        }
+    }
+ 
+    let temp = [...orderedList, ...unorderedList];
+ 
+     for (let i = 0; i < nums.length; i++) {
+         nums[i] = temp[i];
+     }
+ 
+    return orderedList.length;
+ };
 // Merge Two Linked Lists : https://leetcode.com/problems/merge-two-sorted-lists/
 /**
  * Definition for singly-linked list.
