@@ -20,7 +20,8 @@ const strStr = (haystack, needle) => {
     }
 
     return -1;
-};``
+};
+
 /**
  * @param {number[]} nums
  * @param {number} val
