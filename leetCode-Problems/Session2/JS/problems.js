@@ -1,4 +1,26 @@
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+const strStr = (haystack, needle) => {
 
+    if (haystack === needle) return 0;
+
+    let stack = haystack.split("");
+    let n = needle[0];
+
+    for (let i = 0; i <= stack.length - needle.length; i++) {
+        let cur = stack[i];
+        if (cur === n) {
+            // take -> i + needle-length
+            let subString = stack.slice(i, i+needle.length).join("");
+            if(subString === needle) return i;
+        }
+    }
+
+    return -1;
+};``
 /**
  * @param {number[]} nums
  * @param {number} val
@@ -18,8 +40,6 @@ const removeElement = (nums, val) => {
 
     return nums.length - cnt;
 };
-
-
 /**
  * @param {number[]} nums
  * @return {number}
@@ -188,7 +208,6 @@ const isValidUsingStack = (() => {
         return inner(s.split(""), stack);
     }
 })();
-
 /**
  * @param {string[]} strs
  * @return {string}
@@ -208,7 +227,6 @@ const longestCommonPrefix = strs => {
 
     return inner(0, "");
 };
-
 /*
     Symbol       Value
     I             1
@@ -258,9 +276,6 @@ const romanToInt = s => {
 
     return sum;
 };
-
-
-
 /**
  * @param {number} x
  * @return {boolean}
@@ -295,7 +310,6 @@ const isPalindromeV2 = x => {
 
     return x === rev;
 }
-
 /**
  * 
  * Link to problem: https://leetcode.com/problems/two-sum/
@@ -306,7 +320,6 @@ const isPalindromeV2 = x => {
  * @param {number} target
  * @return {number[]}
  */
-
 /*
 
     Problem 1. 
