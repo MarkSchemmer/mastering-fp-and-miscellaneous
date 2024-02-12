@@ -1,4 +1,35 @@
 /**
+ * @param {string} s
+ * @return {number}
+ */
+const lengthOfLastWord = s => {
+    let words = s.split(" ").filter(ss => ss.length > 0);
+    let lastWord = words[words.length - 1];
+    return lastWord.length;
+};
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+const searchInsert = (nums, target) => {
+    
+    const binarySearch = (tgt, start, end) => {
+        if (tgt > nums[end]) { return end+1;}
+        if (tgt < nums[start]) {return start;}
+
+        let middle = Math.floor( (end + start) / 2);
+
+        if (nums[middle] === tgt || start > end) { return middle; }
+
+        return tgt > nums[middle] 
+            ? binarySearch(tgt, middle+1, end) 
+            : binarySearch(tgt, start, middle-1);
+    };
+
+    return binarySearch(target, 0, nums.length-1);
+};
+/**
  * @param {string} haystack
  * @param {string} needle
  * @return {number}
