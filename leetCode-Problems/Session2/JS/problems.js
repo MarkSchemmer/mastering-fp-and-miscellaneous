@@ -1,4 +1,50 @@
 /**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+// trim front of all leading zeros.
+const addBinary = (a, b) => {
+    let result = "";
+    let i = a.length - 1;
+    let j = b.length - 1;
+    let carry = 0; 
+
+    while (i >= 0 || j >= 0 || carry > 0) {
+
+        const x = parseInt(a[i]) || 0;
+        const y = parseInt(b[j]) || 0;
+        const z = x + y + carry;
+
+        // decrementing
+        --i;
+        --j;
+
+
+        result = z === 3 || z === 1 ? 1 + result : 0 + result;
+        carry = z < 2 ? 0 : 1;
+    }
+
+    return result;
+};
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+const plusOne = digits => {
+    const digsToNumb = numbAr => {
+        return BigInt(numbAr.reduce((acc, cur) => acc + cur.toString(), ""));
+    }
+
+    const numbToArray = numb => {
+        return numb.toString().split("").map(n => parseInt(n));
+    }
+
+    let numb = digsToNumb(digits);
+    let n = numb + 1n;
+    return numbToArray(n);
+};
+/**
  * @param {string} s
  * @return {number}
  */
