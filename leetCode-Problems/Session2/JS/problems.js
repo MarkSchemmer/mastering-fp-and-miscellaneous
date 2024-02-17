@@ -1,4 +1,88 @@
 /**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+const merge = (nums1, m, nums2, n) => {
+    let temp = nums1.slice(0, m);
+    let sorted = [...temp, ...nums2].sort((a, b) => a - b);
+
+    sorted.forEach((v, i) => {
+        nums1[i] = v;
+    });  
+};
+let fibSequence = [0, 1, 1, 2, 3, 5, 8];
+const genFibonacciSequence = n => {
+    if (fibSequence[n+1]) return fibSequence[n+1];
+    let len = fibSequence.length - 1;
+    while (len <= n + 1) {
+        let last = fibSequence[len];
+        let lastLast = fibSequence[len - 1];
+        let next = last + lastLast;
+        fibSequence[fibSequence.length] = next;
+
+        len = fibSequence.length - 1;
+    }
+
+    return fibSequence[n+1];
+}
+
+const fibRows = [
+    [1],
+    [1, 1],
+    [1, 2, 1],
+    [1, 3, 3, 1]
+    [1, 4, 6, 4, 1]
+];
+
+
+
+const genFibonaic = n => {
+    if (fibRows[n]) {
+        return fibRows[n].reduce((acc, cur) => acc + cur, 0);
+    }
+
+    let from = fibRows.length;
+
+    for (let i = from; i <= n; i++) {
+        let lastRow = fibRows[fibRows.length - 1];
+        let newRow = [];
+        for (let j = 0, k = 1; k < lastRow.length; j++, k++) {
+            let n = lastRow[j] + lastRow[k];
+            newRow.push(n);
+        }
+
+        fibRows.push([1, ...newRow, 1 ]);
+    }
+
+    return fibRows[n].reduce((acc, cur) => acc + cur, 0);
+};
+
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var mySqrt = function(numb) {
+    if (numb === 0) { return 0; }
+    if (numb === 1) {return 1; }
+    if (numb === 2) { return 1;}
+    if (numb === 3) { return 1; }
+
+    let x = 2;
+    let sum = x * x;
+
+    while (sum < numb) {
+        x = x + 1;
+        sum = x * x;
+        if (x*x === numb) { return x; }
+        if (x * x > numb) { return x-1; }
+    }
+
+    return x;
+};
+/**
  * @param {string} a
  * @param {string} b
  * @return {string}
@@ -198,8 +282,6 @@ var mergeTwoLists = function(list1, list2) {
             list2 = list2.next;
         } 
         else {
-
-            console.log("he")
             return head;
         }
 
