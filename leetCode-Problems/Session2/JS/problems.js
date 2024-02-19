@@ -1,3 +1,90 @@
+// A good idea is to do an iterative solution as well... 
+// will write that up for tomorrow.  
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+const isNullOrUndefined = v => v === null || v === undefined;
+
+const isSameTree = (p, q) => {
+
+   if (isNullOrUndefined(p) && isNullOrUndefined(q)) {return true;}
+
+    if (!isNullOrUndefined(p) && !isNullOrUndefined(q)) {
+        return p.val === q.val && isSameTree(p.left, q.left) &&
+        isSameTree(p.right, q.right);
+    }
+
+   return false;
+};
+/* 
+
+    Algorithm for Iterative Inorder Traversal:
+
+    Create an empty stack treeStack.
+
+    Initialize currentNode as root.
+
+    Push the currentNode to treeStack and set 
+    currentNode = currentNode->left until current is NULL
+
+    If currentNode is NULL and treeStack is not empty then a) 
+    Pop the top element from treeStack. b) Print the popped element, 
+    set currentNode = popped element->right c) Go to step 3.
+
+    If currentNode is NULL and treeStack is empty then we are done.
+
+    Let's see with an example and understand 
+    step by step how the iterative inorder traversal works:
+
+    Consider the following binary tree:
+
+*/ 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+const inorderTraversal = root => {
+    if (root === null) { return []; }
+    if (root && root.left === null && root.right === null) { return [ root.val ]; }
+
+    let inOrderSet = [];
+    let stack = []; 
+    let currentNode = root;
+
+    while (currentNode !== null || stack.length > 0) {
+        if (currentNode) {
+            stack.push(currentNode);
+            currentNode = currentNode.left;
+        } else if (currentNode === null) {
+            const top = stack[stack.length - 1];
+            stack = stack.slice(0, -1);
+            inOrderSet.push(top.val);
+            currentNode = top.right;
+        }
+    }
+
+    return inOrderSet;
+};
+
 /**
  * @param {number[]} nums1
  * @param {number} m
