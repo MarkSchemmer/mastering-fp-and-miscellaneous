@@ -1,6 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = root => {
+    const isNullOrUndefined = v => v === null || v === undefined;
+    let leftSide = root.left;
+    let rightSide = root.right;
+    const isSameTree = (p, q) => {
+        if (isNullOrUndefined(p) && isNullOrUndefined(q)) { return true; }
+
+        if (!isNullOrUndefined(p) && !isNullOrUndefined(q)) {
+            return p.val === q.val && isSameTree(p.left, q.right) && isSameTree(p.right, q.left);
+        }
+
+        return false;
+    }
+
+    return isSameTree(leftSide, rightSide);
+};
 // A good idea is to do an iterative solution as well... 
 // will write that up for tomorrow.  
-
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
