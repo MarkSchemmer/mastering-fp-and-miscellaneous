@@ -1,3 +1,92 @@
+// problem -> given a string conists of lower case letters remove any adjacent duplicate letters. 
+// bannana -> baana -> bna
+// problem 1084 from leetcode. -> use a stack solution for 
+// we iterate through the array 1 time instead of using recursion.
+const removeDupAjacent = s => {
+    s = s.split("");
+    for (let i = 1; i < s.length - 1; i++) {
+        let prev = s[i-1];
+        let cur = s[i];
+
+        if (prev === cur) {
+            let firstHalf = s.slice(0, i-1);
+            let secondedHalf = s.slice(i+1, s.length);
+            return removeDupAjacent([...firstHalf, ...secondedHalf].join(""));
+        }
+    }
+
+    return s.join("");
+}
+// const removeDupAjacent = s => {
+//     let ar = s.split("");
+//     let stack = [];
+//     let loopAgain = false;
+//     let i = 0, j = 1;
+//     while (loopAgain) {
+//         while (j < ar.length - 1) {
+//             let cur = ar[i];
+//             let next = ar[j];
+
+//             if (cur === next) {
+//                 loopAgain = true;
+//                 i = i + 1;
+//                 j = j + 1;
+
+//             } else {
+//                 stack.push(cur);
+//             }
+
+//             i = i + 1;
+//             j = j + 1; 
+//         }
+
+//         ar = stack;
+//         stack = [];
+//     }
+
+//     return stack.join("");
+// }
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+// implement using recursion, then also implement iteratively... 
+// both solutions will be interesting to try and understand on how to reason on... 
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const maxDepth = root => {
+    
+    if (root === null) return 0;
+
+    let depth = 0;
+    let q = [ root, null ];
+
+    while (q.length > 0) {
+        let temp = q.shift();
+
+        if (temp === null)
+            depth++;
+
+        if (temp !== null) {
+
+            if (temp.left)
+                q.push(temp.left);
+
+            if (temp.right) 
+                q.push(temp.right);
+
+        } else if (q.length > 0)
+            q.push(null);
+    }
+
+    return depth;
+};
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
