@@ -1,3 +1,6 @@
+
+// For tomorrow do problem 1084 adjacent letters but use a stack. 
+
 // problem -> given a string conists of lower case letters remove any adjacent duplicate letters. 
 // bannana -> baana -> bna
 // problem 1084 from leetcode. -> use a stack solution for 
@@ -54,6 +57,39 @@ const removeDupAjacent = s => {
  *     this.right = (right===undefined ? null : right)
  * }
  */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+/*
+    Some notes on recursion... 
+
+    if root is null return 0;
+
+    get the max depth of the side which and get max subtree of the right side
+
+    then compare liks so l > r then add 1 for each comparision. 
+
+*/
+const maxDepthRecursion = root => {
+    if (root === null) return 0; 
+
+    let l = maxDepthRecursion(root.left);
+    let r = maxDepthRecursion(root.right);
+
+    if (l > r)
+        return l + 1;
+    else
+        return r + 1;
+};
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
 // implement using recursion, then also implement iteratively... 
 // both solutions will be interesting to try and understand on how to reason on... 
 /**
@@ -61,7 +97,7 @@ const removeDupAjacent = s => {
  * @return {number}
  */
 const maxDepth = root => {
-    
+
     if (root === null) return 0;
 
     let depth = 0;
