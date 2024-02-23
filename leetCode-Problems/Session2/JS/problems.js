@@ -1,6 +1,27 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+const removeDuplicatesUseStack = s => {
+    let st = s.split("");
+    let other = [ st.shift() ];
 
+    while (st.length > 0) {
+        let temp = st[0];
+        let c = other[0];
+
+        if (temp === c) {
+            st.shift();
+            other.shift();
+        } 
+        else {
+            other.unshift(st.shift());
+        }
+    }
+
+    return other.reverse().join("");
+};
 // For tomorrow do problem 1084 adjacent letters but use a stack. 
-
 // problem -> given a string conists of lower case letters remove any adjacent duplicate letters. 
 // bannana -> baana -> bna
 // problem 1084 from leetcode. -> use a stack solution for 
