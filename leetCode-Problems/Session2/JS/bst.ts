@@ -6,6 +6,14 @@ export class Tree {
         this.root = root;
     }
 
+    public inorderPrintRecursion = root => {
+        if (root !== null) {
+            this.inorderPrintRecursion(root.left);
+            console.log(root.val);
+            this.inorderPrintRecursion(root.right);
+        }
+    }
+
     public Add = () => {
 
     }
@@ -27,6 +35,20 @@ export class Tree {
                 console.log(temp.val);
                 temp = temp.right;
             }
+        }
+    }
+
+    public depthRecursion = root => {
+
+        if (root === null) return 0;
+        
+        let l:number = this.depthRecursion(root.left);
+        let r:number = this.depthRecursion(root.right);
+
+        if (l > r) {
+            return l + 1;
+        } else {
+            return r + 1;
         }
     }
 
