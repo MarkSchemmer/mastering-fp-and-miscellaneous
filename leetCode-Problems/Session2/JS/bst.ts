@@ -29,6 +29,30 @@ export class Tree {
             }
         }
     }
+
+    public depthIterative = () => {
+        let stack = [ this.root, null ];
+        let depth = 0;
+        while (stack.length > 0) {
+            
+            let temp = stack.shift();
+
+            if (temp === null)
+                depth++;
+
+            if (temp !== null) {
+                if (temp?.left)
+                    stack.push(temp.left);
+                if (temp?.right)
+                    stack.push(temp.right);
+
+            } else if (stack.length > 0) {
+                stack.push(null);
+            }
+        }
+
+        return depth;
+    }
 }
 
 class TreeNode {
