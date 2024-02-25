@@ -14,8 +14,33 @@ export class Tree {
         }
     }
 
-    public Add = () => {
+    public Add = value => {
+        let node = new TreeNode(value, null, null);
 
+        if (this.root === null) {
+            this.root = node;
+            return; // break out of the function.
+        } 
+
+        let rootNode = this.root;
+        let temp;
+        while (rootNode !== null) {
+            temp = rootNode;
+            if (node.val > rootNode.val) {
+                rootNode = rootNode.right;
+            }
+            else { 
+                rootNode = rootNode.left;
+            }
+
+            if (rootNode === null) {
+                if (node.val > temp.val) {
+                    temp.right = node;
+                } else {
+                    temp.left = node; 
+                }
+            }
+        }
     }
 
     public sortedArrayToBst = nums => {

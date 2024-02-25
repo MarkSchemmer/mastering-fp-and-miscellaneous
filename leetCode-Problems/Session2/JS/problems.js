@@ -1,3 +1,49 @@
+// Need to note the difference between height and depth. 
+// also the difference between a balacned tree and just comparing the depth of it. 
+// some nuanced takes. 
+// Implement height but iterativly?
+// going to implement this using recursion and then using
+// the iterative solution. 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+// recursion solution
+const isBalanced = root => {
+    if (root === null) return true;
+    // Note a balanced binary tree can't
+    // differ more than 1... on the left side and on the right side.
+    const balanced = node => {
+        if (node === null)
+            return true;
+
+        let lh = height(node.left);
+        let rh = height(node.right);
+
+        if (Math.abs(lh - rh) <= 1 && balanced(node.left) && balanced(node.right)) {
+            return true;
+        }
+    
+        return false;
+    };
+
+    const height = node => {
+        if (node === null) 
+            return 0;
+
+        return Math.max(height(node.left), height(node.right)) + 1;
+    };
+
+    return balanced(root);
+};
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
