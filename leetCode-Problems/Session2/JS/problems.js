@@ -1,3 +1,38 @@
+// should do minDepth but in an iterative solution. 
+// could be fun. 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const minDepth = root => {
+    const getDepth = (node, count, storage) => {
+        if (node.left === null && node.right === null)
+            storage.push(count);
+        if (node.left)
+            getDepth(node.left, count+1, storage);
+        if (node.right)
+            getDepth(node.right, count+1, storage);
+        return storage;
+    };
+    
+    if (root === null) 
+        return 0;
+
+    if ((root.left === null && root.right === null))
+        return 1;
+
+    let storage =  getDepth(root, 1, []);
+
+    return Math.min(...storage);
+};
 // Need to note the difference between height and depth. 
 // also the difference between a balacned tree and just comparing the depth of it. 
 // some nuanced takes. 
