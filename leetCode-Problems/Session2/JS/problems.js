@@ -1,3 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {boolean}
+ */
+const hasPathSum = (root, targetSum) => {
+    const hasPath = (node, count, storage) => {    
+        if (node !==  null) {
+
+            count += node.val;
+
+            storage.push((count === targetSum && node.left === null && node.right === null));
+
+            if (node.left)
+                hasPath(node.left, count, storage);
+
+            if (node.right)
+                hasPath(node.right, count, storage);
+
+            return storage; 
+        }
+    };
+
+    if (root === null) {
+        return false; 
+    }
+
+    let results = hasPath(root, 0, []);
+
+    return results.some(i => i === true);
+};
 // should do minDepth but in an iterative solution. 
 // could be fun. 
 /**
@@ -13,6 +52,7 @@
  * @return {number}
  */
 const minDepth = root => {
+
     const getDepth = (node, count, storage) => {
         if (node.left === null && node.right === null)
             storage.push(count);
