@@ -1,4 +1,37 @@
 /**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+const generate = numRows => {
+
+    let rowCache = [
+        [ 1 ],
+        [ 1, 1 ],
+        [ 1, 2, 1 ]
+    ];
+
+    const genNextPt = rows => {
+        let latest = rows[rows.length - 1];
+        let next = [];
+
+        for (i = 0, j = 1; j < latest.length; i++, j++) {
+            next.push(latest[i] + latest[j]);
+        }
+
+        return [ 1, ...next, 1 ];
+    };
+
+    let counter = 1;
+
+    while(counter++ < numRows) {
+        let nextRow = genNextPt(rowCache);
+        rowCache.push(nextRow);
+    }
+
+
+    return rowCache.slice(0, numRows);
+};
+/**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
  *     this.val = (val===undefined ? 0 : val)
