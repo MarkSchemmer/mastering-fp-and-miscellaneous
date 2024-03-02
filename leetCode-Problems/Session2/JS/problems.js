@@ -1,4 +1,39 @@
 /**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+const getRow = (() => {
+    let rowCache = [
+        [1],
+        [1, 1],
+        [1, 2, 1]
+    ];
+
+    const nextRow = () => {
+        let ar = [];
+        let r = rowCache[rowCache.length - 1];
+
+        for (let i = 0, j = 1; j < r.length; i++, j++) {
+            ar.push(r[i] + r[j]);
+        }
+
+        return [ 1, ...ar, 1 ];
+    }
+
+    return rowIndex => {
+        if (rowCache[rowIndex]) {
+            return rowCache[rowIndex];
+        }
+
+        while(rowCache.length <= rowIndex) {
+            let newRow = nextRow();
+            rowCache[rowCache.length] = newRow;
+        }
+
+        return rowCache[rowIndex];
+    };
+})();
+/**
  * @param {number} numRows
  * @return {number[][]}
  */
