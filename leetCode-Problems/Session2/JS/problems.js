@@ -1,4 +1,24 @@
 /**
+ * @param {string} s
+ * @return {boolean}
+ */
+const isPalindrome_Problem125 = (() => {
+    let aplabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+    const convertToStringForPalindrome = ss => {
+        return ss.toLowerCase().split(" ").join().split("").filter(c => aplabet.includes(c));
+    };
+    const isValidPalindrome = ar => {
+        if (ar.length < 2) { return true; }
+        let front = ar.shift();
+        let back = ar.pop();
+        return front === back ? isValidPalindrome(ar) : false;  
+    };
+    return s => {  
+        s = convertToStringForPalindrome(s);
+        return isValidPalindrome(s);
+    };
+})();
+/**
  * @param {number[]} prices
  * @return {number}
  */
