@@ -1,4 +1,30 @@
 /**
+ * @param {number[]} prices
+ * @return {number}
+ */
+const maxProfit = prices => {
+    // going to store the max profit amount and then the day.
+    // also might as well store the minPrice as well. 
+    let data = { minPrice: prices[0], totalProfitIfSold: 0, DayOfHighestProfit: 0 }; 
+
+    for (let i = 1; i < prices.length; i++) {
+        let day = i + 1;
+        let todaysPrice = prices[i];
+        let todaysProfit = todaysPrice - data.minPrice;
+
+        if (todaysProfit > data.totalProfitIfSold) {
+            data.totalProfitIfSold = todaysProfit;
+            data.DayOfHighestProfit = day;
+        }
+
+        if (todaysPrice < data.minPrice) {
+            data.minPrice = todaysPrice;
+        }
+    }
+
+    return data.totalProfitIfSold;
+};
+/**
  * @param {number} rowIndex
  * @return {number[]}
  */
