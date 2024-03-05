@@ -89,7 +89,6 @@ const generate = numRows => {
         rowCache.push(nextRow);
     }
 
-
     return rowCache.slice(0, numRows);
 };
 /**
