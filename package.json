@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:art": "jest ArtOfComputerProgramming/tests/art.test.ts",
+    "test:leet": "jest leetCode-Problems/Session2/JS/problems.test.ts"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
