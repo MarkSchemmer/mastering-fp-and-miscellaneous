@@ -75,7 +75,7 @@ const getIntersectionNode = (headA, headB) => {
     };
     
     */
-
+    // Problem 160
     public getIntersectionNode = (headA: Node, headB: Node) => {
 
         const getLen = (n) => {
