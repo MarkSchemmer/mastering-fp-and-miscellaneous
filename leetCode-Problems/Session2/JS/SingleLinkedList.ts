@@ -33,6 +33,85 @@ export class SingleLinkedList {
 
         return false;
     }
+
+    /*
+    
+         const getLen = (n) => {
+    let len = 0;
+
+    while (n) {
+        len += 1;
+        n = n.next;
+    }
+
+    return len;
+ }
+const getIntersectionNode = (headA, headB) => {
+
+    let lenA = getLen(headA), lenB = getLen(headB);
+    console.log(lenA);
+    console.log(lenB);
+
+    let runner = headB;
+
+    if (lenA > lenB) {
+        let temp = headA;
+        headA = headB;
+        headB = temp;
+        runner = headB;
+    }
+        while (headA) {
+            while (runner) {
+                if (runner === headA) return headA
+                runner = runner.next;
+            }
+
+            headA = headA.next;
+            headB = headB?.next;
+            runner = headB;
+        }
+
+        return null;
+    };
+    
+    */
+
+    public getIntersectionNode = (headA: Node, headB: Node) => {
+
+        const getLen = (n) => {
+            let len = 0;
+                while (n) {
+                    len += 1;
+                    n = n.next;
+                }
+                return len;
+        }
+     
+        let lenA = getLen(headA), lenB = getLen(headB);
+        console.log(lenA);
+        console.log(lenB);
+
+        let runner = headB;
+
+        if (lenA > lenB) {
+            let temp = headA;
+            headA = headB;
+            headB = temp;
+            runner = headB;
+        }
+        while (headA) {
+            while (runner) {
+                if (runner === headA) return headA
+                runner = runner.next;
+            }
+
+            headA = headA.next;
+            headB = headB?.next;
+            runner = headB;
+        }
+
+        return null;
+    }
 }
 
 export class Node {
