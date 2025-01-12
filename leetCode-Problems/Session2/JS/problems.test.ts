@@ -1,4 +1,4 @@
-import { majorityElement, singleNumber } from "./problems_type";
+import { isPowerOfTwo, majorityElement, singleNumber } from "./problems_type";
 import { SingleLinkedList, Node } from "./SingleLinkedList";
 
 describe("dummy test", () => {
@@ -33,5 +33,14 @@ describe("has cyle [Problem : 141]", () => {
 describe("majority number [Problem - 169]", () => {
     it("Test 1", () => {
         expect(majorityElement([2, 2, 1])).toBe(2);
+    });
+});
+
+
+describe("is Power of 2 [Problem - 231]", () => {
+    it("Test 1", () => {
+        expect(isPowerOfTwo(1)).toBeTruthy();
+        expect(isPowerOfTwo(16)).toBeTruthy();
+        expect(isPowerOfTwo(3)).toBeFalsy();
     });
 });

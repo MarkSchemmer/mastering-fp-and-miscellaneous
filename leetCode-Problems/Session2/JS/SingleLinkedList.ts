@@ -99,6 +99,7 @@ const getIntersectionNode = (headA, headB) => {
             headB = temp;
             runner = headB;
         }
+        
         while (headA) {
             while (runner) {
                 if (runner === headA) return headA
@@ -112,6 +113,25 @@ const getIntersectionNode = (headA, headB) => {
 
         return null;
     }
+
+    // Problem 206. 
+    public reverseList = (head:Node) => {
+        let newList: Node | null = null;
+        let current = head;
+
+        while (current) {
+            // declare next node
+            let nextNode = current.next;
+            // set next node to newList
+            current.next = newList;
+            // update newList to the current node
+            newList = current;
+            // update current to next node
+            current = nextNode;
+        }
+
+        return newList;
+    };
 }
 
 export class Node {
