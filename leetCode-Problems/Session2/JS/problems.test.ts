@@ -36,7 +36,6 @@ describe("majority number [Problem - 169]", () => {
     });
 });
 
-
 describe("is Power of 2 [Problem - 231]", () => {
     it("Test 1", () => {
         expect(isPowerOfTwo(1)).toBeTruthy();

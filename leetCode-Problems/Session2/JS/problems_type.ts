@@ -72,11 +72,7 @@ export const isPowerOfTwo = (() => {
     
     return (n) => {
         if (n in cache) return true;
-
         let result = isPower(n);
-        console.log(n);
-        console.log(result);
-
         return result === n ? (cache[n] = result, true) : false
     };
 })();
@@ -90,3 +86,29 @@ export const isPowerOfTwo = (() => {
         3. make generic for all powers 
         4. optimize... 
 */ 
+
+export const genericIsPower = (power) => {
+    const cache = {
+        1: true
+    };
+
+    const isPower = (n) => {
+        let res = power;
+        while (res < n) {
+            res = res * power;
+        }
+
+        return res;
+    }
+    
+    return (n) => {
+        if (n in cache) return cache[n];
+        if (n < power) return false;
+        let result = isPower(n);
+        cache[n] = result === n;
+        return cache[n];
+    };
+};
+
+// Next problem to solve = https://leetcode.com/problems/palindrome-number/description/
+// isPalindrome
