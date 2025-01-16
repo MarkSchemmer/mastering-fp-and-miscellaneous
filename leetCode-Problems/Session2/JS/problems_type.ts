@@ -94,6 +94,7 @@ export const genericIsPower = (power) => {
 
     const isPower = (n) => {
         let res = power;
+        
         while (res < n) {
             res = res * power;
         }
@@ -112,3 +113,38 @@ export const genericIsPower = (power) => {
 
 // Next problem to solve = https://leetcode.com/problems/palindrome-number/description/
 // isPalindrome
+
+// string manipulation
+export const isPalindromeHelper = () => { 
+    
+    const reverseNumb = (n) => {
+        return parseInt([ ...n.toString().split('') ].reverse().join(''));
+    }
+
+    return {
+        stringMethodPalindrome: (n) => {
+            n = n < 0 ? n * - 1 : n;
+            const reversedNumb = reverseNumb(n);
+            return n === reversedNumb;
+        },
+        MathPalindrome: (n) => {
+            if (n < 0) return false;
+           
+            let temp = n;
+            let strNumb = "";
+
+           
+            while (temp > 0) {
+                // get the last number
+                let lastNumb = temp % 10;
+                // decrement the counter
+                temp = Math.floor(temp / 10);
+                // concatenate the 
+                strNumb += lastNumb;
+            }
+
+            const reversed = parseInt(strNumb);
+            return reversed === n;
+        }
+    }
+}

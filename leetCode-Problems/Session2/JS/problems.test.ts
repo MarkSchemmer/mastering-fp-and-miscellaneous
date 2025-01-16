@@ -1,4 +1,4 @@
-import { isPowerOfTwo, majorityElement, singleNumber } from "./problems_type";
+import { isPalindromeHelper, isPowerOfTwo, majorityElement, singleNumber } from "./problems_type";
 import { SingleLinkedList, Node } from "./SingleLinkedList";
 
 describe("dummy test", () => {
@@ -41,5 +41,12 @@ describe("is Power of 2 [Problem - 231]", () => {
         expect(isPowerOfTwo(1)).toBeTruthy();
         expect(isPowerOfTwo(16)).toBeTruthy();
         expect(isPowerOfTwo(3)).toBeFalsy();
+    });
+});
+
+describe("Math palindrome testing: ", () => {
+    it("test 1", () => {
+        const palindromeMath = isPalindromeHelper().MathPalindrome;
+        expect(palindromeMath(121)).toBeTruthy();
     });
 });
