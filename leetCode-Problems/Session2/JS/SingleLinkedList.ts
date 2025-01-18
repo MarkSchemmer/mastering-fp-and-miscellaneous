@@ -132,6 +132,51 @@ const getIntersectionNode = (headA, headB) => {
 
         return newList;
     };
+
+    // we need to find the middle node
+    // reverse the middle node list
+    // compare head with newly reversed node middle list
+    // 234. Palindrome Linked List
+    public isPalindromeLinkedList = (node: Node) => {
+        const findMiddleNode = (n:Node) => {
+            let middleNode: Node | null = null;
+            let cur = n;
+            let rabbit = n;
+
+            while (rabbit) {
+                cur = cur.next;
+                rabbit = rabbit?.next?.next;
+            }
+
+            middleNode = cur;
+            return middleNode;
+        }
+
+        const reverseList = (n: Node) => {
+            let newList: Node | null = null;
+            let cur = n;
+
+            while (cur) {
+                let nextNode = cur.next;
+                cur.next = newList;
+                newList = cur;
+                cur = nextNode;
+            }
+
+            return newList;
+        }
+
+        const middleNode = findMiddleNode(node);
+        let reversedMiddleNode = reverseList(middleNode);
+
+        while (node && reversedMiddleNode) {
+            if (node.val !== reversedMiddleNode.val) return false;
+            node = node.next;
+            reversedMiddleNode = reversedMiddleNode.next;
+        }
+
+        return true;
+    }
 }
 
 export class Node {

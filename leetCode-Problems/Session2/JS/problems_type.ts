@@ -114,6 +114,7 @@ export const genericIsPower = (power) => {
 // Next problem to solve = https://leetcode.com/problems/palindrome-number/description/
 // isPalindrome
 
+// Problem 9.
 // string manipulation
 export const isPalindromeHelper = () => { 
     
