@@ -177,6 +177,42 @@ const getIntersectionNode = (headA, headB) => {
 
         return true;
     }
+
+    // problem 2130
+    public pairSum = (head:Node) => {
+
+        const pairs:number[] = [];
+
+        const ithLibrary = {}
+
+        const getLen = (n:Node) => {
+            let counter = 0;
+            while(n) {
+                ithLibrary[counter] = n.val
+                n = n.next;
+                counter++;
+            }
+
+            return counter;
+        }
+
+        const len = getLen(head);
+        const calculateTwin = (idx) => len - 1 - idx;
+
+        let runner = head;
+        let i = 0;
+
+        while(runner) {
+            const runnerVal = runner.val;
+            const pairVal = ithLibrary[calculateTwin(i)];
+            pairs.push(runnerVal + pairVal);
+
+            runner = runner.next;
+            i = i + 1;
+        }
+
+        return Math.max(...pairs);
+    }
 }
 
 export class Node {
