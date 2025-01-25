@@ -213,6 +213,53 @@ const getIntersectionNode = (headA, headB) => {
 
         return Math.max(...pairs);
     }
+
+    // [ problem 876 ]
+    public middleNode = (head: Node) => {
+        const isNullOrUndefined = v => v === null || v === undefined;
+
+        const findMiddle = (c, r) => {
+            return isNullOrUndefined(r) ? c?.next : 
+                isNullOrUndefined(r?.next) ? c?.next : 
+                isNullOrUndefined(r?.next?.next) ? c?.next?.next : 
+                findMiddle(c?.next, r?.next?.next);
+        }
+    
+        if (isNullOrUndefined(head.next))
+            return head;
+    
+        let cur = head;
+        let runner = head?.next?.next;
+    
+        const midNode = findMiddle(cur, runner);
+    
+        return midNode;
+    }
+
+    public deleteMiddle = (head:Node) => {
+        const isNullOrUndefined = v => v === null || v === undefined;
+        const findMiddle = (c, r) => {
+            return isNullOrUndefined(r) ? c?.next : 
+                isNullOrUndefined(r?.next) ? c?.next : 
+                isNullOrUndefined(r?.next?.next) ? c?.next?.next : 
+                findMiddle(c?.next, r?.next?.next);
+        }
+        let cur = head;
+        let runner = head?.next?.next;
+        const middleNode = findMiddle(head, runner);
+  
+        while (cur) {
+            if (cur?.next === middleNode) {
+                let next = cur?.next?.next;
+                cur.next = next;
+                return head;
+            }
+
+            cur = cur.next;
+        }
+
+        return head;
+    };
 }
 
 export class Node {
