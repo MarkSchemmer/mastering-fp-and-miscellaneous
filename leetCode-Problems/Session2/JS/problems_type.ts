@@ -206,6 +206,7 @@ export const kthPalindromeV2 = (queries, intLength) => {
     })
 }
 
+// fizzbuzz problem 412. 
 export const fizzBuzz = n => Array.from({ length: n }, (_, idx) => idx + 1)
                 .map(
                     (idx) => idx % 15 === 0 ? "FizzBuzz" : idx % 5 === 0 ? "Buzz": idx % 3 === 0 ? "Fizz" : (idx).toString()
