@@ -149,3 +149,64 @@ export const isPalindromeHelper = () => {
         }
     }
 }
+
+// need to make a function that determines if the # is a palindrome
+// isPalindrome
+// Need a method that generates a # of the given length... 
+// gen # number length
+// determine the range 
+// get all palindromes and store them in a 
+export const kthPalindrome = (queries, intLength) => {
+    const isPalindrome = (numb, even, m) => {
+        let n = numb.toString();
+        m = isEven ? m : m - 1;
+        for (let s = m-1, e = m; s > 0 && e < n.length; s--, e++) {
+            if (n[s] !== n[e]) return false;
+        }
+
+        return true;
+    }
+    
+    const genBaseNumb = (n) => {
+        let numb = 1;
+        let counter = 1;
+        while (counter++ < n)
+            numb = numb * 10;
+
+        return numb;
+    };
+
+    let palindromes = [];
+    let start = genBaseNumb(intLength);
+    let end = start * 10;
+    let isEven = intLength % 2 === 0;
+    let mid = Math.floor(intLength / 2);
+
+    for(let i = start; i < end; i++) {
+        if (isPalindrome(i, isEven, mid))
+            palindromes.push(i);
+    }
+
+    return queries.map(x => palindromes[x-1] || -1);
+};
+
+export const kthPalindromeV2 = (queries, intLength) => {
+    let midBase = Math.floor((intLength + 1) / 2);
+    let maxBase = Math.pow(10, midBase) - 1;
+    let minBase = Math.pow(10, midBase - 1);
+    let amountOfPalindromes = maxBase - minBase + 1;
+
+    return queries.map(x => {
+        if (x > amountOfPalindromes) return -1 
+        let newBase = minBase + x - 1;
+        let isEven = intLength % 2 === 0 ? 0 : 1;
+        let reversedHalf = newBase.toString().split('').slice(0, newBase.toString().length - isEven).reverse().join('');
+        // console.log(reversedHalf)
+        return parseFloat(newBase + reversedHalf);
+    })
+}
+
+export const fizzBuzz = n => Array.from({ length: n }, (_, idx) => idx + 1)
+                .map(
+                    (idx) => idx % 15 === 0 ? "FizzBuzz" : idx % 5 === 0 ? "Buzz": idx % 3 === 0 ? "Fizz" : (idx).toString()
+                )
