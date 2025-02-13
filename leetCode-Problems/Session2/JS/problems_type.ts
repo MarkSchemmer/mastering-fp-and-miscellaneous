@@ -211,3 +211,36 @@ export const fizzBuzz = n => Array.from({ length: n }, (_, idx) => idx + 1)
                 .map(
                     (idx) => idx % 15 === 0 ? "FizzBuzz" : idx % 5 === 0 ? "Buzz": idx % 3 === 0 ? "Fizz" : (idx).toString()
                 )
+
+// problem - 2677
+export const chunk = (arr, size) => arr.reduce((acc, cur, idx) => {
+    const index = Math.floor(idx / size);
+    acc[index] ? (acc[index].push(cur)) : acc[index] = [ cur ];
+    return acc; 
+}, []);   
+
+const reverseVowels = (s) => {
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    const strWithoutVowels = s.split('').map(c => vowels.includes(c.toLowerCase()) ? null : c)
+    const reversedOrderOfVowels = s.split('').filter(c => vowels.includes(c.toLowerCase())).reverse()
+
+    const newStr = strWithoutVowels.map((c) => {
+        if (c === null) {
+            const v = reversedOrderOfVowels.shift();
+            return v;
+        } else {
+            return c;
+        }
+    }).join('');
+
+    return newStr;
+};
+
+// Problem - 242. Valid Anagram
+export const isAnagram = (s, t) => {
+    if (s.length === 1 && s === t) return true;
+    if (s === t) return false;
+    s = s.split('').sort().join('')
+    t = t.split('').sort().join('')
+    return s === t;
+};
